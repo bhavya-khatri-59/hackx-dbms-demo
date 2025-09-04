@@ -18,17 +18,24 @@ export const TeamProvider = ({ children }) => {
     setIsAuthenticated(false);
   };
 
-  const createTeam = (teamName) => {
-    const inviteCode = Math.random().toString(36).substr(2, 8).toUpperCase();
-    const newTeam = {
-      name: teamName,
-      code: inviteCode,
-      members: [user],
-      createdBy: user.id,
-      createdAt: new Date().toISOString()
-    };
-    setTeam(newTeam);
-    return newTeam;
+  const createTeam = async (teamName) => {
+    try {
+      const response = await fetch('http://localhost:5000/api/teams', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: teamName }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setTeam(data);
+        return data;
+      } else {
+        throw new Error(data.error || 'Error creating team');
+      }
+    } catch (err) {
+      alert(err.message);
+      return null;
+    }
   };
 
   const joinTeam = (inviteCode) => {
