@@ -1,23 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import GoogleSignInButton from '../components/GoogleSignInButton';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Sun, Moon, Eye, EyeOff } from 'lucide-react';
+import { Sun, Moon } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 import { useTeam } from '../contexts/TeamContext';
 import gsap from 'gsap';
 
+import GoogleSignInButton from '../components/GoogleSignInButton';
+
 const LandingPage = () => {
-  const [isSignUp, setIsSignUp] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    branch: '',
-    phone: '',
-    gender: '',
-    password: ''
-  });
   const [stats] = useState({
     participants: 2847,
     teams: 512,
@@ -34,7 +25,6 @@ const LandingPage = () => {
     const particles = [];
     const container = particlesRef.current;
     
-    // Create floating particles
     for (let i = 0; i < 20; i++) {
       const particle = document.createElement('div');
       particle.className = 'absolute w-2 h-2 bg-blue-400/20 dark:bg-purple-400/20 rounded-full';
@@ -44,7 +34,6 @@ const LandingPage = () => {
       particles.push(particle);
     }
 
-    // Animate particles
     particles.forEach((particle, index) => {
       gsap.to(particle, {
         duration: 3 + Math.random() * 4,
@@ -64,32 +53,11 @@ const LandingPage = () => {
     };
   }, []);
 
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // Mock authentication
-    const userData = isSignUp ? {
-      id: Math.random().toString(),
-      name: formData.name,
-      email: formData.email,
-      branch: formData.branch,
-      phone: formData.phone,
-      gender: formData.gender
-    } : {
-      id: Math.random().toString(),
-      name: 'User Name',
-      email: formData.email
-    };
-
-    login(userData);
-    navigate('/dashboard');
+  // ✅ Log when Google Sign-In works
+  const handleGoogleResponse = (response) => {
+    console.log("Google Sign-In success!");
+    console.log("Encoded JWT ID token:", response.credential);
+    alert("Google Sign-In worked! 🎉");
   };
 
   const CounterDisplay = ({ label, value, delay }) => {
@@ -198,18 +166,10 @@ const LandingPage = () => {
           className="w-full max-w-md"
         >
           <div className="bg-white/20 dark:bg-gray-800/20 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-white/30 dark:border-gray-700/30">
-            {/* Google Sign-In Button */}
             <div className="flex flex-col items-center justify-center py-8">
-              {/* Use the same UI card style */}
               <div className="w-full flex flex-col items-center">
-                {/* Import and use the GoogleSignInButton component */}
-                {/* ...existing code... */}
-                <div className="w-full flex flex-col items-center">
-                  {/* GoogleSignInButton will handle modal opening */}
-                  {/* ...existing code... */}
-                  {/* Import at top: import GoogleSignInButton from '../components/GoogleSignInButton'; */}
-                  <GoogleSignInButton />
-                </div>
+                {/* ✅ Pass the callback into the Google button */}
+                <GoogleSignInButton onSuccess={handleGoogleResponse} />
               </div>
             </div>
           </div>
