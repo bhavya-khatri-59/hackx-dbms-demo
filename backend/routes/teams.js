@@ -1,69 +1,93 @@
 import express from 'express';
-import Team from '../models/Team.js';
+import {
+  createTeam,
+  addParticipant,
+  getAllTeams,
+  updateTeam,
+  getTeamWithMembers,
+  getParticipantByEmail
+} from '../db_operations.js'; // Adjust path if necessary
 
 const router = express.Router();
 
-
-// Helper to generate a random code
-function generateCode(length = 6) {
-  return Math.random().toString(36).substring(2, 2 + length).toUpperCase();
-}
-
-// Create a new team with unique code
+// Create a new team
 router.post('/', async (req, res) => {
   try {
-    const { name, members = [] } = req.body;
-    let code;
-    let exists = true;
-    while (exists) {
-      code = generateCode();
-      exists = await Team.findOne({ code });
+    const { teamName } = req.body;
+    if (!teamName) {
+      return res.status(400).json({ error: 'teamName is required' });
     }
-    const team = new Team({ name, code, members });
-    await team.save();
-    res.status(201).json(team);
+    const newTeam = await createTeam(teamName);
+    res.status(201).json(newTeam);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    // Handle potential unique constraint violation for team name
+    if (err.code === '23505') {
+        return res.status(409).json({ error: 'A team with this name already exists.' });
+    }
+    res.status(500).json({ error: 'Failed to create team', details: err.message });
   }
 });
 
-// Join team by code
+// Join a team by its 5-character code
 router.post('/join', async (req, res) => {
   try {
-    const { code, member } = req.body; // member: { name, email }
-    const team = await Team.findOne({ code });
+    const { teamId, participant } = req.body; // participant: { name, email, college, regno }
+    if (!teamId || !participant || !participant.email) {
+      return res.status(400).json({ error: 'teamId and participant details (including email) are required' });
+    }
+
+    // 1. Check if the team exists
+    const team = await getTeamWithMembers(teamId);
     if (!team) {
       return res.status(404).json({ error: 'Team not found' });
     }
-    // Prevent duplicate members by email
-    if (team.members.some(m => m.email === member.email)) {
-      return res.status(400).json({ error: 'Member already in team' });
+
+    // 2. Check if the participant is already in a team
+    const existingParticipant = await getParticipantByEmail(participant.email);
+    if (existingParticipant) {
+      return res.status(409).json({ error: 'This user is already registered in a team.' });
     }
-    team.members.push(member);
-    await team.save();
-    res.json(team);
+
+    // 3. Add the participant to the team
+    await addParticipant({ ...participant, teamId });
+    
+    // 4. Get the updated team with the new member list
+    const updatedTeam = await getTeamWithMembers(teamId);
+    res.json(updatedTeam);
+
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(500).json({ error: 'Failed to join team', details: err.message });
   }
 });
 
 // Get all teams
 router.get('/', async (req, res) => {
   try {
-    const teams = await Team.find();
+    const teams = await getAllTeams();
     res.json(teams);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: 'Failed to retrieve teams', details: err.message });
   }
 });
 
-// Update a team
+// Update a team's name
 router.put('/:id', async (req, res) => {
   try {
-    const team = await Team.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(team);
+    const { id: teamId } = req.params;
+    const { teamName } = req.body;
+    if (!teamName) {
+        return res.status(400).json({ error: 'teamName is required' });
+    }
+    const updatedTeam = await updateTeam(teamId, teamName);
+    if (!updatedTeam) {
+        return res.status(404).json({ error: 'Team not found' });
+    }
+    res.json(updatedTeam);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+     if (err.code === '23505') {
+        return res.status(409).json({ error: 'A team with this name already exists.' });
+    }
+    res.status(500).json({ error: 'Failed to update team', details: err.message });
   }
 });
 
