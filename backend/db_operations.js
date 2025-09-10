@@ -30,7 +30,7 @@ async function generateUniqueTeamCode() {
       teamCode += characters.charAt(Math.floor(Math.random() * characters.length));
     }
     // Check if this code already exists in the database
-    const res = await pool.query('SELECT "TeamID" FROM "Teams" WHERE "TeamID" = $1', [teamCode]);
+    const res = await pool.query('SELECT "teamid" FROM "teams" WHERE "teamid" = $1', [teamCode]);
     if (res.rowCount === 0) {
       isUnique = true;
     }
@@ -130,6 +130,25 @@ export async function updateTeam(teamId, newName) {
 
 
 // --- Participant Operations ---
+
+/**
+ * Adds a participant to a team by updating their teamid.
+ * @param {string} email - The email of the participant to add.
+ * @param {string} teamId - The 5-character ID of the team to join.
+ * @returns {Promise<object>} The updated participant object.
+ */
+export async function addParticipantToTeam(email, teamId) {
+    try {
+        const result = await pool.query(
+            'UPDATE "participant" SET "teamid" = $1 WHERE "email" = $2 RETURNING *',
+            [teamId, email]
+        );
+        return result.rows[0];
+    } catch (error) {
+        console.error('Error adding participant to team:', error);
+        throw error;
+    }
+}
 
 /**
  * Retrieves a participant by their email to check if they already exist.

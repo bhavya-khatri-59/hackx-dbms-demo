@@ -3,7 +3,7 @@ import {
   createSubmission,
   getSubmissionByTeamId,
   updateSubmission,
-  getTeamWithMembers
+  getTeamById
 } from '../db_operations.js'; // Adjust the path if necessary
 
 const router = express.Router();
@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
     }
 
     // Check if the team exists before creating a submission
-    const team = await getTeamWithMembers(teamId);
+    const team = await getTeamById(teamId);
     if (!team) {
       return res.status(404).json({ error: 'Team not found' });
     }
