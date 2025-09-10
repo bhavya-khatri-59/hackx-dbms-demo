@@ -11,7 +11,7 @@ const router = express.Router();
 // Create a new submission
 router.post('/', async (req, res) => {
   try {
-    const { description, githubURL, videoURL, teamId } = req.body;
+    const { description, githubURL, figmaURL, pptURL, teamId } = req.body;
 
     // Basic validation
     if (!description || !teamId) {
@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
       return res.status(404).json({ error: 'Team not found' });
     }
 
-    const newSubmission = await createSubmission({ description, githubURL, videoURL, teamId });
+    const newSubmission = await createSubmission({ description, githubURL, figmaURL, pptURL, teamId });
     res.status(201).json(newSubmission);
   } catch (err) {
     // Handle the unique constraint error if a submission for this team already exists
@@ -53,13 +53,13 @@ router.get('/:teamId', async (req, res) => {
 router.put('/:teamId', async (req, res) => {
   try {
     const { teamId } = req.params;
-    const { description, githubURL, videoURL } = req.body;
+    const { description, githubURL, figmaURL, pptURL } = req.body;
 
-    if (!description && !githubURL && !videoURL) {
+    if (!description && !githubURL && !figmaURL && !pptURL) {
         return res.status(400).json({ error: 'At least one field to update is required.' });
     }
 
-    const updatedSubmission = await updateSubmission(teamId, { description, githubURL, videoURL });
+    const updatedSubmission = await updateSubmission(teamId, { description, githubURL, figmaURL, pptURL });
     if (!updatedSubmission) {
       return res.status(404).json({ error: 'Submission not found for this team' });
     }
@@ -70,3 +70,4 @@ router.put('/:teamId', async (req, res) => {
 });
 
 export default router;
+
