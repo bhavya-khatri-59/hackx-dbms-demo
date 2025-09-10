@@ -171,25 +171,34 @@ export async function addParticipant({ name, email, college, regno, teamId }) {
 }
 
 /**
- * Retrieves a team and all of its members.
- * @param {string} teamId - The 5-character ID of the team.
+ * Retrieves a single team by its ID, including its members.
+ * @param {string} teamId - The ID of the team to find.
  * @returns {Promise<object|null>} The team object with a 'members' array, or null if not found.
  */
-export async function getTeamWithMembers(teamId) {
+export async function getTeamById(teamId) { 
   try {
-    const teamRes = await pool.query('SELECT * FROM "teams" WHERE "teamid" = $1', [teamId]);
-    if (teamRes.rowCount === 0) {
+    const teamResult = await pool.query('SELECT * FROM "teams" WHERE "teamid" = $1', [teamId]);
+    if (teamResult.rowCount === 0) {
       return null; // Team not found
     }
-    const team = teamRes.rows[0];
-    const membersRes = await pool.query('SELECT "name", "email" FROM "participant" WHERE "teamid" = $1', [teamId]);
-    team.members = membersRes.rows;
-    return team;
+
+    const membersResult = await pool.query('SELECT "name", "email" FROM "participant" WHERE "teamid" = $1', [teamId]);
+
+    const team = teamResult.rows[0];
+    // PostgreSQL returns 'teamid' and 'teamname', let's map to what frontend expects ('code', 'name')
+    const formattedTeam = {
+        code: team.teamid,
+        name: team.teamname,
+        members: membersResult.rows
+    };
+
+    return formattedTeam;
   } catch (error) {
-    console.error('Error getting team with members:', error);
+    console.error('Error getting team by ID:', error);
     throw error;
   }
 }
+
 
 // --- Submission Operations ---
 

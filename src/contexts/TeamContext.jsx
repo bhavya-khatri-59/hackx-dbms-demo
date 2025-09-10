@@ -10,6 +10,7 @@ export const TeamProvider = ({ children }) => {
   const login = (userData) => {
     setUser(userData);
     setIsAuthenticated(true);
+    // After login, you might want to fetch if the user is already in a team
   };
 
   const logout = () => {
@@ -20,10 +21,11 @@ export const TeamProvider = ({ children }) => {
 
   const createTeam = async (teamName) => {
     try {
-      const response = await fetch('http://localhost:5000/api/teams', {
+      const response = await fetch('/api/teams', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: teamName }),
+        // The backend expects 'teamName', not 'name'
+        body: JSON.stringify({ teamName }),
       });
       const data = await response.json();
       if (response.ok) {
@@ -38,29 +40,36 @@ export const TeamProvider = ({ children }) => {
     }
   };
 
-  const joinTeam = (inviteCode) => {
-    // Mock team joining - in real app this would validate the code
-    const mockTeam = {
-      name: `Team ${inviteCode.slice(0, 4)}`,
-      code: inviteCode,
-      members: [
-        user,
-        { id: '2', name: 'John Doe', role: 'Developer', email: 'john@example.com' },
-        { id: '3', name: 'Jane Smith', role: 'Designer', email: 'jane@example.com' }
-      ],
-      createdBy: '2',
-      createdAt: new Date().toISOString()
-    };
-    setTeam(mockTeam);
-    return mockTeam;
-  };
+  const joinTeam = async (inviteCode) => {
+    // This is now a real API call
+    try {
+       if (!user) {
+           throw new Error("You must be logged in to join a team.");
+       }
+       // Using relative URL to work with the Vite proxy
+       const response = await fetch('/api/teams/join', {
+           method: 'POST',
+           headers: { 'Content-Type': 'application/json' },
+           body: JSON.stringify({ email: user.email, teamId: inviteCode }),
+       });
 
-  const removeTeamMember = (memberId) => {
-    if (team) {
-      setTeam({
-        ...team,
-        members: team.members.filter(member => member.id !== memberId)
-      });
+       const data = await response.json();
+       if (response.ok) {
+           // After joining, we need to fetch the full team details
+           const teamResponse = await fetch(`/api/teams/${inviteCode}`);
+           const teamData = await teamResponse.json();
+           if (teamResponse.ok) {
+               setTeam(teamData);
+               return teamData;
+           } else {
+               throw new Error(teamData.error || 'Could not fetch team details after joining.');
+           }
+       } else {
+           throw new Error(data.error || 'Error joining team');
+       }
+    } catch (err) {
+        alert(err.message);
+        return null;
     }
   };
 
@@ -75,8 +84,7 @@ export const TeamProvider = ({ children }) => {
       login, 
       logout, 
       createTeam, 
-      joinTeam,
-      removeTeamMember
+      joinTeam
     }}>
       {children}
     </TeamContext.Provider>
@@ -90,3 +98,4 @@ export const useTeam = () => {
   }
   return context;
 };
+

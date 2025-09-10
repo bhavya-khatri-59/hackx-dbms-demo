@@ -1,12 +1,12 @@
 import express from 'express';
 import {
   createTeam,
-  addParticipant,
+  addParticipantToTeam,
+  getParticipantByEmail,
   getAllTeams,
   updateTeam,
-  getTeamWithMembers,
-  getParticipantByEmail
-} from '../db_operations.js'; // Adjust path if necessary
+  getTeamById, // Import the new function
+} from '../db_operations.js';
 
 const router = express.Router();
 
@@ -28,35 +28,56 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Join a team by its 5-character code
+// Join a team
 router.post('/join', async (req, res) => {
   try {
-    const { teamId, participant } = req.body; // participant: { name, email, college, regno }
-    if (!teamId || !participant || !participant.email) {
-      return res.status(400).json({ error: 'teamId and participant details (including email) are required' });
+    const { email, teamId } = req.body;
+
+    // Validate input
+    if (!email || !teamId) {
+      return res.status(400).json({ error: 'Email and teamId are required.' });
     }
 
-    // 1. Check if the team exists
-    const team = await getTeamWithMembers(teamId);
+    // Check if the participant exists
+    const participant = await getParticipantByEmail(email);
+    if (!participant) {
+      return res.status(404).json({ error: 'Participant not found. Please complete registration first.' });
+    }
+
+    // Check if the participant is already in a team
+    if (participant.teamid) {
+      return res.status(400).json({ error: 'You are already in a team' });
+    }
+    
+    // Check if the team exists
+    const team = await getTeamById(teamId.toUpperCase());
+    if (!team) {
+        return res.status(404).json({ error: 'Team with the provided code not found.'});
+    }
+
+    const updatedParticipant = await addParticipantToTeam(email, teamId.toUpperCase());
+    res.json(updatedParticipant);
+  } catch (error) {
+    console.error('Error joining team:', error);
+    res.status(500).json({ error: 'Failed to join team' });
+  }
+});
+
+// Get a single team by ID (including members)
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    // The teamId is case-insensitive for user-friendliness in URLs
+    const team = await getTeamById(id.toUpperCase());
+
     if (!team) {
       return res.status(404).json({ error: 'Team not found' });
     }
 
-    // 2. Check if the participant is already in a team
-    const existingParticipant = await getParticipantByEmail(participant.email);
-    if (existingParticipant) {
-      return res.status(409).json({ error: 'This user is already registered in a team.' });
-    }
-
-    // 3. Add the participant to the team
-    await addParticipant({ ...participant, teamId });
-    
-    // 4. Get the updated team with the new member list
-    const updatedTeam = await getTeamWithMembers(teamId);
-    res.json(updatedTeam);
-
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to join team', details: err.message });
+    res.json(team);
+  } catch (error) {
+    console.error(`Error fetching team ${req.params.id}:`, error);
+    res.status(500).json({ error: 'Failed to retrieve team data' });
   }
 });
 
@@ -92,3 +113,4 @@ router.put('/:id', async (req, res) => {
 });
 
 export default router;
+
