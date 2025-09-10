@@ -111,6 +111,24 @@ export async function createTeamAndAddCreator(teamName, creatorEmail) {
 }
 
 /**
+ * Removes a participant from any team by setting their teamid to NULL.
+ * @param {string} email - The email of the participant to remove.
+ * @returns {Promise<object>} The updated participant row.
+ */
+export async function removeParticipantFromTeam(email) {
+  try {
+    const result = await pool.query(
+      'UPDATE "participant" SET "teamid" = NULL WHERE "email" = $1 RETURNING *',
+      [email]
+    );
+    return result.rows[0];
+  } catch (error) {
+    console.error('Error removing participant from team:', error);
+    throw error;
+  }
+}
+
+/**
  * Creates a new team with a unique, automatically generated code.
  * @param {string} teamName - The desired name for the team.
  * @returns {Promise<object>} The newly created team object.

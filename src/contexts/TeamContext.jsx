@@ -123,6 +123,37 @@ export const TeamProvider = ({ children }) => {
     }
   };
 
+  const leaveTeam = async () => {
+    if (!user) {
+        throw new Error("You must be logged in to leave a team.");
+    }
+    try {
+        const response = await fetch('/api/teams/leave', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: user.email }),
+        });
+        const data = await response.json();
+        if (response.ok) {
+            // Clear team from state and storage
+            setTeam(null);
+            localStorage.removeItem('hackx_team');
+
+            // Update user object to remove teamid
+            const updatedUser = { ...user, teamid: null };
+            setUser(updatedUser);
+            localStorage.setItem('hackx_user', JSON.stringify(updatedUser));
+            
+            return true;
+        } else {
+            throw new Error(data.error || 'Error leaving team');
+        }
+    } catch (err) {
+        console.error(err.message);
+        throw err;
+    }
+  };
+
   const hasTeam = Boolean(team);
 
   const value = {
@@ -135,6 +166,7 @@ export const TeamProvider = ({ children }) => {
     logout,
     createTeam,
     joinTeam,
+    leaveTeam,
   };
 
   return (
