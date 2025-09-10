@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom'; // Re-added to handle navigation
+import { useNavigate } from 'react-router-dom';
+import { useTeam } from '../contexts/TeamContext'; // Import the useTeam hook
 
 /**
  * Decodes a JWT token to extract its payload.
@@ -28,6 +29,7 @@ const jwtDecode = (token) => {
 // Student details modal
 const StudentDetailsModal = ({ open, onClose, userProfile }) => {
   const navigate = useNavigate();
+  const { login } = useTeam(); // Get the login function from the context
   const [collegeName, setCollegeName] = useState('');
   const [registrationNumber, setRegistrationNumber] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -56,12 +58,19 @@ const StudentDetailsModal = ({ open, onClose, userProfile }) => {
         body: JSON.stringify(studentData),
       });
 
+      // Get the JSON data from the response once
+      const responseData = await response.json();
+
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to submit data.');
+        throw new Error(responseData.error || 'Failed to submit data.');
       }
 
-      console.log("Successfully saved participant data:", await response.json());
+      console.log("Successfully saved participant data:", responseData);
+      
+      // *** THIS IS THE FIX ***
+      // Call the login function with the user data from the backend
+      login(responseData);
+
       onClose();
       navigate('/dashboard');
 

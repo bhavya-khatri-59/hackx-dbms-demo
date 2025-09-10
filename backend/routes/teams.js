@@ -5,23 +5,23 @@ import {
   getParticipantByEmail,
   getAllTeams,
   updateTeam,
-  getTeamById, // Import the new function
+  getTeamById,
+  createTeamAndAddCreator,
 } from '../db_operations.js';
 
 const router = express.Router();
 
-// Create a new team
 router.post('/', async (req, res) => {
   try {
-    const { teamName } = req.body;
-    if (!teamName) {
-      return res.status(400).json({ error: 'teamName is required' });
+    const { teamName, email } = req.body;
+    if (!teamName || !email) {
+      return res.status(400).json({ error: 'teamName and email are required' });
     }
-    const newTeam = await createTeam(teamName);
-    res.status(201).json(newTeam);
+    // This new function handles creating the team AND adding the creator
+    const newTeamWithMember = await createTeamAndAddCreator(teamName, email);
+    res.status(201).json(newTeamWithMember);
   } catch (err) {
-    // Handle potential unique constraint violation for team name
-    if (err.code === '23505') {
+    if (err.code === '23505') { // Handle unique constraint violation for team name
         return res.status(409).json({ error: 'A team with this name already exists.' });
     }
     res.status(500).json({ error: 'Failed to create team', details: err.message });

@@ -73,6 +73,44 @@ export async function createOrUpdateParticipant({ name, email, college, regno })
 // --- Team Operations ---
 
 /**
+ * Creates a new team and assigns the creator as the first member.
+ * This function uses a transaction to ensure both operations succeed or fail together.
+ * @param {string} teamName - The desired name for the team.
+ * @param {string} creatorEmail - The email of the user creating the team.
+ * @returns {Promise<object>} The newly created team object, including the creator as a member.
+ */
+export async function createTeamAndAddCreator(teamName, creatorEmail) {
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN'); // Start transaction
+
+    const teamCode = await generateUniqueTeamCode();
+    const newTeamRes = await client.query(
+      'INSERT INTO "teams" ("teamid", "teamname") VALUES ($1, $2) RETURNING "teamid"',
+      [teamCode, teamName]
+    );
+    const newTeamId = newTeamRes.rows[0].teamid;
+
+    await client.query(
+      'UPDATE "participant" SET "teamid" = $1 WHERE "email" = $2',
+      [newTeamId, creatorEmail]
+    );
+
+    await client.query('COMMIT'); // Commit transaction
+
+    // After success, fetch the full team details to return to the frontend
+    return getTeamById(newTeamId);
+
+  } catch (error) {
+    await client.query('ROLLBACK'); // Rollback on error
+    console.error('Error in createTeamAndAddCreator transaction:', error);
+    throw error;
+  } finally {
+    client.release(); // Release client back to the pool
+  }
+}
+
+/**
  * Creates a new team with a unique, automatically generated code.
  * @param {string} teamName - The desired name for the team.
  * @returns {Promise<object>} The newly created team object.
