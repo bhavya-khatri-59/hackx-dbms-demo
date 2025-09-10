@@ -6,4 +6,13 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5001', // Your backend server's address
+        changeOrigin: true, // Recommended for virtual hosted sites
+        secure: false,      // Can be false if your backend is http
+      },
+    },
+  },
 });

@@ -38,6 +38,37 @@ async function generateUniqueTeamCode() {
   return teamCode;
 }
 
+/**
+ * Creates a new participant or updates their details if they already exist based on email.
+ * TeamID is not set here.
+ * @param {object} participantDetails - An object containing participant info.
+ * @param {string} participantDetails.name - Participant's full name.
+ * @param {string} participantDetails.email - Participant's email (Primary Key).
+ * @param {string} participantDetails.college - Participant's college.
+ * @param {string} participantDetails.regno - Participant's registration number.
+ * @returns {Promise<object>} The created or updated participant object.
+ */
+export async function createOrUpdateParticipant({ name, email, college, regno }) {
+  try {
+    const query = `
+      INSERT INTO "participant" ("name", "email", "college", "regno") 
+      VALUES ($1, $2, $3, $4) 
+      ON CONFLICT ("email") 
+      DO UPDATE SET 
+        "name" = EXCLUDED."name", 
+        "college" = EXCLUDED."college", 
+        "regno" = EXCLUDED."regno"
+      RETURNING *;
+    `;
+    const result = await pool.query(query, [name, email, college, regno]);
+    console.log(`Participant ${name} (${email}) created or updated.`);
+    return result.rows[0];
+  } catch (error) {
+    console.error('Error in createOrUpdateParticipant:', error);
+    throw error;
+  }
+}
+
 
 // --- Team Operations ---
 
@@ -50,7 +81,7 @@ export async function createTeam(teamName) {
   try {
     const teamCode = await generateUniqueTeamCode();
     const newTeam = await pool.query(
-      'INSERT INTO "Teams" ("TeamID", "TeamName") VALUES ($1, $2) RETURNING *',
+      'INSERT INTO "teams" ("teamid", "teamname") VALUES ($1, $2) RETURNING *',
       [teamCode, teamName]
     );
     console.log(`Team created with code: ${teamCode}`);
@@ -67,7 +98,7 @@ export async function createTeam(teamName) {
  */
 export async function getAllTeams() {
   try {
-    const result = await pool.query('SELECT * FROM "Teams"');
+    const result = await pool.query('SELECT * FROM "teams"');
     return result.rows;
   } catch (error) {
     console.error('Error getting all teams:', error);
@@ -84,7 +115,7 @@ export async function getAllTeams() {
 export async function updateTeam(teamId, newName) {
     try {
         const result = await pool.query(
-            'UPDATE "Teams" SET "TeamName" = $1 WHERE "TeamID" = $2 RETURNING *',
+            'UPDATE "teams" SET "teamname" = $1 WHERE "teamid" = $2 RETURNING *',
             [newName, teamId]
         );
         if (result.rowCount === 0) {
@@ -107,7 +138,7 @@ export async function updateTeam(teamId, newName) {
  */
 export async function getParticipantByEmail(email) {
     try {
-        const result = await pool.query('SELECT * FROM "Participant" WHERE "Email" = $1', [email]);
+        const result = await pool.query('SELECT * FROM "participant" WHERE "email" = $1', [email]);
         return result.rows[0] || null;
     } catch (error) {
         console.error('Error getting participant by email:', error);
@@ -128,7 +159,7 @@ export async function getParticipantByEmail(email) {
 export async function addParticipant({ name, email, college, regno, teamId }) {
   try {
     const newParticipant = await pool.query(
-      'INSERT INTO "Participant" ("Name", "Email", "College", "Regno", "TeamID") VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      'INSERT INTO "participant" ("name", "email", "college", "regno", "teamid") VALUES ($1, $2, $3, $4, $5) RETURNING *',
       [name, email, college, regno, teamId]
     );
     console.log(`Participant ${name} added to team ${teamId}`);
@@ -146,12 +177,12 @@ export async function addParticipant({ name, email, college, regno, teamId }) {
  */
 export async function getTeamWithMembers(teamId) {
   try {
-    const teamRes = await pool.query('SELECT * FROM "Teams" WHERE "TeamID" = $1', [teamId]);
+    const teamRes = await pool.query('SELECT * FROM "teams" WHERE "teamid" = $1', [teamId]);
     if (teamRes.rowCount === 0) {
       return null; // Team not found
     }
     const team = teamRes.rows[0];
-    const membersRes = await pool.query('SELECT "Name", "Email" FROM "Participant" WHERE "TeamID" = $1', [teamId]);
+    const membersRes = await pool.query('SELECT "name", "email" FROM "participant" WHERE "teamid" = $1', [teamId]);
     team.members = membersRes.rows;
     return team;
   } catch (error) {
@@ -175,7 +206,7 @@ export async function getTeamWithMembers(teamId) {
 export async function createSubmission({ description, githubURL, figmaURL, pptURL, teamId }) {
   try {
     const newSubmission = await pool.query(
-      'INSERT INTO "Submissions" ("Description", "GitHubURL", "FigmaURL", "PPTURL", "TeamID") VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      'INSERT INTO "submissions" ("description", "githuburl", "figmaurl", "ppturl", "teamid") VALUES ($1, $2, $3, $4, $5) RETURNING *',
       [description, githubURL, figmaURL, pptURL, teamId]
     );
     console.log(`Submission created for team ${teamId}`);
@@ -193,7 +224,7 @@ export async function createSubmission({ description, githubURL, figmaURL, pptUR
  */
 export async function getSubmissionByTeamId(teamId) {
   try {
-    const result = await pool.query('SELECT * FROM "Submissions" WHERE "TeamID" = $1', [teamId]);
+    const result = await pool.query('SELECT * FROM "submissions" WHERE "teamid" = $1', [teamId]);
     if (result.rowCount === 0) {
       return null;
     }
@@ -217,13 +248,13 @@ export async function getSubmissionByTeamId(teamId) {
 export async function updateSubmission(teamId, { description, githubURL, figmaURL, pptURL }) {
   try {
     const result = await pool.query(
-      `UPDATE "Submissions" 
+      `UPDATE "submissions" 
        SET 
-         "Description" = COALESCE($1, "Description"), 
-         "GitHubURL" = COALESCE($2, "GitHubURL"), 
-         "FigmaURL" = COALESCE($3, "FigmaURL"),
-         "PPTURL" = COALESCE($4, "PPTURL")
-       WHERE "TeamID" = $5 
+         "description" = COALESCE($1, "description"), 
+         "githuburl" = COALESCE($2, "githuburl"), 
+         "figmaurl" = COALESCE($3, "figmaurl"),
+         "ppturl" = COALESCE($4, "ppturl")
+       WHERE "teamid" = $5 
        RETURNING *`,
       [description, githubURL, figmaURL, pptURL, teamId]
     );

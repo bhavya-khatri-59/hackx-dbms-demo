@@ -27,25 +27,50 @@ const jwtDecode = (token) => {
 
 // Student details modal
 const StudentDetailsModal = ({ open, onClose, userProfile }) => {
-  const navigate = useNavigate(); // Re-added: This hook needs a <Router> context from your main app
+  const navigate = useNavigate();
   const [collegeName, setCollegeName] = useState('');
   const [registrationNumber, setRegistrationNumber] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
-  // Don't render the modal if it's not open or if user profile is missing
   if (!open || !userProfile) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError(null);
+
     const studentData = {
       name: userProfile.name,
       email: userProfile.email,
       college: collegeName,
-      registrationNumber: registrationNumber,
+      regno: registrationNumber,
     };
-    // You can now use this complete studentData object
-    console.log("Collected Student Data:", studentData);
-    onClose();
-    navigate('/dashboard'); // Re-added: Navigation to the dashboard after submission
+
+    try {
+      const response = await fetch('/api/participants', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(studentData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to submit data.');
+      }
+
+      console.log("Successfully saved participant data:", await response.json());
+      onClose();
+      navigate('/dashboard');
+
+    } catch (error) {
+      console.error("Submission Error:", error);
+      setSubmitError(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -71,7 +96,6 @@ const StudentDetailsModal = ({ open, onClose, userProfile }) => {
             </p>
         </div>
         <form className="space-y-4" onSubmit={handleSubmit}>
-          {/* Email is taken from Google, so it's not an input field anymore */}
           <div className="w-full px-4 py-2 rounded-lg border bg-gray-100 dark:bg-gray-700">
             <label className="text-xs text-gray-500">Email</label>
             <p className="text-gray-900 dark:text-white">{userProfile.email}</p>
@@ -92,11 +116,19 @@ const StudentDetailsModal = ({ open, onClose, userProfile }) => {
             required
             className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           />
+          
+          {submitError && (
+            <div className="text-red-500 text-sm text-center p-2 bg-red-100 dark:bg-red-900/20 dark:text-red-400 rounded-md">
+                {submitError}
+            </div>
+          )}
+
           <button
             type="submit"
-            className="w-full py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-lg shadow-lg hover:from-blue-600 hover:to-purple-600 transition-all"
+            disabled={isSubmitting}
+            className="w-full py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-lg shadow-lg hover:from-blue-600 hover:to-purple-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Submit
+            {isSubmitting ? 'Submitting...' : 'Submit'}
           </button>
         </form>
       </motion.div>
@@ -111,7 +143,6 @@ const GoogleSignInButton = () => {
   const hiddenDivRef = useRef(null);
 
   useEffect(() => {
-    // Check if script already exists to avoid re-adding it
     if (document.querySelector('script[src="https://accounts.google.com/gsi/client"]')) {
       initializeGoogle();
       return;
@@ -126,7 +157,6 @@ const GoogleSignInButton = () => {
     document.head.appendChild(script);
 
     return () => {
-      // Optional cleanup
       const scriptTag = document.querySelector(`script[src="${script.src}"]`);
       if (scriptTag) document.head.removeChild(scriptTag);
     };
@@ -136,7 +166,6 @@ const GoogleSignInButton = () => {
     if (window.google && window.google.accounts) {
       try {
         window.google.accounts.id.initialize({
-          // Make sure to replace this with your actual Google Client ID from your .env file
           client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
           callback: handleCredentialResponse,
         });
@@ -156,18 +185,15 @@ const GoogleSignInButton = () => {
     }
   };
   
-  // This function is called upon successful sign-in
   const handleCredentialResponse = (response) => {
-    console.log("✅ Encoded JWT ID token:", response.credential);
     const decodedToken = jwtDecode(response.credential);
     
     if (decodedToken) {
-        console.log("✅ Decoded User Info:", decodedToken);
         setUserProfile({
             name: decodedToken.name,
             email: decodedToken.email,
         });
-        setOpenModal(true); // Open the modal after getting user info
+        setOpenModal(true);
     }
   };
 
@@ -178,7 +204,6 @@ const GoogleSignInButton = () => {
     }
 
     try {
-      // Find the clickable element within the hidden div rendered by Google
       const googleButton = hiddenDivRef.current.querySelector('[role="button"]');
       if (googleButton) {
         googleButton.click();
@@ -192,7 +217,6 @@ const GoogleSignInButton = () => {
 
   return (
     <>
-      {/* Custom styled button */}
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -213,7 +237,6 @@ const GoogleSignInButton = () => {
         <span>{isGoogleReady ? 'Sign in with Google' : 'Loading...'}</span>
       </motion.button>
 
-      {/* Hidden div where Google renders its button */}
       <div 
         ref={hiddenDivRef}
         id="hiddenGoogleDiv"
@@ -224,7 +247,6 @@ const GoogleSignInButton = () => {
         }}
       />
 
-      {/* Modal after login */}
       <StudentDetailsModal 
         open={openModal} 
         onClose={() => setOpenModal(false)}

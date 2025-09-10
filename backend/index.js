@@ -1,30 +1,42 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import cors from 'cors';
+import dotenv from 'dotenv';
+
+// Import API routers
 import teamsRouter from './routes/teams.js';
+import submissionsRouter from './routes/submissions.js';
+import participantsRouter from './routes/participants.js';
 
+// Load environment variables from .env file
+dotenv.config();
+
+// Initialize the Express application
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001; // Use 5001 to avoid conflict with frontend dev server
 
+// --- Middleware ---
+// Enable Cross-Origin Resource Sharing (CORS) to allow your frontend to communicate with this backend
 app.use(cors());
+// Enable the Express app to parse JSON formatted request bodies
 app.use(express.json());
 
-// Teams API routes
+
+// --- API Routes ---
+// All routes for teams will be prefixed with /api/teams
 app.use('/api/teams', teamsRouter);
+// All routes for submissions will be prefixed with /api/submissions
+app.use('/api/submissions', submissionsRouter);
+// All routes for participants will be prefixed with /api/participants
+app.use('/api/participants', participantsRouter);
 
-// MongoDB connection
-mongoose.connect('mongodb+srv://lakshyaranu_db_user:VsGynbWPpc1EuUC4@cluster0.qfzpgdo.mongodb.net/hackxpertise?retryWrites=true&w=majority&appName=Cluster0', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('MongoDB Atlas connected'))
-.catch((err) => console.error('MongoDB Atlas connection error:', err));
 
-// Sample API route
-app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Hello from backend!' });
+// --- Server Initialization ---
+// A simple health-check route to confirm the server is running
+app.get('/', (req, res) => {
+  res.json({ message: 'Hackathon backend server is running!' });
 });
 
+// Start the server and listen for incoming requests on the specified port
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
