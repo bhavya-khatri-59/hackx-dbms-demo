@@ -1,109 +1,226 @@
-# HackXpertise - Complete Hackathon Portal
-
+HackXpertise - Complete Hackathon Portal
 A modern, elegant hackathon management portal built with React, featuring sophisticated animations and a refined design system.
 
-## Features
+Features
+🎨 Beautiful glassmorphism design with soft accent glows
 
-- 🎨 Beautiful glassmorphism design with soft accent glows
-- 🌙 Global dark/light mode toggle with smooth transitions
-- 👥 Team creation and management system
-- 🔒 Team-gated access for Timeline and Problem Statements
-- 📱 Fully responsive design for all devices
-- ♿ Accessible with keyboard navigation and ARIA support
-- ⚡ Smooth animations with Framer Motion and GSAP
+🌙 Global dark/light mode toggle with smooth transitions
 
-## Tech Stack
+👥 Team creation and management system
 
-- **React 18** - Modern React with hooks
-- **Tailwind CSS** - Utility-first CSS framework
-- **Framer Motion** - React animation library for UI elements
-- **GSAP** - Professional animation library for background effects
-- **React Router** - Client-side routing
-- **Lucide React** - Beautiful icon library
+🔒 Team-gated access for Timeline and Problem Statements
 
-## Getting Started
+📱 Fully responsive design for all devices
 
-1. Install dependencies:
-```bash
+♿ Accessible with keyboard navigation and ARIA support
+
+⚡ Smooth animations with Framer Motion and GSAP
+
+Tech Stack
+React 18 - Modern React with hooks
+
+Tailwind CSS - Utility-first CSS framework
+
+Framer Motion - React animation library for UI elements
+
+GSAP - Professional animation library for background effects
+
+React Router - Client-side routing
+
+Lucide React - Beautiful icon library
+
+Getting Started
+Install dependencies:
+
 npm install
-```
 
-2. Start the development server:
-```bash
+Start the development server:
+
 npm run dev
-```
 
-3. Open [http://localhost:5173](http://localhost:5173) in your browser
+Open http://localhost:5173 in your browser
 
-## Project Structure
-
-```
+Project Structure
 src/
 ├── components/          # Reusable UI components
-│   ├── Navbar.jsx      # Main navigation with theme toggle
+│   ├── Navbar.jsx          # Main navigation with theme toggle
 │   ├── TeamGateModal.jsx # Modal for team-gated content
 │   ├── SponsorCarousel.jsx # Animated sponsor showcase
-│   └── Footer.jsx      # Site footer with social links
-├── contexts/           # React context providers
+│   └── Footer.jsx          # Site footer with social links
+├── contexts/            # React context providers
 │   ├── ThemeContext.jsx # Dark/light mode management
 │   └── TeamContext.jsx # Team state management
-├── pages/              # Main application pages
+├── pages/               # Main application pages
 │   ├── LandingPage.jsx # Hero page with auth forms
 │   ├── Dashboard.jsx   # Team creation/joining
 │   ├── ProblemStatements.jsx # Challenge showcase
 │   ├── Timeline.jsx    # Zig-zag timeline view
 │   ├── SubmissionDetails.jsx # Project submission
 │   ├── TeamDetails.jsx # Team management
-│   ├── About.jsx      # About sections
-│   └── FAQs.jsx       # Searchable FAQ accordion
-└── App.jsx           # Main app component with routing
-```
+│   ├── About.jsx       # About sections
+│   └── FAQs.jsx        # Searchable FAQ accordion
+└── App.jsx              # Main app component with routing
 
-## Animations
+Animations
+Framer Motion
+Page transitions and component animations
 
-### Framer Motion
-- Page transitions and component animations
-- Form toggles and card interactions
-- Scroll-triggered reveals and timeline animations
+Form toggles and card interactions
 
-### GSAP
-- Background particle effects on landing page
-- Sponsor carousel auto-loop animation
-- Subtle floating animations for decorative elements
+Scroll-triggered reveals and timeline animations
 
-## Design System
+GSAP
+Background particle effects on landing page
 
-### Colors
-- **Primary**: Blue (#3B82F6) to Purple (#8B5CF6) gradients
-- **Secondary**: Teal (#14B8A6) and Green (#10B981)
-- **Accent**: Soft purple (#8B5CF6) and pink (#EC4899)
-- **Background**: Light (#F9FAFB) / Dark (#111827)
+Sponsor carousel auto-loop animation
 
-### Typography
-- **Font**: Inter (Google Fonts)
-- **Headings**: Bold (600-800 weight)
-- **Body**: Regular (400-500 weight)
-- **Line Height**: 1.5 for body, 1.2 for headings
+Subtle floating animations for decorative elements
 
-### Spacing
-- Uses 8px base grid system
-- Consistent padding and margins
-- Generous whitespace for readability
+Design System
+Colors
+Primary: Blue (#3B82F6) to Purple (#8B5CF6) gradients
 
-## Customization
+Secondary: Teal (#14B8A6) and Green (#10B981)
 
-### Theme Colors
-Edit the color values in `tailwind.config.js` and the CSS custom properties in `src/index.css`.
+Accent: Soft purple (#8B5CF6) and pink (#EC4899)
 
-### Animations
-- Framer Motion animations are defined in component files
-- GSAP animations are primarily in `LandingPage.jsx` and `SponsorCarousel.jsx`
-- Timing and easing can be adjusted in the respective components
+Background: Light (#F9FAFB) / Dark (#111827)
 
-## Building for Production
+Typography
+Font: Inter (Google Fonts)
 
-```bash
+Headings: Bold (600-800 weight)
+
+Body: Regular (400-500 weight)
+
+Line Height: 1.5 for body, 1.2 for headings
+
+Spacing
+Uses 8px base grid system
+
+Consistent padding and margins
+
+Generous whitespace for readability
+
+Customization
+Theme Colors
+Edit the color values in tailwind.config.js and the CSS custom properties in src/index.css.
+
+Animations
+Framer Motion animations are defined in component files
+
+GSAP animations are primarily in LandingPage.jsx and SponsorCarousel.jsx
+
+Timing and easing can be adjusted in the respective components
+
+Building for Production
 npm run build
-```
 
-The built files will be in the `dist/` directory, ready for deployment.
+The built files will be in the dist/ directory, ready for deployment.
+
+Backend Setup
+This project requires a Node.js and PostgreSQL backend to be running locally for full functionality.
+
+1. Environment Variables
+You need to create two separate .env files.
+
+A) Frontend .env File
+
+Create a file named .env in the project's root directory (/hackx/.env) for your Google Client ID.
+
+VITE_GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID_HERE
+
+B) Backend .env File
+
+Create a file named .env inside the /backend directory (/hackx/backend/.env) for your database credentials.
+
+# PostgreSQL Connection Details
+DB_USER=myuser
+DB_HOST=localhost
+DB_DATABASE=event_db
+DB_PASSWORD=mypassword
+DB_PORT=5432
+
+# Server Port
+PORT=5001
+
+2. Database Schema (PostgreSQL)
+You need to set up a PostgreSQL database with the following tables.
+
+-- Creates the 'Teams' table to store team information.
+-- The TeamID is a unique, fixed-length string that serves as the invite code.
+CREATE TABLE "teams" (
+    "teamid" CHAR(5) PRIMARY KEY,
+    "teamname" VARCHAR(255) NOT NULL UNIQUE,
+    "created_at" TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Creates the 'Participant' table to store user details.
+-- Email is the primary key, ensuring each user is unique.
+-- The TeamID is a foreign key that links a participant to their team.
+CREATE TABLE "participant" (
+    "email" VARCHAR(255) PRIMARY KEY,
+    "name" VARCHAR(255) NOT NULL,
+    "college" VARCHAR(255) NOT NULL,
+    "regno" VARCHAR(255) NOT NULL UNIQUE,
+    "teamid" CHAR(5),
+    FOREIGN KEY ("teamid") REFERENCES "teams"("teamid") ON DELETE SET NULL
+);
+
+-- Creates the 'Submissions' table to store project details.
+-- Each submission is linked to a team via the TeamID foreign key.
+CREATE TABLE "submissions" (
+    "submissionid" SERIAL PRIMARY KEY,
+    "description" TEXT,
+    "githuburl" VARCHAR(255),
+    "figmaurl" VARCHAR(255),
+    "ppturl" VARCHAR(255),
+    "teamid" CHAR(5) UNIQUE,
+    FOREIGN KEY ("teamid") REFERENCES "teams"("teamid") ON DELETE CASCADE
+);
+
+3. Backend Installation and Setup
+Follow these steps to get the backend server and database running.
+
+Step 1: Install Backend Dependencies
+
+Navigate to the backend directory and install the required npm packages.
+
+cd backend
+npm install
+
+Step 2: Set Up PostgreSQL Database
+
+Make sure you have PostgreSQL installed and the service is running.
+
+Connect to PostgreSQL using psql and create the user and database.
+
+psql -U postgres
+
+Run the following SQL commands:
+
+-- Create a new user with a password (use the same password as in your backend/.env file)
+CREATE USER myuser WITH PASSWORD 'mypassword';
+
+-- Create the database
+CREATE DATABASE event_db;
+
+-- Grant all privileges on the new database to your user
+GRANT ALL PRIVILEGES ON DATABASE event_db TO myuser;
+
+-- Connect to the new database
+\c event_db
+
+-- Grant schema permissions to your user
+GRANT ALL ON SCHEMA public TO myuser;
+
+While still connected to event_db as the postgres user, run the CREATE TABLE statements from the Database Schema section above to create your tables.
+
+Step 3: Run the Backend Server
+
+Once the database is set up and your backend/.env file is configured, you can start the backend server.
+
+# Make sure you are in the /backend directory
+npm run dev
+
+Your backend API will now be running on http://localhost:5001. The frontend development server is pre-configured to proxy API requests to this address.
