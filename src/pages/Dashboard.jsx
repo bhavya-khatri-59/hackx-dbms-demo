@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Users, Plus, Copy, Check, AlertCircle } from 'lucide-react';
-import { useTeam } from '../contexts/TeamContext.jsx';
+import { useTeam } from '../contexts/TeamContext';
 
 const Dashboard = () => {
   const [teamName, setTeamName] = useState('');
@@ -19,15 +19,16 @@ const Dashboard = () => {
     setIsLoading(true);
     setError('');
     
-    const newTeam = await createTeam(teamName.trim());
-    
-    if (newTeam) {
-      setShowSuccess(true);
-      setTeamName('');
-      setTimeout(() => setShowSuccess(false), 3000);
-    } else {
-      setError('Failed to create team. The team name might already exist.');
-      setTimeout(() => setError(''), 5000);
+    try {
+        const newTeam = await createTeam(teamName.trim());
+        if (newTeam) {
+          setShowSuccess(true);
+          setTeamName('');
+          setTimeout(() => setShowSuccess(false), 3000);
+        }
+    } catch (err) {
+        setError(err.message || 'Failed to create team. The name might be taken.');
+        setTimeout(() => setError(''), 5000);
     }
     setIsLoading(false);
   };
@@ -39,21 +40,21 @@ const Dashboard = () => {
     setIsLoading(true);
     setError('');
 
-    const joinedTeam = await joinTeam(inviteCode.trim().toUpperCase());
-
-    if (joinedTeam) {
-      setShowSuccess(true);
-      setInviteCode('');
-      setTimeout(() => setShowSuccess(false), 3000);
-    } else {
-      setError('Failed to join team. Please check the code and try again.');
-       setTimeout(() => setError(''), 5000);
+    try {
+        const joinedTeam = await joinTeam(inviteCode.trim().toUpperCase());
+        if (joinedTeam) {
+          setShowSuccess(true);
+          setInviteCode('');
+          setTimeout(() => setShowSuccess(false), 3000);
+        }
+    } catch (err) {
+        setError(err.message || 'Failed to join team. Please check the code.');
+        setTimeout(() => setError(''), 5000);
     }
     setIsLoading(false);
   };
 
   const copyInviteCode = () => {
-    // Fallback for non-secure contexts (like http)
     if (navigator.clipboard) {
         navigator.clipboard.writeText(team.code);
     } else {
@@ -62,11 +63,7 @@ const Dashboard = () => {
         document.body.appendChild(textArea);
         textArea.focus();
         textArea.select();
-        try {
-            document.execCommand('copy');
-        } catch (err) {
-            console.error('Fallback: Oops, unable to copy', err);
-        }
+        document.execCommand('copy');
         document.body.removeChild(textArea);
     }
     setCopiedCode(true);
@@ -75,10 +72,10 @@ const Dashboard = () => {
 
   if (hasTeam) {
     return (
-      <div className="min-h-screen py-12 px-4">
+      <div className="py-12 px-4">
         <div className="max-w-4xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Welcome back, {user?.name}!
             </h1>
             <p className="text-lg text-gray-600 dark:text-gray-400">
@@ -88,7 +85,7 @@ const Dashboard = () => {
 
           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }} className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-white/50 dark:border-gray-700/50">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
-              <h2 className="text-2xl font-bold">Team Information</h2>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Team Information</h2>
               <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={copyInviteCode} className="flex items-center space-x-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors duration-300 w-full sm:w-auto justify-center">
                 {copiedCode ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                 <span>{copiedCode ? 'Copied!' : 'Copy Invite Code'}</span>
@@ -99,7 +96,7 @@ const Dashboard = () => {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Team Name</label>
-                  <div className="text-lg font-semibold">{team.name}</div>
+                  <div className="text-lg font-semibold text-gray-900 dark:text-white">{team.name}</div>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Invite Code</label>
@@ -116,7 +113,7 @@ const Dashboard = () => {
                         {member.name.charAt(0).toUpperCase()}
                       </div>
                       <div>
-                        <div className="text-sm font-medium">{member.name}</div>
+                        <div className="text-sm font-medium text-gray-900 dark:text-white">{member.name}</div>
                         <div className="text-xs text-gray-500 dark:text-gray-400">{member.email}</div>
                       </div>
                     </div>
@@ -131,10 +128,10 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen py-12 px-4">
+    <div className="py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
             Welcome to HackXpertise
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
@@ -162,11 +159,11 @@ const Dashboard = () => {
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <Plus className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold mb-2">Create a Team</h3>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Create a Team</h3>
               <p className="text-gray-600 dark:text-gray-400">Start your own team and invite others.</p>
             </div>
             <form onSubmit={handleCreateTeam} className="space-y-4">
-              <input type="text" value={teamName} onChange={(e) => setTeamName(e.target.value)} className="w-full px-4 py-3 bg-white/50 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" placeholder="Enter Team Name" required />
+              <input type="text" value={teamName} onChange={(e) => setTeamName(e.target.value)} className="w-full px-4 py-3 bg-white/50 dark:bg-gray-700/50 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" placeholder="Enter Team Name" required />
               <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={isLoading} className="w-full py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition disabled:opacity-50">
                 {isLoading ? 'Creating...' : 'Create Team'}
               </motion.button>
@@ -179,11 +176,11 @@ const Dashboard = () => {
               <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <Users className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold mb-2">Join a Team</h3>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Join a Team</h3>
               <p className="text-gray-600 dark:text-gray-400">Enter an invite code to join a team.</p>
             </div>
             <form onSubmit={handleJoinTeam} className="space-y-4">
-              <input type="text" value={inviteCode} onChange={(e) => setInviteCode(e.target.value)} className="w-full px-4 py-3 bg-white/50 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600/50 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition font-mono text-center tracking-widest" placeholder="ENTER INVITE CODE" required />
+              <input type="text" value={inviteCode} onChange={(e) => setInviteCode(e.target.value)} className="w-full px-4 py-3 bg-white/50 dark:bg-gray-700/50 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600/50 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition font-mono text-center tracking-widest" placeholder="ENTER INVITE CODE" required />
               <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={isLoading} className="w-full py-3 bg-gradient-to-r from-teal-500 to-green-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition disabled:opacity-50">
                 {isLoading ? 'Joining...' : 'Join Team'}
               </motion.button>
