@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTeam } from '../contexts/TeamContext';
 import { motion } from 'framer-motion';
-import { Upload, Github, Figma, CheckCircle } from 'lucide-react';
+import { Upload, Github, Figma, CheckCircle, FileText } from 'lucide-react';
 
 const SubmissionDetails = () => {
   const [formData, setFormData] = useState({
@@ -49,6 +49,7 @@ const SubmissionDetails = () => {
         body: JSON.stringify({
           githubURL: formData.githubUrl,
           figmaURL: formData.figmaUrl,
+          pptURL: formData.pptUrl,
           description: formData.comments,
           teamId: team.code,
         }),
@@ -134,6 +135,22 @@ const SubmissionDetails = () => {
                 <Figma className="absolute left-4 top-3 w-5 h-5 text-gray-400" />
                 <label className="absolute left-12 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-purple-500 peer-valid:top-1 peer-valid:text-xs">
                   Figma Design URL
+                </label>
+              </div>
+              
+              <div className="relative">
+                <input
+                  type="url"
+                  name="pptUrl"
+                  value={formData.pptUrl}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 pl-12 bg-white/50 dark:bg-gray-700/50 border border-gray-200/50 dark:border-gray-600/50 rounded-lg focus:ring-2 focus:ring-yellow-500/50 focus:border-transparent transition-all duration-300 placeholder-transparent peer"
+                  placeholder="PPT Design URL"
+                  required
+                />
+                <FileText className="absolute left-4 top-3 w-5 h-5 text-gray-400" />
+                <label className="absolute left-12 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-yellow-500 peer-valid:top-1 peer-valid:text-xs">
+                  PPT Design URL
                 </label>
               </div>
 

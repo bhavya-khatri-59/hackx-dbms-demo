@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [error, setError] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
   const [copiedCode, setCopiedCode] = useState(false);
-  const { user, team, createTeam, joinTeam, hasTeam } = useTeam();
+  const { user, team, createTeam, joinTeam, hasTeam, leaveTeam } = useTeam();
 
   const handleCreateTeam = async (e) => {
     e.preventDefault();
@@ -89,6 +89,9 @@ const Dashboard = () => {
               <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={copyInviteCode} className="flex items-center space-x-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors duration-300 w-full sm:w-auto justify-center">
                 {copiedCode ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                 <span>{copiedCode ? 'Copied!' : 'Copy Invite Code'}</span>
+              </motion.button>
+              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={async () => { await leaveTeam(); }} className="flex items-center space-x-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors duration-300 w-full sm:w-auto justify-center">
+                <span>Leave Team</span>
               </motion.button>
             </div>
 
