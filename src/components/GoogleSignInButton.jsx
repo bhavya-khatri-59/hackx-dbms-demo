@@ -195,15 +195,15 @@ const GoogleSignInButton = () => {
   };
   
   const handleCredentialResponse = (response) => {
-    const decodedToken = jwtDecode(response.credential);
+  const decodedToken = jwtDecode(response.credential);
     
-    if (decodedToken) {
-        setUserProfile({
-            name: decodedToken.name,
-            email: decodedToken.email,
-        });
-        setOpenModal(true);
-    }
+  if (decodedToken) {
+    setUserProfile({
+      name: decodedToken.name,
+      email: decodedToken.email,
+    });
+    setOpenModal(true);
+  }
   };
 
   const handleCustomButtonClick = () => {

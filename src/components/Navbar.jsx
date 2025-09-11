@@ -102,39 +102,14 @@ const Navbar = () => {
               );
             })}
 
-            {/* Submission Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => setIsSubmissionOpen(!isSubmissionOpen)}
-                className="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50/30 dark:hover:bg-blue-900/10 transition-all duration-300"
-              >
-                <Upload className="w-4 h-4 mr-2" />
-                Submission
-                <ChevronDown className={`w-3 h-3 ml-1 transition-transform duration-200 ${isSubmissionOpen ? 'rotate-180' : ''}`} />
-              </button>
-
-              <AnimatePresence>
-                {isSubmissionOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="absolute top-full mt-1 right-0 bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-lg shadow-lg border border-gray-200/50 dark:border-gray-700/50 py-2 w-48"
-                  >
-                    {submissionItems.map((item) => (
-                      <Link
-                        key={item.path}
-                        to={item.path}
-                        onClick={() => setIsSubmissionOpen(false)}
-                        className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50/30 dark:hover:bg-blue-900/10 transition-colors duration-200"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+            {/* Submission direct link */}
+            <Link
+              to="/submission"
+              className="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50/30 dark:hover:bg-blue-900/10 transition-all duration-300"
+            >
+              <Upload className="w-4 h-4 mr-2" />
+              Submission
+            </Link>
           </div>
 
           {/* Right Side Actions */}
