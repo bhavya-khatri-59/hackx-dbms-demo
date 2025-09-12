@@ -1,5 +1,5 @@
 import express from 'express';
-import { createOrUpdateParticipant } from '../db_operations.js'; // Adjust path if necessary
+import { createOrUpdateParticipant, getParticipantByEmail } from '../db_operations.js'; // Adjust path if necessary
 
 const router = express.Router();
 
@@ -17,6 +17,21 @@ router.post('/', async (req, res) => {
     res.status(201).json(participant);
   } catch (err) {
     res.status(500).json({ error: 'Failed to save participant data', details: err.message });
+  }
+});
+
+// Get a participant by email
+router.get('/:email', async (req, res) => {
+  try {
+    const { email } = req.params;
+    const participant = await getParticipantByEmail(email);
+    if (!participant) {
+      return res.status(404).json({ error: 'Participant not found' });
+    }
+    res.json(participant);
+  } catch (error) {
+    console.error('Error fetching participant by email:', error);
+    res.status(500).json({ error: 'Failed to retrieve participant data' });
   }
 });
 
