@@ -11,11 +11,12 @@ const { Pool } = pg;
 // --- Database Configuration ---
 // The Pool now securely uses environment variables.
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+  user: process.env.SUPABASE_USER,
+  host: process.env.SUPABASE_HOST,
+  database: process.env.SUPABASE_DATABASE,
+  password: process.env.SUPABASE_PASSWORD,
+  port: process.env.SUPABASE_PORT,
+   ssl: { rejectUnauthorized: false },
 });
 
 // --- Helper function to generate a unique 5-character team code ---
