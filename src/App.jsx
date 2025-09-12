@@ -29,7 +29,6 @@ function App() {
                       <Route path="/problems" element={<ProblemStatements />} />
                       <Route path="/timeline" element={<Timeline />} />
                       <Route path="/submission" element={<SubmissionDetails />} />
-                      <Route path="/team" element={<TeamDetails />} />
                       <Route path="/about" element={<About />} />
                       <Route path="/faq" element={<FAQs />} />
                     </Routes>

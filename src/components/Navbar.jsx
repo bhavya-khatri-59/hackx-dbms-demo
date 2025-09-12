@@ -31,7 +31,7 @@ const Navbar = () => {
     { path: '/dashboard', label: 'Dashboard', icon: Home },
     { path: '/problems', label: 'Problems', icon: FileText, locked: !hasTeam },
     { path: '/timeline', label: 'Timeline', icon: Clock, locked: !hasTeam },
-    { path: '/team', label: 'Team', icon: Users },
+    //{ path: '/team', label: 'Team', icon: Users },
     { path: '/about', label: 'About', icon: Info },
     { path: '/faq', label: 'FAQ', icon: HelpCircle },
   ];
