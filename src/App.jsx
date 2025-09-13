@@ -11,6 +11,7 @@ import SubmissionDetails from './pages/SubmissionDetails';
 import TeamDetails from './pages/TeamDetails';
 import About from './pages/About';
 import FAQs from './pages/FAQs';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -25,10 +26,14 @@ function App() {
                   <Navbar />
                   <main className="pt-20">
                     <Routes>
-                      <Route path="/dashboard" element={<Dashboard />} />
-                      <Route path="/problems" element={<ProblemStatements />} />
-                      <Route path="/timeline" element={<Timeline />} />
-                      <Route path="/submission" element={<SubmissionDetails />} />
+                      {/* Protected Routes */}
+                      <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                      <Route path="/problems" element={<ProtectedRoute><ProblemStatements /></ProtectedRoute>} />
+                      <Route path="/timeline" element={<ProtectedRoute><Timeline /></ProtectedRoute>} />
+                      <Route path="/submission" element={<ProtectedRoute><SubmissionDetails /></ProtectedRoute>} />
+                      <Route path="/team" element={<ProtectedRoute><TeamDetails /></ProtectedRoute>} />
+
+                      {/* Public Routes */}
                       <Route path="/about" element={<About />} />
                       <Route path="/faq" element={<FAQs />} />
                     </Routes>
@@ -44,3 +49,4 @@ function App() {
 }
 
 export default App;
+
