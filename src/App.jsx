@@ -32,10 +32,8 @@ function App() {
                       <Route path="/timeline" element={<ProtectedRoute><Timeline /></ProtectedRoute>} />
                       <Route path="/submission" element={<ProtectedRoute><SubmissionDetails /></ProtectedRoute>} />
                       <Route path="/team" element={<ProtectedRoute><TeamDetails /></ProtectedRoute>} />
-
-                      {/* Public Routes */}
-                      <Route path="/about" element={<About />} />
-                      <Route path="/faq" element={<FAQs />} />
+                      <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
+                      <Route path="/faq" element={<ProtectedRoute><FAQs /></ProtectedRoute>} />
                     </Routes>
                   </main>
                 </>
