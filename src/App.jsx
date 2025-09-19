@@ -9,7 +9,7 @@ import ProblemStatements from './pages/ProblemStatements';
 import Timeline from './pages/Timeline';
 import SubmissionDetails from './pages/SubmissionDetails';
 import TeamDetails from './pages/TeamDetails';
-import About from './pages/About';
+//import About from './pages/About';
 import FAQs from './pages/FAQs';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -32,7 +32,7 @@ function App() {
                       <Route path="/timeline" element={<ProtectedRoute><Timeline /></ProtectedRoute>} />
                       <Route path="/submission" element={<ProtectedRoute><SubmissionDetails /></ProtectedRoute>} />
                       <Route path="/team" element={<ProtectedRoute><TeamDetails /></ProtectedRoute>} />
-                      <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
+                      {/*<Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />*/}
                       <Route path="/faq" element={<ProtectedRoute><FAQs /></ProtectedRoute>} />
                     </Routes>
                   </main>

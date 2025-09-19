@@ -1,14 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   html {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: "Inter", system-ui, sans-serif;
     scroll-behavior: smooth;
   }
-  
+
   body {
     @apply antialiased;
   }
@@ -55,11 +55,24 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  .rubik-doodle-shadow-regular {
+    font-family: "Rubik Doodle Shadow", system-ui;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .varela-round-regular {
+  font-family: "Varela Round", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
 }
 
 /* Floating animation */
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -88,7 +101,9 @@
 }
 
 /* Smooth focus transitions */
-input:focus, textarea:focus, select:focus {
+input:focus,
+textarea:focus,
+select:focus {
   @apply outline-none ring-2 ring-blue-500/50 ring-offset-2 ring-offset-white dark:ring-offset-gray-800;
 }
 
@@ -116,7 +131,7 @@ input:focus, textarea:focus, select:focus {
 
 /* Gradient animations */
 .gradient-animation {
-  background: linear-gradient(-45deg, #3B82F6, #8B5CF6, #EC4899, #10B981);
+  background: linear-gradient(-45deg, #3b82f6, #8b5cf6, #ec4899, #10b981);
   background-size: 400% 400%;
   animation: gradientShift 8s ease infinite;
 }
