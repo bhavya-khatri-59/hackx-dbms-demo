@@ -8,8 +8,8 @@ import gsap from 'gsap';
 
 import GoogleSignInButton from '../components/GoogleSignInButton';
 import { Award, Globe, Zap, Heart } from 'lucide-react';
-import vitLogo from "../../assets/vitLogo.png";
-import gravitasLogo from '../../assets/gravitas.png';
+import vitLogo from "/assets/VitLogo.png";
+import gravitasLogo from '/assets/gravitas.png';
 
 const LandingPage = () => {
   const { isDark, toggleTheme } = useTheme();
@@ -60,7 +60,7 @@ const LandingPage = () => {
   // About sections data
   const aboutSections = [
     {
-      title: 'About HackXpertise',
+      title: 'About HackXpertise 2.0',
       content: "HackXpertise 2.0, the flagship event of IEEE TEMS at graVITas’25, is a dynamic two-day hackathon that brings creativity, collaboration, and innovation to the forefront. This beginner-friendly event introduces participants to the world of hackathons, guiding them through the process, tools, and strategies needed to succeed.",
       icon: Zap,
       image: '../../assets/hackxlogo.png'
@@ -139,8 +139,8 @@ const LandingPage = () => {
         <img
           src={vitLogo}
           alt="VIT Logo"
-          className="h-32 w-auto object-contain rounded-[5px]" // Increased height for bigger logo
-          style={{ maxWidth: '260px' }} // Increased maxWidth
+          className="h-8 w-auto object-contain rounded-[5px]" // Reduced height for smaller logo
+          style={{ maxWidth: '100px' }} // Reduced maxWidth
         />
         {/* Right side: Theme Toggle + Gravitas Logo */}
         <div className="flex items-center space-x-8">
@@ -152,7 +152,7 @@ const LandingPage = () => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={toggleTheme}
-            className="p-4 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300"
+            className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300"
           >
             <AnimatePresence mode="wait">
               {isDark ? (
@@ -163,7 +163,7 @@ const LandingPage = () => {
                   exit={{ scale: 0, rotate: 180 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <Sun className="w-6 h-6 text-yellow-500" />
+                  <Sun className="w-3 h-3 text-yellow-500" />
                 </motion.div>
               ) : (
                 <motion.div
@@ -173,7 +173,7 @@ const LandingPage = () => {
                   exit={{ scale: 0, rotate: -180 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <Moon className="w-6 h-6 text-purple-500" />
+                  <Moon className="w-3 h-3 text-purple-500" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -182,8 +182,8 @@ const LandingPage = () => {
           <img
             src={gravitasLogo}
             alt="Gravitas Logo"
-            className="h-32 w-auto object-contain rounded-[5px]" // Increased height for bigger logo
-            style={{ maxWidth: '260px' }} // Increased maxWidth
+            className="h-8 w-auto object-contain rounded-[5px]" // Reduced height for smaller logo
+            style={{ maxWidth: '100px' }} // Reduced maxWidth
           />
         </div>
       </div>
