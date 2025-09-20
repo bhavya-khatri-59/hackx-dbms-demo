@@ -6,12 +6,12 @@ const router = express.Router();
 // Create or update a participant profile
 router.post('/', async (req, res) => {
   try {
-    const { name, email, college, regno } = req.body;
-    if (!name || !email || !college || !regno) {
-      return res.status(400).json({ error: 'All fields (name, email, college, regno) are required.' });
+    const { name, email, college, regno, phoneno } = req.body;
+    if (!name || !email || !college || !regno || !phoneno) {
+      return res.status(400).json({ error: 'All fields (name, email, college, regno, phoneno) are required.' });
     }
-    
-    const participantData = { name, email, college, regno };
+
+    const participantData = { name, email, college, regno, phoneno };
     const participant = await createOrUpdateParticipant(participantData);
     
     res.status(201).json(participant);

@@ -43,19 +43,20 @@ async function generateUniqueTeamCode() {
 /**
  * Creates a new participant or updates their details if they already exist based on email.
  */
-export async function createOrUpdateParticipant({ name, email, college, regno }) {
+export async function createOrUpdateParticipant({ name, email, college, regno, phoneno }) {
   try {
     const query = `
-      INSERT INTO "participant" ("name", "email", "college", "regno") 
-      VALUES ($1, $2, $3, $4) 
+      INSERT INTO "participant" ("name", "email", "college", "regno", "phoneno") 
+      VALUES ($1, $2, $3, $4, $5) 
       ON CONFLICT ("email") 
       DO UPDATE SET 
         "name" = EXCLUDED."name", 
         "college" = EXCLUDED."college", 
-        "regno" = EXCLUDED."regno"
+        "regno" = EXCLUDED."regno",
+        "phoneno" = EXCLUDED."phoneno"
       RETURNING *;
     `;
-    const result = await pool.query(query, [name, email, college, regno]);
+    const result = await pool.query(query, [name, email, college, regno, phoneno]);
     console.log(`Participant ${name} (${email}) created or updated.`);
     return result.rows[0];
   } catch (error) {

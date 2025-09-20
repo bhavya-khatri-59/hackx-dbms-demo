@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useTeam } from '../contexts/TeamContext.jsx'; // Import useTeam hook
+import { useTeam } from '../contexts/TeamContext.jsx'; 
 
 /**
  * Decodes a JWT token to extract its payload.
- * @param {string} token The JWT token string.
- * @returns {object|null} The decoded payload object or null if decoding fails.
  */
 const jwtDecode = (token) => {
   try {
@@ -32,6 +30,7 @@ const StudentDetailsModal = ({ open, onClose, userProfile }) => {
   const { login } = useTeam();
   const [collegeName, setCollegeName] = useState('');
   const [registrationNumber, setRegistrationNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState(''); // <-- New state for phone number
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
 
@@ -47,6 +46,7 @@ const StudentDetailsModal = ({ open, onClose, userProfile }) => {
       email: userProfile.email,
       college: collegeName,
       regno: registrationNumber,
+      phoneno: phoneNumber, // <-- Add phone number to the data
     };
 
     try {
@@ -96,7 +96,6 @@ const StudentDetailsModal = ({ open, onClose, userProfile }) => {
             </p>
         </div>
         <form className="space-y-4" onSubmit={handleSubmit}>
-          {/* Form inputs remain the same */}
           <div className="w-full px-4 py-2 rounded-lg border bg-gray-100 dark:bg-gray-700">
             <label className="text-xs text-gray-500">Email</label>
             <p className="text-gray-900 dark:text-white">{userProfile.email}</p>
@@ -114,6 +113,15 @@ const StudentDetailsModal = ({ open, onClose, userProfile }) => {
             placeholder="Registration Number"
             value={registrationNumber}
             onChange={(e) => setRegistrationNumber(e.target.value)}
+            required
+            className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          />
+          {/* New Phone Number Input */}
+          <input
+            type="tel"
+            placeholder="Phone Number"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
             required
             className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           />
@@ -140,14 +148,13 @@ const StudentDetailsModal = ({ open, onClose, userProfile }) => {
 const GoogleSignInButton = () => {
   const [openModal, setOpenModal] = useState(false);
   const [isGoogleReady, setIsGoogleReady] = useState(false);
-  const [isAuthenticating, setIsAuthenticating] = useState(false); // ** NEW STATE **
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   const hiddenDivRef = useRef(null);
   const navigate = useNavigate();
   const { login } = useTeam();
 
   useEffect(() => {
-    // Logic to load Google script remains the same
     if (document.querySelector('script[src="https://accounts.google.com/gsi/client"]')) {
       initializeGoogle();
       return;
@@ -169,7 +176,7 @@ const GoogleSignInButton = () => {
     if (window.google && window.google.accounts) {
       try {
         window.google.accounts.id.initialize({
-          client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+          client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID, // Use environment variable
           callback: handleCredentialResponse,
         });
         setTimeout(() => {
@@ -188,38 +195,34 @@ const GoogleSignInButton = () => {
   };
   
   const handleCredentialResponse = async (response) => {
-    setIsAuthenticating(true); // ** START LOADING STATE **
+    setIsAuthenticating(true);
     const decodedToken = jwtDecode(response.credential);
     
     if (decodedToken) {
         try {
-            // Check if user exists in our DB
             const res = await fetch(`/api/participants/${decodedToken.email}`);
             
             if (res.ok) {
-                // User exists, log them in and redirect
                 const userData = await res.json();
                 login(userData);
                 navigate('/dashboard');
             } else if (res.status === 404) {
-                // User does not exist, open the modal to collect details
                 setUserProfile({
                     name: decodedToken.name,
                     email: decodedToken.email,
                 });
                 setOpenModal(true);
             } else {
-                // Handle other server errors
                 throw new Error("Failed to verify user.");
             }
         } catch (error) {
             console.error("Authentication check failed:", error);
             alert("An error occurred during sign-in. Please try again.");
         } finally {
-            setIsAuthenticating(false); // ** END LOADING STATE **
+            setIsAuthenticating(false);
         }
     } else {
-        setIsAuthenticating(false); // ** END LOADING STATE on decode failure **
+        setIsAuthenticating(false);
     }
   };
 
