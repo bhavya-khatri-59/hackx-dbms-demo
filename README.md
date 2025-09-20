@@ -98,13 +98,24 @@ npm run build
 ```
 The built files will be in the dist/ directory, ready for deployment.
 
-Make sure u run both these dependencies to make it run
-npm install gsap
-npm install three postprocessing
 
+
+
+
+
+Make sure u run both these dependencies to make it run
+```
+npm install gsap
+
+npm install three postprocessing
+```
 Also db is through supabase so no need for DB creation
 backend folder is there so need to run that too 
 by npm run dev
+
+
+
+
 
 
 ## Backend Setup
