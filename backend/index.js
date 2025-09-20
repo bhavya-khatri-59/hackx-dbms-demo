@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import teamsRouter from './routes/teams.js';
 import submissionsRouter from './routes/submissions.js';
 import participantsRouter from './routes/participants.js';
+import eventsRouter from './routes/events.js';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -28,6 +29,7 @@ app.use('/api/teams', teamsRouter);
 app.use('/api/submissions', submissionsRouter);
 // All routes for participants will be prefixed with /api/participants
 app.use('/api/participants', participantsRouter);
+app.use('/api/events', eventsRouter);
 
 
 // --- Server Initialization ---

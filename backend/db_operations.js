@@ -65,6 +65,26 @@ export async function createOrUpdateParticipant({ name, email, college, regno, p
   }
 }
 
+/**
+ * Retrieves the current event ID and name from the "CurrentEvent" table.
+ * It assumes there is only one row in this table.
+ * @returns {Promise<object|null>} The current event object { currentID, currentEventName }, or null if not found.
+ */
+export async function getCurrentEvent() {
+  try {
+    const result = await pool.query('SELECT * FROM "CurrentEvent" LIMIT 1');
+    if (result.rowCount === 0) {
+      return null; // No event has been set in the database yet
+    }
+    return result.rows[0];
+  } catch (error) {
+    console.error('Error getting current event:', error);
+    throw error;
+  }
+}
+
+
+
 
 // --- Team Operations ---
 
