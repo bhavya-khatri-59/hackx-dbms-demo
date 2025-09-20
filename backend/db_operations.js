@@ -283,4 +283,43 @@ export async function updateSubmission(teamId, { description, githubURL, figmaUR
     throw error;
   }
 }
+/** 
+ * Creates or updates a Round 1 submission.
+ * Uses ON CONFLICT to perform an "UPSERT" based on the unique teamid.
+ * @param {object} subDetails - Submission details.
+ * @returns {Promise<object>} The created/updated submission object.
+ */
+export async function createOrUpdateSubmissionRound1({ problemStatement, pptTemplateURL, description, teamId }) {
+    try {
+        const query = `
+            INSERT INTO "SubmissionRound1" ("problemStatement", "pptTemplateURL", "description", "teamid")
+            VALUES ($1, $2, $3, $4)
+            ON CONFLICT ("teamid")
+            DO UPDATE SET
+                "problemStatement" = EXCLUDED."problemStatement",
+                "pptTemplateURL" = EXCLUDED."pptTemplateURL",
+                "description" = EXCLUDED."description"
+            RETURNING *;
+        `;
+        const result = await pool.query(query, [problemStatement, pptTemplateURL, description, teamId]);
+        return result.rows[0];
+    } catch (error) {
+        console.error('Error creating/updating Round 1 submission:', error);
+        throw error;
+    }
+}
 
+/**
+ * Retrieves a Round 1 submission by the team's ID.
+ * @param {string} teamId - The 5-character ID of the team.
+ * @returns {Promise<object|null>} The submission object, or null if not found.
+ */
+export async function getSubmissionRound1ByTeamId(teamId) {
+    try {
+        const result = await pool.query('SELECT * FROM "SubmissionRound1" WHERE "teamid" = $1', [teamId]);
+        return result.rows[0] || null;
+    } catch (error) {
+        console.error('Error getting Round 1 submission:', error);
+        throw error;
+    }
+}
