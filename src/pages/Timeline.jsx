@@ -49,77 +49,122 @@ const staticTimelineEvents = [
 ];
 
 const TimelineEvent = ({ event, index, isLeft }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
-  const Icon = event.icon;
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const Icon = event.icon;
 
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'completed':
-        return 'from-green-500 to-emerald-500';
-      case 'current':
-        return 'from-blue-500 to-purple-500';
-      default:
-        return 'from-gray-400 to-gray-500 dark:from-gray-500 dark:to-gray-600';
-    }
-  };
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'completed':
+        return 'from-green-500 to-emerald-500';
+      case 'current':
+        return 'from-blue-500 to-purple-500';
+      default:
+        return 'from-gray-400 to-gray-500 dark:from-gray-500 dark:to-gray-600';
+    }
+  };
 
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, x: isLeft ? -100 : 100 }}
-      animate={isInView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="flex items-center w-full"
-    >
-      {/* Event Card */}
-      <div className={`w-5/12 ${isLeft ? '' : 'order-3'}`}>
-        <motion.div
-          whileHover={{ y: -5 }}
-          className={`bg-black/80 backdrop-blur-xl rounded-xl p-6 shadow-lg border border-gray-700/50 hover:shadow-xl transition-shadow duration-300 ${
-            event.status === 'current' ? 'ring-2 ring-offset-4 ring-offset-slate-50 dark:ring-offset-gray-900 ring-blue-500' : ''
-          }`}
-        >
-          <div className="flex items-start space-x-4 mb-3">
-            <div className={`mt-1 w-10 h-10 bg-gradient-to-r ${getStatusColor(event.status)} rounded-full flex items-center justify-center shadow-md flex-shrink-0`}>
-              <Icon className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white">{event.title}</h3>
-              <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-                <Clock className="w-4 h-4" />
-                <span>{event.date} at {event.time}</span>
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: isLeft && window.innerWidth >= 768 ? -100 : window.innerWidth >= 768 ? 100 : 0, y: window.innerWidth < 768 ? 50 : 0 }}
+      animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="flex items-center w-full"
+    >
+      {/* Mobile Layout - Single Column */}
+      <div className="md:hidden w-full flex items-start space-x-4">
+        {/* Timeline Node for Mobile */}
+        <div className="flex-shrink-0 mt-2">
+          <motion.div
+            animate={isInView && event.status === 'current' ? {
+              scale: [1, 1.2, 1],
+              boxShadow: ['0 0 0 0px rgba(59, 130, 246, 0.4)', '0 0 0 15px rgba(59, 130, 246, 0)', '0 0 0 0px rgba(59, 130, 246, 0)']
+            } : {}}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+            className={`w-4 h-4 bg-gradient-to-r ${getStatusColor(event.status)} rounded-full shadow-lg z-10`}
+          />
+        </div>
+        
+        {/* Event Card for Mobile */}
+        <div className="flex-1">
+          <motion.div
+            whileHover={{ y: -2 }}
+            className={`bg-black/80 backdrop-blur-xl rounded-xl p-4 shadow-lg border border-gray-700/50 hover:shadow-xl transition-shadow duration-300 ${
+              event.status === 'current' ? 'ring-2 ring-purple-500' : ''
+            }`}
+          >
+            <div className="flex items-start space-x-3 mb-3">
+              <div className={`mt-1 w-8 h-8 bg-gradient-to-r ${getStatusColor(event.status)} rounded-full flex items-center justify-center shadow-md flex-shrink-0`}>
+                <Icon className="w-4 h-4 text-white" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-base font-bold text-gray-900 dark:text-white">{event.title}</h3>
+                <div className="flex items-center space-x-2 text-xs text-gray-500 dark:text-gray-400">
+                  <Clock className="w-3 h-3" />
+                  <span>{event.date} at {event.time}</span>
+                </div>
               </div>
             </div>
-          </div>
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">{event.description}</p>
-          {event.status === 'current' && (
-            <div className="mt-4 text-sm font-semibold text-blue-600 dark:text-blue-400">
-              📍 Current Phase
-            </div>
-          )}
-        </motion.div>
+            <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">{event.description}</p>
+            {event.status === 'current' && (
+              <div className="mt-3 text-xs font-semibold text-purple-400">
+                📍 Current Phase
+              </div>
+            )}
+          </motion.div>
+        </div>
       </div>
 
-      {/* Timeline Node */}
-      <div className="w-2/12 flex justify-center order-2">
-        <motion.div
-          animate={isInView && event.status === 'current' ? {
-            scale: [1, 1.2, 1],
-            boxShadow: ['0 0 0 0px rgba(59, 130, 246, 0.4)', '0 0 0 15px rgba(59, 130, 246, 0)', '0 0 0 0px rgba(59, 130, 246, 0)']
-          } : {}}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          className={`w-5 h-5 bg-gradient-to-r ${getStatusColor(event.status)} rounded-full shadow-lg z-10`}
-        />
-      </div>
+      {/* Desktop Layout - Zigzag Pattern */}
+      <div className="hidden md:flex items-center w-full">
+        {/* Event Card */}
+        <div className={`w-5/12 ${isLeft ? '' : 'order-3'}`}>
+          <motion.div
+            whileHover={{ y: -5 }}
+            className={`bg-black/80 backdrop-blur-xl rounded-xl p-6 shadow-lg border border-gray-700/50 hover:shadow-xl transition-shadow duration-300 ${
+              event.status === 'current' ? 'ring-2 ring-offset-4 ring-offset-slate-50 dark:ring-offset-gray-900 ring-purple-500' : ''
+            }`}
+          >
+            <div className="flex items-start space-x-4 mb-3">
+              <div className={`mt-1 w-10 h-10 bg-gradient-to-r ${getStatusColor(event.status)} rounded-full flex items-center justify-center shadow-md flex-shrink-0`}>
+                <Icon className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white">{event.title}</h3>
+                <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+                  <Clock className="w-4 h-4" />
+                  <span>{event.date} at {event.time}</span>
+                </div>
+              </div>
+            </div>
+            <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">{event.description}</p>
+            {event.status === 'current' && (
+              <div className="mt-4 text-sm font-semibold text-purple-400">
+                📍 Current Phase
+              </div>
+            )}
+          </motion.div>
+        </div>
 
-      {/* Empty space for opposite side */}
-      <div className={`w-5/12 ${isLeft ? 'order-3' : ''}`} />
-    </motion.div>
-  );
-};
+        {/* Timeline Node */}
+        <div className="w-2/12 flex justify-center order-2">
+          <motion.div
+            animate={isInView && event.status === 'current' ? {
+              scale: [1, 1.2, 1],
+              boxShadow: ['0 0 0 0px rgba(59, 130, 246, 0.4)', '0 0 0 15px rgba(59, 130, 246, 0)', '0 0 0 0px rgba(59, 130, 246, 0)']
+            } : {}}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+            className={`w-5 h-5 bg-gradient-to-r ${getStatusColor(event.status)} rounded-full shadow-lg z-10`}
+          />
+        </div>
 
-const Timeline = () => {
+        {/* Empty space for opposite side */}
+        <div className={`w-5/12 ${isLeft ? 'order-3' : ''}`} />
+      </div>
+    </motion.div>
+  );
+};const Timeline = () => {
   const { hasTeam } = useTeam();
   const [timelineEvents, setTimelineEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -189,7 +234,8 @@ const Timeline = () => {
 
         <div className="relative">
           {/* Central Timeline Line */}
-          <div className="absolute left-1/2 -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-500/50 via-blue-500/50 to-pink-500/50 rounded-full" />          <div className="space-y-16">
+          <div className="absolute left-1/2 -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-500/50 via-blue-500/50 to-pink-500/50 rounded-full hidden md:block" />
+          <div className="md:hidden absolute left-4 top-0 w-0.5 h-full bg-gradient-to-b from-purple-500/50 via-blue-500/50 to-pink-500/50 rounded-full" />                    <div className="space-y-8 md:space-y-16">
             {timelineEvents.map((event, index) => (
                 <TimelineEvent
                   key={event.id}

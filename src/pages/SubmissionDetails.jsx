@@ -157,11 +157,11 @@ const SubmissionDetails = () => {
         {/* Round Selector */}
         <div className="flex justify-center mb-8">
             <div className="flex bg-black/20 backdrop-blur-sm rounded-lg p-1">
-                <button onClick={() => setViewingRound(1)} className={`px-6 py-2 rounded-md transition-all duration-300 ${viewingRound === 1 ? 'bg-blue-500 text-white shadow-lg' : 'text-gray-600 dark:text-gray-400'}`}>Round 1</button>
+                <button onClick={() => setViewingRound(1)} className={`px-6 py-2 rounded-md transition-all duration-300 ${viewingRound === 1 ? 'bg-purple-500 text-white shadow-lg' : 'text-gray-600 dark:text-gray-400'}`}>Round 1</button>
                 <button 
                   onClick={() => setViewingRound(2)} 
                   disabled={hackathonRound < 2}
-                  className={`px-6 py-2 rounded-md transition-all duration-300 flex items-center gap-2 ${viewingRound === 2 ? 'bg-blue-500 text-white shadow-lg' : 'text-gray-600 dark:text-gray-400'} ${hackathonRound < 2 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`px-6 py-2 rounded-md transition-all duration-300 flex items-center gap-2 ${viewingRound === 2 ? 'bg-purple-500 text-white shadow-lg' : 'text-gray-600 dark:text-gray-400'} ${hackathonRound < 2 ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                   {hackathonRound < 2 && <Lock size={14} />}
                   Round 2
@@ -198,7 +198,7 @@ const SubmissionDetails = () => {
               <motion.button 
                 whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                 onClick={() => setIsEditing(true)} 
-                className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 <Edit size={18}/> Update Submission
               </motion.button>
@@ -218,13 +218,13 @@ const SubmissionDetails = () => {
                   {/* Round 1 Form */}
                   <div>
                     <div className="relative">
-                      <select name="problemStatement" value={round1Data.problemStatement} onChange={handleRound1Change} required className="w-full px-4 py-3 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition appearance-none">
+                      <select name="problemStatement" value={round1Data.problemStatement} onChange={handleRound1Change} required className="w-full px-4 py-3 bg-black border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition appearance-none">
                           <option value="" disabled>Choose a problem statement...</option>
                           {problemStatements.map((p) => <option key={p.id} value={p.id}>{p.title}</option>)}
                       </select>
                       <ChevronDown className="absolute right-3 top-3.5 w-5 h-5 text-gray-400 pointer-events-none" />
                     </div>
-                    {selectedProblem && <p className="text-sm mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-blue-800 dark:text-blue-200">{selectedProblem.description}</p>}
+                    {selectedProblem && <p className="text-sm mt-3 p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg text-purple-800 dark:text-purple-200">{selectedProblem.description}</p>}
                   </div>
                   <div className="relative">
                     <FileText className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
@@ -264,7 +264,7 @@ const SubmissionDetails = () => {
                   whileTap={{ scale: 0.98 }}
                   type="submit"
                   disabled={isSubmitting || isWordCountExceeded}
-                  className="w-full py-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full py-4 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:from-purple-600 hover:via-purple-700 hover:to-purple-800 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <Upload size={18}/>
                   <span>{isSubmitting ? 'Submitting...' : (isEditing && submissions[`round${viewingRound}`] ? `Update Round ${viewingRound}` : `Submit Round ${viewingRound}`)}</span>

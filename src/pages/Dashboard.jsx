@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Users, Plus, Copy, Check, AlertCircle } from 'lucide-react';
 import { useTeam } from '../contexts/TeamContext';
+import { ParticleCard } from '../MagicBento/MagicBento.jsx';
+import '../MagicBento/MagicBento.css';
 
 const Dashboard = () => {
   const [teamName, setTeamName] = useState('');
@@ -83,47 +85,65 @@ const Dashboard = () => {
             </p>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }} className="bg-black/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-gray-700/50">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
-              <h2 className="text-2xl font-bold text-white">Team Information</h2>
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={copyInviteCode} className="flex items-center space-x-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors duration-300 w-full sm:w-auto justify-center">
-                {copiedCode ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                <span>{copiedCode ? 'Copied!' : 'Copy Invite Code'}</span>
-              </motion.button>
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={async () => { await leaveTeam(); }} className="flex items-center space-x-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors duration-300 w-full sm:w-auto justify-center">
-                <span>Leave Team</span>
-              </motion.button>
-            </div>
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }}>
+            <ParticleCard 
+              className="card card--border-glow p-4 shadow-xl max-w-2xl mx-auto"
+              style={{ 
+                backgroundColor: '#060010',
+                '--glow-color': '132, 0, 255',
+                aspectRatio: 'auto',
+                minHeight: 'auto',
+                height: 'auto',
+                justifyContent: 'flex-start'
+              }}
+              enableTilt={true}
+              clickEffect={true}
+              enableMagnetism={true}
+              particleCount={8}
+              glowColor="132, 0, 255"
+            >
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 gap-2">
+                <h2 className="text-lg font-bold text-white">Team Information</h2>
+                <div className="flex gap-1">
+                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={copyInviteCode} className="flex items-center space-x-1 px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded text-xs">
+                    {copiedCode ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                    <span>{copiedCode ? 'Copied!' : 'Copy'}</span>
+                  </motion.button>
+                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={async () => { await leaveTeam(); }} className="px-2 py-1 bg-red-500 hover:bg-red-600 text-white rounded text-xs">
+                    Leave
+                  </motion.button>
+                </div>
+              </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Team Name</label>
-                  <div className="text-lg font-semibold text-gray-900 dark:text-white">{team.name}</div>
+              <div className="grid md:grid-cols-2 gap-3">
+                <div className="space-y-2">
+                  <div>
+                    <label className="block text-xs font-medium text-gray-300 mb-0.5">Team Name</label>
+                    <div className="text-sm font-semibold text-white">{team.name}</div>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-300 mb-0.5">Invite Code</label>
+                    <div className="text-sm font-mono font-semibold text-blue-400">{team.code}</div>
+                  </div>
                 </div>
+                
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Invite Code</label>
-                  <div className="text-lg font-mono font-semibold text-blue-600 dark:text-blue-400">{team.code}</div>
+                  <label className="block text-xs font-medium text-gray-300 mb-1">Members ({team.members?.length || 0})</label>
+                  <div className="space-y-1 max-h-20 overflow-y-auto">
+                    {team.members?.map((member) => (
+                      <div key={member.email} className="flex items-center space-x-2 p-1 bg-black/50 rounded border border-gray-700/30">
+                        <div className="w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold text-xs flex-shrink-0">
+                          {member.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-xs font-medium text-white truncate">{member.name}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Team Members ({team.members?.length || 0})</label>
-                <div className="space-y-2 max-h-48 overflow-y-auto pr-2">
-                  {team.members?.map((member) => (
-                    <div key={member.email} className="flex items-center space-x-3 p-2 bg-black/50 rounded-lg border border-gray-700/30">
-                      <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
-                        {member.name.charAt(0).toUpperCase()}
-                      </div>
-                      <div>
-                        <div className="text-sm font-medium text-gray-900 dark:text-white">{member.name}</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">{member.email}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            </ParticleCard>
           </motion.div>
         </div>
       </div>
@@ -203,5 +223,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
-
+export default Dashboard; 

@@ -37,7 +37,6 @@ const Navbar = () => {
 
   const submissionItems = [
     { path: '/submission', label: 'Submit Project' },
-    { path: '/submission/criteria', label: 'Submission Criteria' },
   ];
 
   const handleLogout = () => {
@@ -86,8 +85,8 @@ const Navbar = () => {
                       to={item.path}
                       className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                         isActive
-                          ? 'text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20'
-                          : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50/30 dark:hover:bg-blue-900/10'
+                          ? 'text-purple-600 dark:text-purple-400 bg-purple-50/50 dark:bg-purple-900/20'
+                          : 'text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50/30 dark:hover:bg-purple-900/10'
                       }`}
                     >
                       <Icon className="w-4 h-4 mr-2" />
@@ -107,7 +106,7 @@ const Navbar = () => {
             {/* Submission direct link */}
             <Link
               to="/submission"
-              className="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50/30 dark:hover:bg-blue-900/10 transition-all duration-300"
+              className="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50/30 dark:hover:bg-purple-900/10 transition-all duration-300"
             >
               <Upload className="w-4 h-4 mr-2" />
               Submission
@@ -197,8 +196,8 @@ const Navbar = () => {
                     onClick={() => setIsMobileOpen(false)}
                     className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                       isActive
-                        ? 'text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20'
-                        : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50/30 dark:hover:bg-blue-900/10'
+                        ? 'text-purple-600 dark:text-purple-400 bg-purple-50/50 dark:bg-purple-900/20'
+                        : 'text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50/30 dark:hover:bg-purple-900/10'
                     }`}
                   >
                     <Icon className="w-4 h-4 mr-3" />
@@ -213,7 +212,7 @@ const Navbar = () => {
                   key={item.path}
                   to={item.path}
                   onClick={() => setIsMobileOpen(false)}
-                  className="block px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50/30 dark:hover:bg-blue-900/10 rounded-lg transition-colors duration-200"
+                  className="block px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50/30 dark:hover:bg-purple-900/10 rounded-lg transition-colors duration-200"
                 >
                   <Upload className="w-4 h-4 mr-3 inline" />
                   {item.label}
