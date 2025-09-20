@@ -7,7 +7,7 @@ const faqCategories = {
     icon: Users,
     faqs: [
       {
-        question: 'How do I register for HackXpertise?',
+        question: 'How do I register for HackXpertise 2.0?',
         answer: 'Simply create an account on our platform using your email. Once registered, you can create or join a team to participate in the hackathon.'
       },
       {

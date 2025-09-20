@@ -28,7 +28,7 @@ const Footer = () => {
               whileHover={{ scale: 1.05 }}
               className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent mb-3"
             >
-              HackXpertise
+              HackXpertise 2.0
             </motion.h3>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
               Where Innovation Meets Excellence. Join the premier hackathon experience.
@@ -92,7 +92,7 @@ const Footer = () => {
             </div>
             
             <div className="text-gray-500 dark:text-gray-400 text-sm">
-              © 2025 HackXpertise. All rights reserved.
+              © 2025 HackXpertise 2.0. All rights reserved.
             </div>
           </div>
         </div>

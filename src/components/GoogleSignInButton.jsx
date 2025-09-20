@@ -251,9 +251,9 @@ const GoogleSignInButton = () => {
         whileTap={{ scale: 0.95 }}
         onClick={handleCustomButtonClick}
         disabled={!isGoogleReady || isAuthenticating}
-        className={`inline-flex items-center space-x-2 px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ${
-          (!isGoogleReady || isAuthenticating) ? 'opacity-50 cursor-not-allowed' : ''
-        }`}
+        className={`inline-flex items-center space-x-2 px-8 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 bg-white hover:bg-gray-300
+          ${(!isGoogleReady || isAuthenticating) ? 'opacity-50 cursor-not-allowed' : ''}
+        `}
       >
         <svg className="w-5 h-5" viewBox="0 0 48 48" aria-hidden="true">
           <g>
@@ -263,7 +263,7 @@ const GoogleSignInButton = () => {
             <path fill="#EA4335" d="M24 48c6.13 0 11.53-2.02 15.38-5.5l-7.19-5.59c-2.01 1.35-4.59 2.16-8.19 2.16-6.18 0-11.4-4.66-13.55-11.1l-8.01 6.24C6.4 42.26 14.64 48 24 48z"/>
           </g>
         </svg>
-        <span>{getButtonText()}</span>
+        <span className="text-black">{getButtonText()}</span>
       </motion.button>
 
       <div 
