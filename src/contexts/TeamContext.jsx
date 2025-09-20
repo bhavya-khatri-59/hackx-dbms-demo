@@ -84,6 +84,7 @@ export const TeamProvider = ({ children }) => {
         
         return data;
       } else {
+        window.alert("Error creating team: Your team name might already be taken.");
         throw new Error(data.error || 'Error creating team');
       }
     } catch (err) {
