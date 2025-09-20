@@ -76,7 +76,7 @@ const TimelineEvent = ({ event, index, isLeft }) => {
       <div className={`w-5/12 ${isLeft ? '' : 'order-3'}`}>
         <motion.div
           whileHover={{ y: -5 }}
-          className={`bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-xl p-6 shadow-lg border border-white/50 dark:border-gray-700/50 hover:shadow-xl transition-shadow duration-300 ${
+          className={`bg-black/80 backdrop-blur-xl rounded-xl p-6 shadow-lg border border-gray-700/50 hover:shadow-xl transition-shadow duration-300 ${
             event.status === 'current' ? 'ring-2 ring-offset-4 ring-offset-slate-50 dark:ring-offset-gray-900 ring-blue-500' : ''
           }`}
         >
@@ -168,11 +168,11 @@ const Timeline = () => {
   }
 
   if (isLoading) {
-    return <div className="min-h-screen text-center py-20 dark:text-white">Loading timeline...</div>;
+    return <div className="min-h-screen text-center pt-32 dark:text-white">Loading timeline...</div>;
   }
 
   return (
-    <div className="min-h-screen py-12 px-4">
+        <div className="min-h-screen pt-24 pb-12 px-4 bg-black">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -189,9 +189,7 @@ const Timeline = () => {
 
         <div className="relative">
           {/* Central Timeline Line */}
-          <div className="absolute left-1/2 -translate-x-1/2 w-1 h-full bg-gradient-to-b from-blue-200 via-purple-200 to-pink-200 dark:from-blue-800 dark:via-purple-800 dark:to-pink-800 rounded-full" />
-
-          <div className="space-y-16">
+          <div className="absolute left-1/2 -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-500/50 via-blue-500/50 to-pink-500/50 rounded-full" />          <div className="space-y-16">
             {timelineEvents.map((event, index) => (
                 <TimelineEvent
                   key={event.id}

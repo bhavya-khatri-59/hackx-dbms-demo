@@ -37,11 +37,11 @@ const TeamDetails = () => {
 
   if (!team) {
     return (
-      <div className="min-h-screen py-12 px-4 flex items-center justify-center">
+      <div className="min-h-screen pt-24 pb-12 px-4 flex items-center justify-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="text-center bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-12 shadow-xl"
+          className="text-center bg-black/80 backdrop-blur-xl rounded-2xl p-12 shadow-xl"
         >
           <Users className="w-16 h-16 text-gray-400 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">No Team Yet</h2>
@@ -60,7 +60,7 @@ const TeamDetails = () => {
   }
 
   return (
-    <div className="min-h-screen py-12 px-4">
+    <div className="min-h-screen pt-24 pb-12 px-4 bg-black">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -80,7 +80,7 @@ const TeamDetails = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-white/50 dark:border-gray-700/50 mb-8"
+          className="bg-black/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-gray-700/50 mb-8"
         >
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
             <div>
@@ -115,7 +115,7 @@ const TeamDetails = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-white/50 dark:border-gray-700/50"
+          className="bg-black/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-gray-700/50"
         >
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Team Members</h3>
@@ -173,7 +173,7 @@ const TeamDetails = () => {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
-                className="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-md w-full shadow-2xl"
+                className="bg-black/90 rounded-2xl p-6 max-w-md w-full shadow-2xl border border-gray-700/50"
               >
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Leave Team</h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-6">

@@ -32,7 +32,6 @@ const Navbar = () => {
     { path: '/problems', label: 'Problems', icon: FileText, locked: !hasTeam },
     { path: '/timeline', label: 'Timeline', icon: Clock, locked: !hasTeam },
     //{ path: '/team', label: 'Team', icon: Users },
-    { path: '/about', label: 'About', icon: Info },
     { path: '/faq', label: 'FAQ', icon: HelpCircle },
   ];
 
@@ -50,7 +49,10 @@ const Navbar = () => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-b border-gray-200/50 dark:border-gray-700/50"
+      className="fixed top-4 left-4 right-4 z-50 bg-white/10 dark:bg-gray-900/10 backdrop-blur-xl border border-white/20 dark:border-gray-700/30 rounded-2xl shadow-2xl"
+      style={{
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 0 50px rgba(132, 0, 255, 0.1)'
+      }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
@@ -58,7 +60,7 @@ const Navbar = () => {
           <Link to="/dashboard" className="flex items-center space-x-2">
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent"
+              className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent"
             >
               HackXpertise 2.0
             </motion.div>
@@ -114,7 +116,7 @@ const Navbar = () => {
 
           {/* Right Side Actions */}
           <div className="flex items-center space-x-4">
-            {/* Theme Toggle */}
+            {/* Theme Toggle
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -144,7 +146,7 @@ const Navbar = () => {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </motion.button>
+            </motion.button> */}
 
             {/* Logout Button */}
             <motion.button
@@ -174,7 +176,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border-t border-gray-200/50 dark:border-gray-700/50"
+            className="md:hidden bg-white/10 dark:bg-gray-900/10 backdrop-blur-xl border-t border-white/20 dark:border-gray-700/30 rounded-b-2xl"
           >
             <div className="px-4 py-2 space-y-1">
               {navItems.map((item) => {

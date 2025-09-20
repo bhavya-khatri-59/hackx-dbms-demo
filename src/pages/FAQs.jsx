@@ -137,7 +137,7 @@ const CategorySection = ({ category, data, searchTerm }) => {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-xl shadow-lg border border-white/50 dark:border-gray-700/50 overflow-hidden"
+              className="bg-black/80 backdrop-blur-xl rounded-xl shadow-lg border border-gray-700/50 overflow-hidden"
             >
               <motion.button
                 onClick={() => toggleItem(index)}
@@ -184,7 +184,7 @@ const FAQs = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   return (
-    <div className="min-h-screen py-12 px-4">
+    <div className="min-h-screen pt-24 pb-12 px-4 bg-black">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -212,7 +212,7 @@ const FAQs = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search FAQs..."
-              className="w-full px-6 py-4 pl-12 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl border border-gray-200/50 dark:border-gray-600/50 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-300 shadow-lg"
+              className="w-full px-6 py-4 pl-12 bg-black/80 backdrop-blur-xl border border-gray-600/50 text-white rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-300 shadow-lg"
             />
             <Search className="absolute left-4 top-4 w-5 h-5 text-gray-400" />
           </div>

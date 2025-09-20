@@ -149,14 +149,14 @@ const SubmissionDetails = () => {
   const selectedProblem = problemStatements.find(p => p.id === round1Data.problemStatement);
   const currentSubmission = submissions[`round${viewingRound}`];
 
-  if (isLoading) return <div className="min-h-screen py-12 px-4 text-center dark:text-white">Loading...</div>;
+  if (isLoading) return <div className="min-h-screen pt-24 pb-12 px-4 text-center dark:text-white">Loading...</div>;
 
   return (
-    <div className="min-h-screen py-12 px-4">
+    <div className="min-h-screen pt-24 pb-12 px-4 bg-black">
       <div className="max-w-4xl mx-auto">
         {/* Round Selector */}
         <div className="flex justify-center mb-8">
-            <div className="flex bg-white/20 dark:bg-gray-800/20 backdrop-blur-sm rounded-lg p-1">
+            <div className="flex bg-black/20 backdrop-blur-sm rounded-lg p-1">
                 <button onClick={() => setViewingRound(1)} className={`px-6 py-2 rounded-md transition-all duration-300 ${viewingRound === 1 ? 'bg-blue-500 text-white shadow-lg' : 'text-gray-600 dark:text-gray-400'}`}>Round 1</button>
                 <button 
                   onClick={() => setViewingRound(2)} 
@@ -176,7 +176,7 @@ const SubmissionDetails = () => {
                 <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
                 <h1 className="text-4xl font-bold text-gray-900 dark:text-white">Round {viewingRound} Submitted</h1>
             </div>
-            <div className="bg-white/80 dark:bg-gray-800/80 p-8 rounded-2xl shadow-xl space-y-6">
+            <div className="bg-black/80 p-8 rounded-2xl shadow-xl space-y-6">
               {viewingRound === 1 ? (
                 <>
                   <div><strong className="text-gray-800 dark:text-gray-200 block mb-1">Problem Statement:</strong> <p className="text-gray-600 dark:text-gray-400">{selectedProblem?.title || 'N/A'}</p></div>
@@ -208,17 +208,17 @@ const SubmissionDetails = () => {
           // EDIT / CREATE SUBMISSION UI
           <motion.div initial={{opacity: 0}} animate={{opacity: 1}}>
             <div className="text-center mb-12">
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
                 {isEditing && submissions[`round${viewingRound}`] ? `Update Round ${viewingRound}` : `Submit Round ${viewingRound}`}
               </h1>
             </div>
-            <form onSubmit={handleSubmit} className="space-y-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-white/50 dark:border-gray-700/50">
+            <form onSubmit={handleSubmit} className="space-y-6 bg-black/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-gray-700/50">
               {viewingRound === 1 ? (
                 <>
                   {/* Round 1 Form */}
                   <div>
                     <div className="relative">
-                      <select name="problemStatement" value={round1Data.problemStatement} onChange={handleRound1Change} required className="w-full px-4 py-3 bg-white/50 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600/50 rounded-lg focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition appearance-none">
+                      <select name="problemStatement" value={round1Data.problemStatement} onChange={handleRound1Change} required className="w-full px-4 py-3 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition appearance-none">
                           <option value="" disabled>Choose a problem statement...</option>
                           {problemStatements.map((p) => <option key={p.id} value={p.id}>{p.title}</option>)}
                       </select>
@@ -228,7 +228,7 @@ const SubmissionDetails = () => {
                   </div>
                   <div className="relative">
                     <FileText className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
-                    <input type="url" name="pptTemplateURL" value={round1Data.pptTemplateURL} onChange={handleRound1Change} className="w-full px-4 py-3 pl-12 bg-white/50 dark:bg-gray-700/50 border border-gray-200/50 dark:border-gray-600/50 rounded-lg focus:ring-2 focus:ring-yellow-500/50 focus:border-transparent transition-all duration-300 peer" placeholder=" " required />
+                    <input type="url" name="pptTemplateURL" value={round1Data.pptTemplateURL} onChange={handleRound1Change} className="w-full px-4 py-3 pl-12 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-yellow-500/50 focus:border-transparent transition-all duration-300 peer" placeholder=" " required />
                     <label className="absolute left-12 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-yellow-500 peer-valid:top-1 peer-valid:text-xs">PPT Template URL</label>
                   </div>
                 </>
@@ -237,24 +237,24 @@ const SubmissionDetails = () => {
                   {/* Round 2 Form */}
                    <div className="relative">
                       <Github className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
-                      <input type="url" name="githubURL" value={round2Data.githubURL} onChange={handleRound2Change} className="w-full px-4 py-3 pl-12 bg-white/50 dark:bg-gray-700/50 border border-gray-200/50 dark:border-gray-600/50 rounded-lg focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-300 peer" placeholder=" " required />
+                      <input type="url" name="githubURL" value={round2Data.githubURL} onChange={handleRound2Change} className="w-full px-4 py-3 pl-12 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-300 peer" placeholder=" " required />
                       <label className="absolute left-12 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-blue-500 peer-valid:top-1 peer-valid:text-xs">GitHub Repository URL</label>
                   </div>
                    <div className="relative">
                       <Figma className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
-                      <input type="url" name="figmaURL" value={round2Data.figmaURL} onChange={handleRound2Change} className="w-full px-4 py-3 pl-12 bg-white/50 dark:bg-gray-700/50 border border-gray-200/50 dark:border-gray-600/50 rounded-lg focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all duration-300 peer" placeholder=" " required />
+                      <input type="url" name="figmaURL" value={round2Data.figmaURL} onChange={handleRound2Change} className="w-full px-4 py-3 pl-12 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all duration-300 peer" placeholder=" " required />
                       <label className="absolute left-12 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-purple-500 peer-valid:top-1 peer-valid:text-xs">Figma Design URL</label>
                   </div>
                   <div className="relative">
                       <FileText className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
-                      <input type="url" name="pptURL" value={round2Data.pptURL} onChange={handleRound2Change} className="w-full px-4 py-3 pl-12 bg-white/50 dark:bg-gray-700/50 border border-gray-200/50 dark:border-gray-600/50 rounded-lg focus:ring-2 focus:ring-yellow-500/50 focus:border-transparent transition-all duration-300 peer" placeholder=" " required />
+                      <input type="url" name="pptURL" value={round2Data.pptURL} onChange={handleRound2Change} className="w-full px-4 py-3 pl-12 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-yellow-500/50 focus:border-transparent transition-all duration-300 peer" placeholder=" " required />
                       <label className="absolute left-12 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-yellow-500 peer-valid:top-1 peer-valid:text-xs">Presentation URL (Drive Link)</label>
                   </div>
                 </>
               )}
               {/* Common Description */}
               <div>
-                <textarea name="description" value={currentData.description} onChange={viewingRound === 1 ? handleRound1Change : handleRound2Change} rows="8" className="w-full px-4 py-3 bg-white/50 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600/50 rounded-lg focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition resize-none" placeholder="Provide a detailed project description..." required/>
+                <textarea name="description" value={currentData.description} onChange={viewingRound === 1 ? handleRound1Change : handleRound2Change} rows="8" className="w-full px-4 py-3 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition resize-none" placeholder="Provide a detailed project description..." required/>
                 <div className={`text-sm mt-2 text-right ${isWordCountExceeded ? 'text-red-500' : 'text-gray-500 dark:text-gray-400'}`}>{wordCount} / 1000 words</div>
                 {isWordCountExceeded && <div className="text-red-500 text-sm mt-1">Word count limit exceeded.</div>}
               </div>

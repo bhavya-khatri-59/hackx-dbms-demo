@@ -72,20 +72,20 @@ const Dashboard = () => {
 
   if (hasTeam) {
     return (
-      <div className="py-12 px-4">
+      <div className="py-12 px-4 bg-black">
         <div className="max-w-4xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-white mb-4">
               Welcome back, {user?.name}!
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
+            <p className="text-lg text-gray-400">
               You're part of <span className="font-semibold text-blue-600 dark:text-blue-400">{team.name}</span>
             </p>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }} className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-white/50 dark:border-gray-700/50">
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }} className="bg-black/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-gray-700/50">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Team Information</h2>
+              <h2 className="text-2xl font-bold text-white">Team Information</h2>
               <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={copyInviteCode} className="flex items-center space-x-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors duration-300 w-full sm:w-auto justify-center">
                 {copiedCode ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                 <span>{copiedCode ? 'Copied!' : 'Copy Invite Code'}</span>
@@ -111,7 +111,7 @@ const Dashboard = () => {
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Team Members ({team.members?.length || 0})</label>
                 <div className="space-y-2 max-h-48 overflow-y-auto pr-2">
                   {team.members?.map((member) => (
-                    <div key={member.email} className="flex items-center space-x-3 p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <div key={member.email} className="flex items-center space-x-3 p-2 bg-black/50 rounded-lg border border-gray-700/30">
                       <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
                         {member.name.charAt(0).toUpperCase()}
                       </div>
@@ -131,13 +131,13 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="py-12 px-4">
+    <div className="py-12 px-4 bg-black">
       <div className="max-w-4xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-4xl md:text-5xl font-bold text-white">
             Welcome to HackXpertise 2.0
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
             Ready to start your hackathon journey? Create a new team or join an existing one to get started.
           </p>
         </motion.div>
@@ -148,7 +148,7 @@ const Dashboard = () => {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="flex items-center justify-center gap-2 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 p-3 rounded-lg mb-8 max-w-md mx-auto"
+              className="flex items-center justify-center gap-2 bg-red-900/50 text-red-300 p-3 rounded-lg mb-8 max-w-md mx-auto border border-red-700/50"
             >
               <AlertCircle className="w-5 h-5"/> {error}
             </motion.div>
@@ -157,16 +157,16 @@ const Dashboard = () => {
 
         <div className="grid md:grid-cols-2 gap-8">
           {/* Create Team Card */}
-          <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-white/50 dark:border-gray-700/50">
+          <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="bg-black/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-gray-700/50">
             <div className="text-center mb-6">
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <Plus className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Create a Team</h3>
-              <p className="text-gray-600 dark:text-gray-400">Start your own team and invite others.</p>
+              <h3 className="text-2xl font-bold text-white">Create a Team</h3>
+              <p className="text-gray-400">Start your own team and invite others.</p>
             </div>
             <form onSubmit={handleCreateTeam} className="space-y-4">
-              <input type="text" value={teamName} onChange={(e) => setTeamName(e.target.value)} className="w-full px-4 py-3 bg-white/50 dark:bg-gray-700/50 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" placeholder="Enter Team Name" required />
+              <input type="text" value={teamName} onChange={(e) => setTeamName(e.target.value)} className="w-full px-4 py-3 bg-black/50 text-white border border-gray-600/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" placeholder="Enter Team Name" required />
               <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={isLoading} className="w-full py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition disabled:opacity-50">
                 {isLoading ? 'Creating...' : 'Create Team'}
               </motion.button>
@@ -174,16 +174,16 @@ const Dashboard = () => {
           </motion.div>
 
           {/* Join Team Card */}
-          <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-white/50 dark:border-gray-700/50">
+          <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className="bg-black/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-gray-700/50">
              <div className="text-center mb-6">
               <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <Users className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Join a Team</h3>
-              <p className="text-gray-600 dark:text-gray-400">Enter an invite code to join a team.</p>
+              <h3 className="text-2xl font-bold text-white">Join a Team</h3>
+              <p className="text-gray-400">Enter an invite code to join a team.</p>
             </div>
             <form onSubmit={handleJoinTeam} className="space-y-4">
-              <input type="text" value={inviteCode} onChange={(e) => setInviteCode(e.target.value)} className="w-full px-4 py-3 bg-white/50 dark:bg-gray-700/50 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600/50 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition font-mono text-center tracking-widest" placeholder="ENTER INVITE CODE" required />
+              <input type="text" value={inviteCode} onChange={(e) => setInviteCode(e.target.value)} className="w-full px-4 py-3 bg-black/50 text-white border border-gray-600/50 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition font-mono text-center tracking-widest" placeholder="ENTER INVITE CODE" required />
               <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={isLoading} className="w-full py-3 bg-gradient-to-r from-teal-500 to-green-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition disabled:opacity-50">
                 {isLoading ? 'Joining...' : 'Join Team'}
               </motion.button>
