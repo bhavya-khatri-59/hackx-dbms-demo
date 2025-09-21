@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Calendar, Pen, Code, Bug, Trophy, Clock } from 'lucide-react';
+import { Calendar, Pen, Code, Bug, Trophy } from 'lucide-react';
 import { useTeam } from '../contexts/TeamContext';
 import TeamGateModal from '../components/TeamGateModal';
 
@@ -10,40 +10,30 @@ const staticTimelineEvents = [
     id: 1,
     title: 'Registration & Team Formation',
     description: 'Register for the hackathon and form your team. Maximum 4 members per team.',
-    date: 'Jan 15, 2025',
-    time: '09:00 AM',
     icon: Calendar,
   },
   {
     id: 2,
     title: 'Ideation & Design Phase',
     description: 'Brainstorm ideas, create wireframes, and design your solution using Figma or similar tools.',
-    date: 'Jan 16, 2025',
-    time: '10:00 AM',
     icon: Pen,
   },
   {
     id: 3,
     title: 'Development Sprint',
     description: 'Build your solution! This is where the magic happens. Code, implement, and bring your ideas to life.',
-    date: 'Jan 17-18, 2025',
-    time: '48 Hours',
     icon: Code,
   },
   {
     id: 4,
     title: 'Testing & Demo Preparation',
     description: 'Test your application thoroughly and prepare your demo presentation for the judges.',
-    date: 'Jan 19, 2025',
-    time: '02:00 PM',
     icon: Bug,
   },
   {
     id: 5,
     title: 'Final Submission & Evaluation',
     description: 'Submit your project and present to our panel of expert judges. Winners will be announced!',
-    date: 'Jan 19, 2025',
-    time: '06:00 PM',
     icon: Trophy,
   }
 ];
@@ -98,13 +88,13 @@ const TimelineEvent = ({ event, index, isLeft }) => {
               <div className={`mt-1 w-8 h-8 bg-gradient-to-r ${getStatusColor(event.status)} rounded-full flex items-center justify-center shadow-md flex-shrink-0`}>
                 <Icon className="w-4 h-4 text-white" />
               </div>
-              <div className="flex-1">
+              {/* <div className="flex-1">
                 <h3 className="text-base font-bold text-gray-900 dark:text-white">{event.title}</h3>
                 <div className="flex items-center space-x-2 text-xs text-gray-500 dark:text-gray-400">
                   <Clock className="w-3 h-3" />
                   <span>{event.date} at {event.time}</span>
                 </div>
-              </div>
+              </div> */}
             </div>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">{event.description}</p>
             {event.status === 'current' && (
@@ -132,10 +122,6 @@ const TimelineEvent = ({ event, index, isLeft }) => {
               </div>
               <div>
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white">{event.title}</h3>
-                <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-                  <Clock className="w-4 h-4" />
-                  <span>{event.date} at {event.time}</span>
-                </div>
               </div>
             </div>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">{event.description}</p>

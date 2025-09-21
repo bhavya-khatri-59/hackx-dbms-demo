@@ -87,7 +87,7 @@ const Dashboard = () => {
 
           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }}>
             <ParticleCard 
-              className="card card--border-glow p-4 shadow-xl max-w-2xl mx-auto"
+              className="card card--border-glow p-6 shadow-xl max-w-4xl mx-auto"
               style={{ 
                 backgroundColor: '#060010',
                 '--glow-color': '132, 0, 255',
@@ -102,41 +102,41 @@ const Dashboard = () => {
               particleCount={8}
               glowColor="132, 0, 255"
             >
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 gap-2">
-                <h2 className="text-lg font-bold text-white">Team Information</h2>
-                <div className="flex gap-1">
-                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={copyInviteCode} className="flex items-center space-x-1 px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded text-xs">
-                    {copiedCode ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-                    <span>{copiedCode ? 'Copied!' : 'Copy'}</span>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-3">
+                <h2 className="text-2xl font-bold text-white">Team Information</h2>
+                <div className="flex gap-2">
+                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={copyInviteCode} className="flex items-center space-x-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-medium">
+                    {copiedCode ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                    <span>{copiedCode ? 'Copied!' : 'Copy Code'}</span>
                   </motion.button>
-                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={async () => { await leaveTeam(); }} className="px-2 py-1 bg-red-500 hover:bg-red-600 text-white rounded text-xs">
-                    Leave
+                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={async () => { await leaveTeam(); }} className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg text-sm font-medium">
+                    Leave Team
                   </motion.button>
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-3">
-                <div className="space-y-2">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-4">
                   <div>
-                    <label className="block text-xs font-medium text-gray-300 mb-0.5">Team Name</label>
-                    <div className="text-sm font-semibold text-white">{team.name}</div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Team Name</label>
+                    <div className="text-lg font-semibold text-white">{team.name}</div>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-300 mb-0.5">Invite Code</label>
-                    <div className="text-sm font-mono font-semibold text-blue-400">{team.code}</div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Invite Code</label>
+                    <div className="text-lg font-mono font-semibold text-blue-400">{team.code}</div>
                   </div>
                 </div>
                 
                 <div>
-                  <label className="block text-xs font-medium text-gray-300 mb-1">Members ({team.members?.length || 0})</label>
-                  <div className="space-y-1 max-h-20 overflow-y-auto">
+                  <label className="block text-sm font-medium text-gray-300 mb-3">Members ({team.members?.length || 0})</label>
+                  <div className="space-y-2">
                     {team.members?.map((member) => (
-                      <div key={member.email} className="flex items-center space-x-2 p-1 bg-black/50 rounded border border-gray-700/30">
-                        <div className="w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold text-xs flex-shrink-0">
+                      <div key={member.email} className="flex items-center space-x-3 p-3 bg-black/50 rounded-lg border border-gray-700/30">
+                        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
                           {member.name.charAt(0).toUpperCase()}
                         </div>
                         <div className="min-w-0 flex-1">
-                          <div className="text-xs font-medium text-white truncate">{member.name}</div>
+                          <div className="text-sm font-medium text-white truncate">{member.name}</div>
                         </div>
                       </div>
                     ))}

@@ -72,22 +72,22 @@ const LandingPage = () => {
       title: 'About HackXpertise 2.0',
       content: "HackXpertise 2.0, the flagship event of IEEE TEMS at graVITas’25, is a dynamic two-day hackathon that brings creativity, collaboration, and innovation to the forefront. This beginner-friendly event introduces participants to the world of hackathons, guiding them through the process, tools, and strategies needed to succeed.",
       icon: Zap,
-      image: '/assets/hackXpertise2.0.png',
+      image: '/assets/hack_event.png',
       height: 'h-30'
     },
     {
       title: 'About VIT Vellore',
       content: "Vellore Institute of Technology (VIT) has always been at the forefront in developing novel technologies and has achieved several National and International accolades.",
       icon: Award,
-      image: '/assets/vit_vellore.png',
-      height: 'h-40'
+      image: '/assets/vit_main.webp',
+      height: '<h-7></h-7>0'
     },
     {
       title: 'About IEEE TEMS',
       content: "We are a dynamic and forward-thinking community of students dedicated to advancing the frontiers of technology and engineering management. Our chapter serves as a vibrant hub for innovation, leadership development, and collaboration. At IEEE TEMS VIT, our mission is to ignite curiosity and drive change.",
       icon: Globe,
-      image: '/assets/ieee_tems.png',
-      height: 'h-60'
+      image: '/assets/tems.webp',
+      height: 'h-80'
     }
   ];
 
@@ -127,7 +127,7 @@ const LandingPage = () => {
   <PixelBlast
     variant="square"
     pixelSize={2}
-    color="#FFF9C4"
+    color="blue"
     patternScale={2}
     patternDensity={1}
     pixelSizeJitter={0.3}
@@ -174,13 +174,13 @@ const LandingPage = () => {
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="w-full max-w-xl md:max-w-3xl" // Increased size
+              className="w-full max-w-md md:max-w-xl" // Decreased size
             />
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="varela-round-regular text-xl md:text-2xl text-yellow-300 font-bold mt-6 text-center"
+              className="varela-round-regular text-xl md:text-2xl text-white-300 font-bold mt-6 text-center"
             >
               Hack like a pro !
             </motion.p>
