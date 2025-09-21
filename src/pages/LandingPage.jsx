@@ -124,23 +124,23 @@ const LandingPage = () => {
     <>
       {/* Fixed Black Background */}
       <div className="fixed inset-0 z-0 bg-black">
-        <PixelBlast
-          variant="square"
-          pixelSize={2}
-          color="#fad366ff"
-          patternScale={2}
-          patternDensity={1}
-          pixelSizeJitter={0.3}
-          enableRipples={true}
-          rippleSpeed={0.3}
-          rippleThickness={0.08}
-          rippleIntensityScale={1.0}
-          liquid={false}
-          speed={0.5}
-          edgeFade={0.25}
-          transparent={true}
-        />
-      </div>
+  <PixelBlast
+    variant="square"
+    pixelSize={2}
+    color="#FFF9C4"
+    patternScale={2}
+    patternDensity={1}
+    pixelSizeJitter={0.3}
+    enableRipples={true}
+    rippleSpeed={0.3}
+    rippleThickness={0.08}
+    rippleIntensityScale={1.0}
+    liquid={false}
+    speed={0.5}
+    edgeFade={0.25}
+    transparent={true}
+  />
+</div>
 
       {/* Main Content Wrapper */}
       <div className="relative z-10">
