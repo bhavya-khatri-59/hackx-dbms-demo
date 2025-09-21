@@ -124,7 +124,7 @@ const CategorySection = ({ category, data, searchTerm }) => {
         <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center shadow-lg">
           <Icon className="w-5 h-5 text-white" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{category}</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white" style={{ color: '#ffffff' }}>{category}</h2>
       </div>
 
       <div className="space-y-4">
@@ -144,7 +144,7 @@ const CategorySection = ({ category, data, searchTerm }) => {
                 className="w-full px-6 py-4 text-left focus:outline-none focus:ring-2 focus:ring-blue-500/50 hover:bg-gray-50/50 dark:hover:bg-gray-700/50 transition-colors duration-300"
               >
                 <div className="flex justify-between items-center">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white pr-4">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white pr-4" style={{ color: '#ffffff' }}>
                     {faq.question}
                   </h3>
                   <motion.div
@@ -191,10 +191,10 @@ const FAQs = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4" style={{ color: '#ffffff' }}>
             Frequently Asked Questions
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto" style={{ color: '#9ca3af' }}>
             Find answers to common questions about HackXpertise
           </p>
         </motion.div>

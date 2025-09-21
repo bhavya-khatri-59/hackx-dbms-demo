@@ -177,7 +177,18 @@ const Dashboard = () => {
 
         <div className="grid md:grid-cols-2 gap-8">
           {/* Create Team Card */}
-          <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="bg-black/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-gray-700/50">
+          <motion.div 
+            initial={{ opacity: 0, x: -50 }} 
+            animate={{ opacity: 1, x: 0 }} 
+            transition={{ delay: 0.2 }} 
+            className="bg-black/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-gray-700/50"
+            style={{
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              msBackdropFilter: 'blur(20px)'
+            }}
+          >
             <div className="text-center mb-6">
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <Plus className="w-8 h-8 text-white" />
@@ -194,7 +205,18 @@ const Dashboard = () => {
           </motion.div>
 
           {/* Join Team Card */}
-          <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className="bg-black/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-gray-700/50">
+          <motion.div 
+            initial={{ opacity: 0, x: 50 }} 
+            animate={{ opacity: 1, x: 0 }} 
+            transition={{ delay: 0.4 }} 
+            className="bg-black/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-gray-700/50"
+            style={{
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              msBackdropFilter: 'blur(20px)'
+            }}
+          >
              <div className="text-center mb-6">
               <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <Users className="w-8 h-8 text-white" />

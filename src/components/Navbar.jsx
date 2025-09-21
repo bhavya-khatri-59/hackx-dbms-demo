@@ -50,7 +50,12 @@ const Navbar = () => {
       animate={{ y: 0 }}
       className="fixed top-4 left-4 right-4 z-50 bg-white/10 dark:bg-gray-900/10 backdrop-blur-xl border border-white/20 dark:border-gray-700/30 rounded-2xl shadow-2xl"
       style={{
-        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 0 50px rgba(132, 0, 255, 0.1)'
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 0 50px rgba(132, 0, 255, 0.1)',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        msBackdropFilter: 'blur(20px)',
+        filter: 'progid:DXImageTransform.Microsoft.Blur(pixelradius=20)'
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -85,9 +90,12 @@ const Navbar = () => {
                       to={item.path}
                       className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                         isActive
-                          ? 'text-purple-600 dark:text-purple-400 bg-purple-50/50 dark:bg-purple-900/20'
-                          : 'text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50/30 dark:hover:bg-purple-900/10'
+                          ? 'bg-purple-50/50 dark:bg-purple-900/20'
+                          : 'hover:bg-purple-50/30 dark:hover:bg-purple-900/10'
                       }`}
+                      style={{
+                        color: isActive ? '#9333ea' : '#6b7280',
+                      }}
                     >
                       <Icon className="w-4 h-4 mr-2" />
                       {item.label}
@@ -106,7 +114,8 @@ const Navbar = () => {
             {/* Submission direct link */}
             <Link
               to="/submission"
-              className="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50/30 dark:hover:bg-purple-900/10 transition-all duration-300"
+              className="flex items-center px-3 py-2 rounded-lg text-sm font-medium hover:bg-purple-50/30 dark:hover:bg-purple-900/10 transition-all duration-300"
+              style={{ color: '#6b7280' }}
             >
               <Upload className="w-4 h-4 mr-2" />
               Submission
@@ -120,7 +129,8 @@ const Navbar = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={toggleTheme}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
+              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
+              style={{ color: '#6b7280' }}
             >
               <AnimatePresence mode="wait">
                 {isDark ? (
@@ -160,7 +170,8 @@ const Navbar = () => {
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMobileOpen(!isMobileOpen)}
-              className="md:hidden p-2 text-gray-600 dark:text-gray-300"
+              className="md:hidden p-2"
+              style={{ color: '#6b7280' }}
             >
               {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -196,9 +207,12 @@ const Navbar = () => {
                     onClick={() => setIsMobileOpen(false)}
                     className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                       isActive
-                        ? 'text-purple-600 dark:text-purple-400 bg-purple-50/50 dark:bg-purple-900/20'
-                        : 'text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50/30 dark:hover:bg-purple-900/10'
+                        ? 'bg-purple-50/50 dark:bg-purple-900/20'
+                        : 'hover:bg-purple-50/30 dark:hover:bg-purple-900/10'
                     }`}
+                    style={{
+                      color: isActive ? '#9333ea' : '#6b7280',
+                    }}
                   >
                     <Icon className="w-4 h-4 mr-3" />
                     {item.label}
@@ -212,7 +226,8 @@ const Navbar = () => {
                   key={item.path}
                   to={item.path}
                   onClick={() => setIsMobileOpen(false)}
-                  className="block px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50/30 dark:hover:bg-purple-900/10 rounded-lg transition-colors duration-200"
+                  className="block px-3 py-2 text-sm hover:bg-purple-50/30 dark:hover:bg-purple-900/10 rounded-lg transition-colors duration-200"
+                  style={{ color: '#6b7280' }}
                 >
                   <Upload className="w-4 h-4 mr-3 inline" />
                   {item.label}

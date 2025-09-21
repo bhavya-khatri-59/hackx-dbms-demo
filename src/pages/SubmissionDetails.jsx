@@ -8,7 +8,7 @@ const ExpandableText = ({ text, maxLength = 250 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   if (!text) {
-    return <p className="text-gray-600 dark:text-gray-400 italic">No description provided.</p>;
+    return <p className="text-gray-600 dark:text-gray-400 italic" style={{ color: '#9CA3AF' }}>No description provided.</p>;
   }
 
   const isLongText = text.length > maxLength;
@@ -16,7 +16,7 @@ const ExpandableText = ({ text, maxLength = 250 }) => {
 
   return (
     <div>
-      <p className="text-gray-600 dark:text-gray-400 whitespace-pre-wrap break-words">{displayText}</p>
+      <p className="text-gray-600 dark:text-gray-400 whitespace-pre-wrap break-words" style={{ color: '#9CA3AF' }}>{displayText}</p>
       {isLongText && (
         <button
           onClick={() => setIsExpanded(!isExpanded)}
@@ -194,7 +194,7 @@ const SubmissionDetails = () => {
         <div className="max-w-4xl mx-auto text-center">
           <div className="bg-red-900/20 border border-red-500/50 rounded-lg p-8">
             <AlertTriangle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-white mb-4">Application Error</h1>
+            <h1 className="text-2xl font-bold text-white mb-4" style={{ color: '#ffffff' }}>Application Error</h1>
             <p className="text-gray-300 mb-6">{error}</p>
             <button 
               onClick={() => {
@@ -212,7 +212,7 @@ const SubmissionDetails = () => {
     );
   }
 
-  if (isLoading) return <div className="min-h-screen pt-24 pb-12 px-4 text-center dark:text-white">Loading...</div>;
+  if (isLoading) return <div className="min-h-screen pt-24 pb-12 px-4 text-center dark:text-white" style={{ color: '#ffffff' }}>Loading...</div>;
 
   if (error && !submissions?.round1 && !submissions?.round2) {
     return (
@@ -220,7 +220,7 @@ const SubmissionDetails = () => {
         <div className="max-w-4xl mx-auto text-center">
           <div className="bg-red-900/20 border border-red-500/50 rounded-lg p-8">
             <AlertTriangle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-white mb-4">Error Loading Submissions</h1>
+            <h1 className="text-2xl font-bold text-white mb-4" style={{ color: '#ffffff' }}>Error Loading Submissions</h1>
             <p className="text-gray-300 mb-6">{error}</p>
             <button 
               onClick={() => window.location.reload()} 
@@ -241,8 +241,8 @@ const SubmissionDetails = () => {
         <div className="max-w-4xl mx-auto text-center">
           <div className="bg-yellow-900/20 border border-yellow-500/50 rounded-lg p-8">
             <AlertTriangle className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-white mb-4">No Team Found</h1>
-            <p className="text-gray-300 mb-6">Please create or join a team to access submissions.</p>
+            <h1 className="text-2xl font-bold text-white mb-4" style={{ color: '#ffffff' }}>No Team Found</h1>
+            <p className="text-gray-300 mb-6" style={{ color: '#D1D5DB' }}>Please create or join a team to access submissions.</p>
           </div>
         </div>
       </div>
@@ -258,7 +258,7 @@ const SubmissionDetails = () => {
                 <button onClick={() => {
                   setViewingRound(1);
                   setIsEditing(!submissions.round1);
-                }} className={`px-6 py-2 rounded-md transition-all duration-300 ${viewingRound === 1 ? 'bg-purple-500 text-white shadow-lg' : 'text-gray-600 dark:text-gray-400'}`}>Round 1</button>
+                }} className={`px-6 py-2 rounded-md transition-all duration-300 ${viewingRound === 1 ? 'bg-purple-500 text-white shadow-lg' : 'text-gray-600 dark:text-gray-400'}`} style={{ color: viewingRound === 1 ? '#ffffff' : '#9CA3AF' }}>Round 1</button>
                 <button 
                   onClick={() => {
                     setViewingRound(2);
@@ -266,6 +266,7 @@ const SubmissionDetails = () => {
                   }} 
                   disabled={hackathonRound < 2}
                   className={`px-6 py-2 rounded-md transition-all duration-300 flex items-center gap-2 ${viewingRound === 2 ? 'bg-purple-500 text-white shadow-lg' : 'text-gray-600 dark:text-gray-400'} ${hackathonRound < 2 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  style={{ color: viewingRound === 2 ? '#ffffff' : '#9CA3AF' }}
                 >
                   {hackathonRound < 2 && <Lock size={14} />}
                   Round 2
@@ -278,23 +279,23 @@ const SubmissionDetails = () => {
           <motion.div initial={{opacity: 0}} animate={{opacity: 1}}>
             <div className="text-center mb-12">
                 <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                <h1 className="text-4xl font-bold text-gray-900 dark:text-white">Round {viewingRound} Submitted</h1>
+                <h1 className="text-4xl font-bold text-gray-900 dark:text-white" style={{ color: '#ffffff' }}>Round {viewingRound} Submitted</h1>
             </div>
             <div className="bg-black/80 p-8 rounded-2xl shadow-xl space-y-6">
               {viewingRound === 1 ? (
                 <>
-                  <div><strong className="text-gray-800 dark:text-gray-200 block mb-1">Problem Statement:</strong> <p className="text-gray-600 dark:text-gray-400">{selectedProblem?.title || 'N/A'}</p></div>
-                  <div><strong className="text-gray-800 dark:text-gray-200 block mb-1">Template URL:</strong> <a href={currentSubmission.ppttemplateurl || currentSubmission.pptTemplateURL} className="text-blue-500 hover:underline break-all">{currentSubmission.ppttemplateurl || currentSubmission.pptTemplateURL}</a></div>
+                  <div><strong className="text-gray-800 dark:text-gray-200 block mb-1" style={{ color: '#E5E7EB' }}>Problem Statement:</strong> <p className="text-gray-600 dark:text-gray-400" style={{ color: '#9CA3AF' }}>{selectedProblem?.title || 'N/A'}</p></div>
+                  <div><strong className="text-gray-800 dark:text-gray-200 block mb-1" style={{ color: '#E5E7EB' }}>Template URL:</strong> <a href={currentSubmission.ppttemplateurl || currentSubmission.pptTemplateURL} className="text-blue-500 hover:underline break-all">{currentSubmission.ppttemplateurl || currentSubmission.pptTemplateURL}</a></div>
                 </>
               ) : (
                 <>
-                  <div><strong className="text-gray-800 dark:text-gray-200 block mb-1">GitHub:</strong> <a href={currentSubmission.githuburl} className="text-blue-500 hover:underline break-all">{currentSubmission.githuburl}</a></div>
-                  <div><strong className="text-gray-800 dark:text-gray-200 block mb-1">Figma:</strong> <a href={currentSubmission.figmaurl} className="text-blue-500 hover:underline break-all">{currentSubmission.figmaurl}</a></div>
-                  <div><strong className="text-gray-800 dark:text-gray-200 block mb-1">Presentation:</strong> <a href={currentSubmission.ppturl} className="text-blue-500 hover:underline break-all">{currentSubmission.ppturl}</a></div>
+                  <div><strong className="text-gray-800 dark:text-gray-200 block mb-1" style={{ color: '#E5E7EB' }}>GitHub:</strong> <a href={currentSubmission.githuburl} className="text-blue-500 hover:underline break-all">{currentSubmission.githuburl}</a></div>
+                  <div><strong className="text-gray-800 dark:text-gray-200 block mb-1" style={{ color: '#E5E7EB' }}>Figma:</strong> <a href={currentSubmission.figmaurl} className="text-blue-500 hover:underline break-all">{currentSubmission.figmaurl}</a></div>
+                  <div><strong className="text-gray-800 dark:text-gray-200 block mb-1" style={{ color: '#E5E7EB' }}>Presentation:</strong> <a href={currentSubmission.ppturl} className="text-blue-500 hover:underline break-all">{currentSubmission.ppturl}</a></div>
                 </>
               )}
               <div className="pt-2">
-                <strong className="block mb-2 text-gray-800 dark:text-gray-200">Description:</strong>
+                <strong className="block mb-2 text-gray-800 dark:text-gray-200" style={{ color: '#E5E7EB' }}>Description:</strong>
                 <ExpandableText text={currentSubmission.description} />
               </div>
             </div>
@@ -328,12 +329,11 @@ const SubmissionDetails = () => {
                       </select>
                       <ChevronDown className="absolute right-3 top-3.5 w-5 h-5 text-gray-400 pointer-events-none" />
                     </div>
-                    {selectedProblem && <p className="text-sm mt-3 p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg text-purple-800 dark:text-purple-200">{selectedProblem.description}</p>}
                   </div>
                   <div className="relative">
                     <FileText className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
                     <input type="url" name="pptTemplateURL" value={round1Data.pptTemplateURL} onChange={handleRound1Change} className="w-full px-4 py-3 pl-12 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-yellow-500/50 focus:border-transparent transition-all duration-300 peer" placeholder=" " required />
-                    <label className="absolute left-12 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-yellow-500 peer-valid:top-1 peer-valid:text-xs">PPT Template URL</label>
+                    <label className="absolute left-12 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-yellow-500 peer-valid:top-1 peer-valid:text-xs" style={{ color: '#9CA3AF' }}>PPT Template URL</label>
                   </div>
                 </>
               ) : (
@@ -342,27 +342,27 @@ const SubmissionDetails = () => {
                    <div className="relative">
                       <Github className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
                       <input type="url" name="githubURL" value={round2Data.githubURL} onChange={handleRound2Change} className="w-full px-4 py-3 pl-12 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-300 peer" placeholder=" " required />
-                      <label className="absolute left-12 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-blue-500 peer-valid:top-1 peer-valid:text-xs">GitHub Repository URL</label>
+                      <label className="absolute left-12 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-blue-500 peer-valid:top-1 peer-valid:text-xs" style={{ color: '#9CA3AF' }}>GitHub Repository URL</label>
                   </div>
                    <div className="relative">
                       <Figma className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
                       <input type="url" name="figmaURL" value={round2Data.figmaURL} onChange={handleRound2Change} className="w-full px-4 py-3 pl-12 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all duration-300 peer" placeholder=" " required />
-                      <label className="absolute left-12 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-purple-500 peer-valid:top-1 peer-valid:text-xs">Figma Design URL</label>
+                      <label className="absolute left-12 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-purple-500 peer-valid:top-1 peer-valid:text-xs" style={{ color: '#9CA3AF' }}>Figma Design URL</label>
                   </div>
                   <div className="relative">
                       <FileText className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
                       <input type="url" name="pptURL" value={round2Data.pptURL} onChange={handleRound2Change} className="w-full px-4 py-3 pl-12 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-yellow-500/50 focus:border-transparent transition-all duration-300 peer" placeholder=" " required />
-                      <label className="absolute left-12 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-yellow-500 peer-valid:top-1 peer-valid:text-xs">Presentation URL (Drive Link)</label>
+                      <label className="absolute left-12 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-yellow-500 peer-valid:top-1 peer-valid:text-xs" style={{ color: '#9CA3AF' }}>Presentation URL (Drive Link)</label>
                   </div>
                 </>
               )}
               {/* Common Description */}
               <div>
                 <textarea name="description" value={currentData.description} onChange={viewingRound === 1 ? handleRound1Change : handleRound2Change} rows="8" className="w-full px-4 py-3 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition resize-none" placeholder="Provide a detailed project description..." required/>
-                <div className={`text-sm mt-2 text-right ${isWordCountExceeded ? 'text-red-500' : 'text-gray-500 dark:text-gray-400'}`}>{wordCount} / 1000 words</div>
+                <div className={`text-sm mt-2 text-right ${isWordCountExceeded ? 'text-red-500' : 'text-gray-500 dark:text-gray-400'}`} style={{ color: isWordCountExceeded ? '#EF4444' : '#9CA3AF' }}>{wordCount} / 1000 words</div>
                 {isWordCountExceeded && <div className="text-red-500 text-sm mt-1">Word count limit exceeded.</div>}
               </div>
-              {error && <div className="text-red-500 p-3 bg-red-100 dark:bg-red-900/30 rounded-lg">{error}</div>}
+              {error && <div className="text-red-500 p-3 bg-red-100 dark:bg-red-900/30 rounded-lg" style={{ color: '#EF4444' }}>{error}</div>}
               <motion.button
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
@@ -373,7 +373,7 @@ const SubmissionDetails = () => {
                   <Upload size={18}/>
                   <span>{isSubmitting ? 'Submitting...' : (isEditing && submissions[`round${viewingRound}`] ? `Update Round ${viewingRound}` : `Submit Round ${viewingRound}`)}</span>
                 </motion.button>
-              {isEditing && currentSubmission && <button type="button" onClick={() => { setIsEditing(false); }} className="w-full mt-2 py-3 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg">Cancel</button>}
+              {isEditing && currentSubmission && <button type="button" onClick={() => { setIsEditing(false); }} className="w-full mt-2 py-3 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg" style={{ color: '#374151' }}>Cancel</button>}
             </form>
           </motion.div>
         )}

@@ -83,13 +83,19 @@ const TimelineEvent = ({ event, index, isLeft }) => {
             className={`bg-black/80 backdrop-blur-xl rounded-xl p-4 shadow-lg border border-gray-700/50 hover:shadow-xl transition-shadow duration-300 ${
               event.status === 'current' ? 'ring-2 ring-purple-500' : ''
             }`}
+            style={{
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              msBackdropFilter: 'blur(20px)'
+            }}
           >
             <div className="flex items-start space-x-3 mb-3">
               <div className={`mt-1 w-8 h-8 bg-gradient-to-r ${getStatusColor(event.status)} rounded-full flex items-center justify-center shadow-md flex-shrink-0`}>
                 <Icon className="w-4 h-4 text-white" />
               </div>
               {/* <div className="flex-1">
-                <h3 className="text-base font-bold text-gray-900 dark:text-white">{event.title}</h3>
+                <h3 className="text-base font-bold text-gray-900 dark:text-white" style={{ color: '#ffffff' }}>{event.title}</h3>
                 <div className="flex items-center space-x-2 text-xs text-gray-500 dark:text-gray-400">
                   <Clock className="w-3 h-3" />
                   <span>{event.date} at {event.time}</span>
@@ -115,13 +121,19 @@ const TimelineEvent = ({ event, index, isLeft }) => {
             className={`bg-black/80 backdrop-blur-xl rounded-xl p-6 shadow-lg border border-gray-700/50 hover:shadow-xl transition-shadow duration-300 ${
               event.status === 'current' ? 'ring-2 ring-offset-4 ring-offset-slate-50 dark:ring-offset-gray-900 ring-purple-500' : ''
             }`}
+            style={{
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              msBackdropFilter: 'blur(20px)'
+            }}
           >
             <div className="flex items-start space-x-4 mb-3">
               <div className={`mt-1 w-10 h-10 bg-gradient-to-r ${getStatusColor(event.status)} rounded-full flex items-center justify-center shadow-md flex-shrink-0`}>
                 <Icon className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white">{event.title}</h3>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white" style={{ color: '#ffffff' }}>{event.title}</h3>
               </div>
             </div>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">{event.description}</p>
@@ -199,7 +211,7 @@ const TimelineEvent = ({ event, index, isLeft }) => {
   }
 
   if (isLoading) {
-    return <div className="min-h-screen text-center pt-32 dark:text-white">Loading timeline...</div>;
+    return <div className="min-h-screen text-center pt-32 dark:text-white" style={{ color: '#ffffff' }}>Loading timeline...</div>;
   }
 
   return (
@@ -209,16 +221,14 @@ const TimelineEvent = ({ event, index, isLeft }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
-        >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Hackathon Timeline
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Follow the journey from idea to implementation.
-          </p>
-        </motion.div>
-
-        <div className="relative">
+        >
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4" style={{ color: 'white' }}>
+            Hackathon Timeline
+          </h1>
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto" style={{ color: '#9CA3AF' }}>
+            Follow the journey from idea to implementation.
+          </p>
+        </motion.div>        <div className="relative">
           {/* Central Timeline Line */}
           <div className="absolute left-1/2 -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-500/50 via-blue-500/50 to-pink-500/50 rounded-full hidden md:block" />
           <div className="md:hidden absolute left-4 top-0 w-0.5 h-full bg-gradient-to-b from-purple-500/50 via-blue-500/50 to-pink-500/50 rounded-full" />                    <div className="space-y-8 md:space-y-16">
