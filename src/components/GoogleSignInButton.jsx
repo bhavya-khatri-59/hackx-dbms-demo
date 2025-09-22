@@ -34,6 +34,29 @@ const StudentDetailsModal = ({ open, onClose, userProfile }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
 
+  // Auto-populate VIT student details when modal opens
+  useEffect(() => {
+    if (open && userProfile?.email) {
+      if (userProfile.email.endsWith('@vitstudent.ac.in')) {
+        // Auto-fill college name for VIT students
+        setCollegeName('VIT VELLORE');
+        
+        // Extract registration number from name field
+        // Format: "Lakshya Gupta 23BDS0290" 
+        // Need to extract the part that starts with 20,21,22,23,24,25,26
+        const regNoMatch = userProfile.name.match(/\b(2[0-6]\w+)\b/);
+        const regNo = regNoMatch ? regNoMatch[1].toUpperCase() : '';
+        setRegistrationNumber(regNo);
+      } else {
+        // Reset fields for non-VIT students
+        setCollegeName('');
+        setRegistrationNumber('');
+      }
+      setPhoneNumber('');
+      setSubmitError(null);
+    }
+  }, [open, userProfile]);
+
   if (!open || !userProfile) return null;
 
   const handleSubmit = async (e) => {
@@ -107,15 +130,22 @@ const StudentDetailsModal = ({ open, onClose, userProfile }) => {
             value={collegeName}
             onChange={(e) => setCollegeName(e.target.value)}
             required
-            className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            readOnly={userProfile?.email?.endsWith('@vitstudent.ac.in')}
+            className={`w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
+              userProfile?.email?.endsWith('@vitstudent.ac.in') ? 'bg-gray-100 dark:bg-gray-600 cursor-not-allowed' : ''
+            }`}
           />
           <input
             type="text"
             placeholder="Registration Number"
             value={registrationNumber}
-            onChange={(e) => setRegistrationNumber(e.target.value)}
+            onChange={(e) => setRegistrationNumber(e.target.value.toUpperCase())}
             required
-            className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            readOnly={userProfile?.email?.endsWith('@vitstudent.ac.in')}
+            style={{ textTransform: 'uppercase' }}
+            className={`w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
+              userProfile?.email?.endsWith('@vitstudent.ac.in') ? 'bg-gray-100 dark:bg-gray-600 cursor-not-allowed' : ''
+            }`}
           />
           <input
             type="tel"

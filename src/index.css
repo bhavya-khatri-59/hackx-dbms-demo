@@ -7,14 +7,21 @@
   html {
     font-family: "Inter", system-ui, sans-serif;
     scroll-behavior: smooth;
+    scroll-padding-top: 2rem;
   }
 
   body {
     @apply antialiased;
+    overscroll-behavior: none;
   }
 
   * {
     @apply transition-colors duration-300;
+  }
+
+  /* Enhanced smooth scrolling for all elements */
+  html, body, div {
+    scroll-behavior: smooth;
   }
 }
 
@@ -29,6 +36,12 @@
 
   .gradient-text {
     @apply bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent;
+  }
+
+  /* Smooth scrolling utility class */
+  .smooth-scroll {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
   }
 
   /* Custom scrollbar */

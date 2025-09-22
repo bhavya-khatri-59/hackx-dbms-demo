@@ -18,7 +18,7 @@ function App() {
     <ThemeProvider>
       <TeamProvider>
         <Router>
-          <div className="min-h-screen transition-colors duration-500 bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-800">
+          <div className="min-h-screen transition-colors duration-500 bg-black">
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/*" element={
