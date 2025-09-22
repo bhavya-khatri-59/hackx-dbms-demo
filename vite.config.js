@@ -9,9 +9,16 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:5001', // Your backend server's address
+        target: process.env.VITE_API_URL || 'http://localhost:5001', // Your backend server's address
         changeOrigin: true, // Recommended for virtual hosted sites
         secure: false,      // Can be false if your backend is http
+        rewrite: (path) => {
+          // If we're using VITE_API_URL, don't rewrite the path
+          if (process.env.VITE_API_URL) {
+            return path;
+          }
+          return path;
+        }
       },
     },
   },

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { apiFetch } from '../config/api.js';
 
 const TeamContext = createContext();
 
@@ -44,22 +45,27 @@ export const TeamProvider = ({ children }) => {
   };
 
   const fetchTeam = async (teamId) => {
-    try {
-        const response = await fetch(`/api/teams/${teamId}`);
-        const data = await response.json();
-        if (response.ok) {
-            setTeam(data);
-            localStorage.setItem('hackx_team', JSON.stringify(data));
-            return data;
-        } else {
-            throw new Error(data.error || 'Failed to fetch team');
-        }
-    } catch (err) {
-        console.error(err);
-        // If team fetch fails, clear it from state/storage
-        setTeam(null);
-        localStorage.removeItem('hackx_team');
+  try {
+    const response = await apiFetch(`api/teams/${teamId}`);
+    const data = await response.json();
+    if (response.ok) {
+      setTeam(data);
+      localStorage.setItem('hackx_team', JSON.stringify(data));
+      return data;
+    } else if (response.status === 404) {
+      // Team not found, likely user not registered or not in a team
+      setTeam(null);
+      localStorage.removeItem('hackx_team');
+      throw new Error('No team found. Please register or join a team.');
+    } else {
+      throw new Error(data.error || 'Failed to fetch team');
     }
+  } catch (err) {
+    console.error(err);
+    setTeam(null);
+    localStorage.removeItem('hackx_team');
+    // Optionally, you can show a registration prompt here
+  }
   };
 
   const createTeam = async (teamName) => {
@@ -67,7 +73,7 @@ export const TeamProvider = ({ children }) => {
       throw new Error("You must be logged in to create a team.");
     }
     try {
-      const response = await fetch('/api/teams', {
+      const response = await apiFetch('api/teams', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: teamName, email: user.email }),
@@ -76,20 +82,17 @@ export const TeamProvider = ({ children }) => {
       if (response.ok) {
         setTeam(data);
         localStorage.setItem('hackx_team', JSON.stringify(data));
-        
         // Also update the user object in state and localStorage
         const updatedUser = { ...user, teamid: data.code };
         setUser(updatedUser);
         localStorage.setItem('hackx_user', JSON.stringify(updatedUser));
-        
         return data;
       } else {
-        window.alert("Error creating team: Your team name might already be taken.");
-        throw new Error(data.error || 'Error creating team');
+        throw new Error('Team name already exists!');
       }
     } catch (err) {
       console.error(err.message);
-      return null;
+      throw new Error('Could not create team, cause a team with this name already exists.');
     }
   };
 
@@ -97,31 +100,31 @@ export const TeamProvider = ({ children }) => {
     if (!user) {
         throw new Error("You must be logged in to join a team.");
     }
-    try {
-        const joinResponse = await fetch('/api/teams/join', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ teamId: inviteCode, email: user.email }),
-        });
-        const joinData = await joinResponse.json();
+  try {
+    const joinResponse = await apiFetch('api/teams/join', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ teamId: inviteCode, email: user.email }),
+    });
+    const joinData = await joinResponse.json();
 
-        if (joinResponse.ok) {
-            // After successfully joining, fetch the complete team data to update the UI
-            const teamData = await fetchTeam(inviteCode);
-            if(teamData) {
-                // Also update the user object in state and localStorage
-                const updatedUser = { ...user, teamid: teamData.code };
-                setUser(updatedUser);
-                localStorage.setItem('hackx_user', JSON.stringify(updatedUser));
-            }
-            return teamData;
-        } else {
-            throw new Error(joinData.error || 'Error joining team');
-        }
-    } catch (err) {
-        console.error(err.message);
-        throw err; // Re-throw the error so the component can catch it
+    if (joinResponse.ok) {
+      // After successfully joining, fetch the complete team data to update the UI
+      const teamData = await fetchTeam(inviteCode);
+      if(teamData) {
+        // Also update the user object in state and localStorage
+        const updatedUser = { ...user, teamid: teamData.code };
+        setUser(updatedUser);
+        localStorage.setItem('hackx_user', JSON.stringify(updatedUser));
+      }
+      return teamData;
+    } else {
+      throw new Error('Team is full or code is invalid!');
     }
+  } catch (err) {
+    console.error(err.message);
+    throw new Error('Could not join team because of invalid code or team is full.');
+  }
   };
 
   const leaveTeam = async () => {
@@ -129,7 +132,7 @@ export const TeamProvider = ({ children }) => {
         throw new Error("You must be logged in to leave a team.");
     }
     try {
-        const response = await fetch('/api/teams/leave', {
+        const response = await apiFetch('api/teams/leave', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: user.email }),

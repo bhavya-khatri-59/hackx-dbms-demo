@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useTeam } from '../contexts/TeamContext.jsx'; 
+import { useTeam } from '../contexts/TeamContext.jsx';
+import { apiFetch } from '../config/api.js'; 
 
 /**
  * Decodes a JWT token to extract its payload.
@@ -73,7 +74,7 @@ const StudentDetailsModal = ({ open, onClose, userProfile }) => {
     };
 
     try {
-      const response = await fetch('/api/participants', {
+      const response = await apiFetch('api/participants', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(studentData),
@@ -230,7 +231,7 @@ const GoogleSignInButton = () => {
     
     if (decodedToken) {
         try {
-            const res = await fetch(`/api/participants/${decodedToken.email}`);
+            const res = await apiFetch(`api/participants/${decodedToken.email}`);
             
             if (res.ok) {
                 const userData = await res.json();
