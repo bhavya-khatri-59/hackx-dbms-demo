@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { useTeam } from '../contexts/TeamContext';
 import TeamGateModal from '../components/TeamGateModal';
+import { apiFetch } from '../config/api.js';
 
 // Base data for the timeline events. The 'status' will be set dynamically.
 const staticTimelineEvents = [
@@ -211,7 +212,7 @@ const Timeline = () => {
   useEffect(() => {
     const fetchCurrentEvent = async () => {
       try {
-        const response = await fetch('/api/events/current');
+                const response = await apiFetch('api/events/current');
         if (!response.ok) {
           processEvents(1); 
           return;

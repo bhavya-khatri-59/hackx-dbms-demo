@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTeam } from '../contexts/TeamContext.jsx';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, Github, Figma, CheckCircle, FileText, Edit, AlertTriangle, ChevronDown, Lock, ChevronUp } from 'lucide-react';
+import { apiFetch } from '../config/api.js';
 
 // A new component to handle long, expandable text descriptions
 const ExpandableText = ({ text, maxLength = 250 }) => {
@@ -77,18 +78,15 @@ const SubmissionDetails = () => {
       }
       
       try {
-        const eventRes = await fetch('/api/events/current');
-        if (!eventRes.ok) {
-          throw new Error('Failed to fetch current event');
-        }
+        const eventRes = await apiFetch('api/events/current');
         const eventData = await eventRes.json();
         const activeRound = eventData.currentID >= 7 ? 2 : 1;
         setHackathonRound(activeRound);
         setViewingRound(activeRound);
 
         const [res1, res2] = await Promise.all([
-            fetch(`/api/submissions_round1/${team.code}`).catch(() => null),
-            fetch(`/api/submissions/${team.code}`).catch(() => null)
+            apiFetch(`api/submissions_round1/${team.code}`).catch(() => null),
+            apiFetch(`api/submissions/${team.code}`).catch(() => null)
         ]);
 
         const subs = { round1: null, round2: null };
@@ -161,16 +159,16 @@ const SubmissionDetails = () => {
 
     if (viewingRound === 1) {
       body = { ...round1Data, teamId: team.code };
-      url = '/api/submissions_round1';
+      url = 'api/submissions_round1';
       method = 'POST'; 
     } else { 
       body = { ...round2Data, teamId: team.code };
-      url = isUpdate ? `/api/submissions/${team.code}` : '/api/submissions';
+      url = isUpdate ? `api/submissions/${team.code}` : 'api/submissions';
       method = isUpdate ? 'PUT' : 'POST';
     }
     
     try {
-      const response = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const response = await apiFetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || 'Submission failed.');
 
@@ -373,7 +371,7 @@ const SubmissionDetails = () => {
                   <Upload size={18}/>
                   <span>{isSubmitting ? 'Submitting...' : (isEditing && submissions[`round${viewingRound}`] ? `Update Round ${viewingRound}` : `Submit Round ${viewingRound}`)}</span>
                 </motion.button>
-              {isEditing && currentSubmission && <button type="button" onClick={() => { setIsEditing(false); }} className="w-full mt-2 py-3 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg" style={{ color: '#374151' }}>Cancel</button>}
+              {isEditing && currentSubmission && <button type="button" onClick={() => { setIsEditing(false); }} className="w-full mt-2 py-3 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg">Cancel</button>}
             </form>
           </motion.div>
         )}
