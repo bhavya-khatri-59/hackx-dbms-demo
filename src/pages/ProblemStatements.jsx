@@ -308,7 +308,7 @@ const ProblemMagicBento = ({ problems, onProblemSelect }) => {
                 '--glow-intensity': '0',
                 '--glow-radius': '200px'
               }}
-              onClick={() => onProblemSelect(problem)}
+              // onClick={() => onProblemSelect(problem)}
               whileHover={{ y: -5 }}
             >
               <div className="card__header">

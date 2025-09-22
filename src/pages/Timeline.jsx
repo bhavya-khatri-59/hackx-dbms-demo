@@ -60,7 +60,7 @@ const staticTimelineEvents = [
     {
       id: 7,
       title: 'Hackathon Kick-off',
-      description: 'Selected teams begin the 24-hour hackathon sprint. Let the coding begin!',
+      description: 'Selected teams begin the hackathon sprint. Let the coding begin!',
       icon: Code,
       day: 'Day 2: Hackathon',
     },

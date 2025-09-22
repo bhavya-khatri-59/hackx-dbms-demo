@@ -161,11 +161,11 @@ const LandingPage = () => {
           </header>
 
          <div className="flex-grow flex flex-col items-center justify-center px-4 text-center">
-          <div className="mb-6 flex flex-col items-center space-y-4">
-            <img src="/assets/ieee_tems.png" alt="IEEE TEMS Logo" className="h-10 w-auto object-contain" />
+          <div className="mb-6 flex flex-col items-center space-y-2">
+            <img src="/assets/ieee_tems.png" alt="IEEE TEMS Logo" className="h-14 w-auto object-contain" />
             <div className="flex items-center space-x-3">
-              <span className="text-white text-lg md:text-xl font-semibold">Sponsored By:</span>
-              <img src="/assets/logo1.png" alt="Sponsor Logo" className="h-24 w-auto object-contain" />
+              <span className="text-white text-lg md:text-xl font-semibold">Sponsored By</span>
+              <img src="/assets/logo1.png" alt="Sponsor Logo" className="h-28 w-auto object-contain" />
             </div>
           </div>
 
@@ -183,7 +183,7 @@ const LandingPage = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="varela-round-regular text-xl md:text-2xl text-white-300 font-bold mt-6 text-center"
           >
-            Hack like a pro !
+            Hack like a pro!
           </motion.p>
         </div>
 
