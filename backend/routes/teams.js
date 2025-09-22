@@ -53,6 +53,10 @@ router.post('/join', async (req, res) => {
         return res.status(404).json({ error: 'Team with the provided code not found.'});
     }
 
+    if (team.members && team.members.length >= 4) {
+      return res.status(400).json({ error: 'This team is full and cannot accept new members.' });
+    }
+
     // Add the participant to the team
     await addParticipantToTeam(email, teamId.toUpperCase());
     
