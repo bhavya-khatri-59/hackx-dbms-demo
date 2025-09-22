@@ -82,7 +82,7 @@ const SubmissionDetails = () => {
           throw new Error('Failed to fetch current event');
         }
         const eventData = await eventRes.json();
-        const activeRound = eventData.currentID >= 3 ? 2 : 1;
+        const activeRound = eventData.currentID >= 7 ? 2 : 1;
         setHackathonRound(activeRound);
         setViewingRound(activeRound);
 
