@@ -104,7 +104,8 @@ const StudentDetailsModal = ({ open, onClose, userProfile }) => {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4 }}
-        className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-2xl w-full max-w-md relative"
+        className="rounded-2xl p-8 shadow-2xl w-full max-w-md relative"
+        style={{ background: '#fff', color: '#222', boxShadow: '0 8px 32px rgba(0,0,0,0.18)' }}
       >
         <button
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 dark:hover:text-white text-xl"
@@ -113,17 +114,17 @@ const StudentDetailsModal = ({ open, onClose, userProfile }) => {
           &times;
         </button>
         <div className="text-center mb-4">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                Welcome, {userProfile.name}!
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">
-                Please provide the remaining details to complete your profile.
-            </p>
+      <h2 className="text-2xl font-bold" style={{ color: '#222' }}>
+        Welcome, {userProfile.name}!
+      </h2>
+      <p className="mt-2" style={{ color: '#6b7280' }}>
+        Please provide the remaining details to complete your profile.
+      </p>
         </div>
         <form className="space-y-4" onSubmit={handleSubmit}>
-          <div className="w-full px-4 py-2 rounded-lg border bg-gray-100 dark:bg-gray-700">
-            <label className="text-xs text-gray-500">Email</label>
-            <p className="text-gray-900 dark:text-white">{userProfile.email}</p>
+          <div className="w-full px-4 py-2 rounded-lg border" style={{ background: '#f3f4f6', color: '#222' }}>
+            <label className="text-xs" style={{ color: '#6b7280' }}>Email</label>
+            <p style={{ color: '#222' }}>{userProfile.email}</p>
           </div>
           <input
             type="text"
@@ -132,9 +133,12 @@ const StudentDetailsModal = ({ open, onClose, userProfile }) => {
             onChange={(e) => setCollegeName(e.target.value)}
             required
             readOnly={userProfile?.email?.endsWith('@vitstudent.ac.in')}
-            className={`w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
-              userProfile?.email?.endsWith('@vitstudent.ac.in') ? 'bg-gray-100 dark:bg-gray-600 cursor-not-allowed' : ''
-            }`}
+            className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500"
+            style={{
+              background: userProfile?.email?.endsWith('@vitstudent.ac.in') ? '#f3f4f6' : '#fff',
+              color: '#222',
+              cursor: userProfile?.email?.endsWith('@vitstudent.ac.in') ? 'not-allowed' : 'auto',
+            }}
           />
           <input
             type="text"
@@ -143,10 +147,13 @@ const StudentDetailsModal = ({ open, onClose, userProfile }) => {
             onChange={(e) => setRegistrationNumber(e.target.value.toUpperCase())}
             required
             readOnly={userProfile?.email?.endsWith('@vitstudent.ac.in')}
-            style={{ textTransform: 'uppercase' }}
-            className={`w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
-              userProfile?.email?.endsWith('@vitstudent.ac.in') ? 'bg-gray-100 dark:bg-gray-600 cursor-not-allowed' : ''
-            }`}
+            style={{
+              textTransform: 'uppercase',
+              background: userProfile?.email?.endsWith('@vitstudent.ac.in') ? '#f3f4f6' : '#fff',
+              color: '#222',
+              cursor: userProfile?.email?.endsWith('@vitstudent.ac.in') ? 'not-allowed' : 'auto',
+            }}
+            className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
             type="tel"
@@ -154,19 +161,26 @@ const StudentDetailsModal = ({ open, onClose, userProfile }) => {
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
             required
-            className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500"
+            style={{ background: '#fff', color: '#222' }}
           />
           
           {submitError && (
-            <div className="text-red-500 text-sm text-center p-2 bg-red-100 dark:bg-red-900/20 dark:text-red-400 rounded-md">
-                {submitError}
-            </div>
+      <div className="text-red-500 text-sm text-center p-2 rounded-md" style={{ background: '#fee2e2', color: '#b91c1c' }}>
+        {submitError}
+      </div>
           )}
 
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-lg shadow-lg hover:from-blue-600 hover:to-purple-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-3 font-semibold rounded-lg shadow-lg transition-all"
+            style={{
+              background: 'linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%)',
+              color: '#fff',
+              opacity: isSubmitting ? 0.5 : 1,
+              cursor: isSubmitting ? 'not-allowed' : 'pointer',
+            }}
           >
             {isSubmitting ? 'Submitting...' : 'Submit'}
           </button>
