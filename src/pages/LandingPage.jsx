@@ -6,6 +6,8 @@ import { useTheme } from '../contexts/ThemeContext';
 import { useTeam } from '../contexts/TeamContext';
 import GoogleSignInButton from '../components/GoogleSignInButton';
 import vit_vellore from "/assets/vit_vellore.png";
+import logo1 from '../assets/logo1.png';
+import ieeeTEMS from '../assets/ieee_tems.png';
 import gravitasLogo from '/assets/gravitas.png';
 import hackxpertiseLogo from '/assets/hackXpertise2.0.png';
 import PixelBlast from '../PixelBlast/PixelBlast.jsx';
@@ -162,10 +164,10 @@ const LandingPage = () => {
 
          <div className="flex-grow flex flex-col items-center justify-center px-4 text-center">
           <div className="mb-6 flex flex-col items-center space-y-2">
-            <img src="/assets/ieee_tems.png" alt="IEEE TEMS Logo" className="h-14 w-auto object-contain" />
+            <img src={ieeeTEMS} alt="IEEE TEMS Logo" className="h-14 w-auto object-contain" />
             <div className="flex items-center space-x-3">
               <span className="text-white text-lg md:text-xl font-semibold">Sponsored By</span>
-              <img src="/assets/logo1.png" alt="Sponsor Logo" className="h-28 w-auto object-contain" />
+              <img src={logo1} alt="Sponsor Logo" className="h-28 w-auto object-contain" />
             </div>
           </div>
 
