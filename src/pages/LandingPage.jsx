@@ -11,6 +11,9 @@ import ieeeTEMS from '../assets/ieee_tems.png';
 import gravitasLogo from '/assets/gravitas.png';
 import hackxpertiseLogo from '/assets/hackXpertise2.0.png';
 import PixelBlast from '../PixelBlast/PixelBlast.jsx';
+import vitMain from '../assets/vit_main.webp';
+import hackEvent from '../assets/hack_event.png';
+import tems from '../assets/tems.webp';
 
 const LoginModal = ({ onClose }) => (
   <motion.div
@@ -72,21 +75,21 @@ const LandingPage = () => {
       title: 'About HackXpertise 2.0',
       content: "HackXpertise 2.0, the flagship event of IEEE TEMS at graVITas’25, is a dynamic two-day hackathon that brings creativity, collaboration, and innovation to the forefront. This beginner-friendly event introduces participants to the world of hackathons, guiding them through the process, tools, and strategies needed to succeed.",
       icon: Zap,
-      image: '/assets/hack_event.png',
+      image: hackEvent,
       height: 'h-30'
     },
     {
       title: 'About VIT Vellore',
       content: "Vellore Institute of Technology (VIT) has always been at the forefront in developing novel technologies and has achieved several National and International accolades.",
       icon: Award,
-      image: '/assets/vit_main.webp',
+      image: vitMain,
       height: '<h-7></h-7>0'
     },
     {
       title: 'About IEEE TEMS',
       content: "We are a dynamic and forward-thinking community of students dedicated to advancing the frontiers of technology and engineering management. Our chapter serves as a vibrant hub for innovation, leadership development, and collaboration. At IEEE TEMS VIT, our mission is to ignite curiosity and drive change.",
       icon: Globe,
-      image: '/assets/tems.webp',
+      image: tems,
       height: 'h-80'
     }
   ];
