@@ -51,113 +51,113 @@ if (typeof document !== 'undefined') {
 
 const problemStatements = [
   {
-    id: 1,
-    title: 'Smart City Traffic Management',
-    description: 'Develop an AI-powered traffic management system that optimizes traffic flow and reduces congestion in urban areas.',
-    tags: ['AI/ML', 'IoT', 'Urban Tech'],
-    requirements: [
-      'Real-time traffic data processing',
-      'Machine learning algorithms for pattern recognition', 
-      'User-friendly dashboard interface',
-      'Integration with existing traffic infrastructure'
-    ],
-    constraints: [
-      'Must work with limited computational resources',
-      'Response time should be under 2 seconds',
-      'Should handle at least 1000 concurrent requests'
-    ],
-    submission: 'Submit a working prototype with documentation, demo video, and deployment instructions.'
-  },
-  {
-    id: 2,
-    title: 'Healthcare Data Analytics Platform',
-    description: 'Create a comprehensive platform for analyzing healthcare data to improve patient outcomes and operational efficiency.',
-    tags: ['Healthcare', 'Data Analytics', 'Privacy'],
-    requirements: [
-      'Secure patient data handling (HIPAA compliant)',
-      'Advanced analytics and visualization tools',
-      'Predictive modeling capabilities',
-      'Multi-role access control'
-    ],
-    constraints: [
-      'Must comply with healthcare data regulations',
-      'End-to-end encryption required',
-      'Audit trail for all data access'
-    ],
-    submission: 'Provide a secure demo environment with sample (anonymized) data and comprehensive security documentation.'
-  },
-  {
-    id: 3,
-    title: 'Sustainable Finance Tracker',
-    description: 'Build a personal finance application that helps users make environmentally conscious spending decisions.',
-    tags: ['FinTech', 'Sustainability', 'Mobile'],
-    requirements: [
-      'Carbon footprint calculation for purchases',
-      'Investment tracking with ESG scores',
-      'Personalized sustainability recommendations',
-      'Integration with banking APIs'
-    ],
-    constraints: [
-      'Mobile-first responsive design',
-      'Offline functionality required',
-      'Bank-level security standards'
-    ],
-    submission: 'Deploy a functional web/mobile app with API integration and demonstrate real-world usage scenarios.'
-  },
-  {
-    id: 4,
-    title: 'Educational AR/VR Learning Platform',
-    description: 'Design an immersive learning platform using AR/VR technologies to enhance educational experiences.',
-    tags: ['AR/VR', 'Education', 'Innovation'],
-    requirements: [
-      'Interactive 3D learning modules',
-      'Progress tracking and assessment tools',
-      'Multi-platform compatibility',
-      'Teacher dashboard for content management'
-    ],
-    constraints: [
-      'Compatible with standard VR headsets',
-      'Optimized for web-based AR',
-      'Accessible design for diverse learners'
-    ],
-    submission: 'Create a working AR/VR experience with multiple learning modules and provide setup instructions.'
-  },
-  {
-    id: 5,
-    title: 'Blockchain Supply Chain Solution',
-    description: 'Develop a blockchain-based solution for transparent and efficient supply chain management.',
-    tags: ['Blockchain', 'Supply Chain', 'Transparency'],
-    requirements: [
-      'Immutable transaction records',
-      'Smart contract automation',
-      'Multi-stakeholder dashboard',
-      'QR code integration for product tracking'
-    ],
-    constraints: [
-      'Gas-efficient smart contracts',
-      'Scalable for enterprise use',
-      'User-friendly interface for non-technical users'
-    ],
-    submission: 'Deploy smart contracts on testnet and provide a complete dApp with documentation.'
-  },
-  {
-    id: 6,
-    title: 'Mental Health & Wellness App',
-    description: 'Create a comprehensive mental health platform with AI-powered insights and community support features.',
-    tags: ['Mental Health', 'AI', 'Community'],
-    requirements: [
-      'Mood tracking and analytics',
-      'AI-powered recommendations',
-      'Peer support community features',
-      'Integration with professional help resources'
-    ],
-    constraints: [
-      'GDPR compliant data handling',
-      'Crisis intervention protocols',
-      'Accessibility for users with disabilities'
-    ],
-    submission: 'Build a functional prototype with user journey documentation and privacy impact assessment.'
-  }
+    id: 1,
+    title: 'Paranormal Digital Archive',
+    description: 'Build a digital archive featuring a found document or anomaly report from a secretive organization investigating unexplained paranormal phenomena.',
+    tags: ['Horror', 'Archive', 'Interactive'],
+    requirements: [
+      'A compelling, thematic user interface that enhances the mystery.',
+      'Ability to view and interact with "found documents" (e.g., images, text).',
+      'Incorporate subtle audio/visual cues to build atmosphere.',
+      'A system for redacting or revealing "sensitive" information within documents.'
+    ],
+    constraints: [
+      'Must be accessible and readable on both desktop and mobile devices.',
+      'Atmosphere and user experience are key evaluation criteria.',
+      'Use of open-source or public domain assets for documents is encouraged.'
+    ],
+    submission: 'Submit a deployed web application with at least three sample documents or reports for users to explore.'
+  },
+  {
+    id: 2,
+    title: 'Extraterrestrial Hospital Portal',
+    description: 'Design a hospital portal for extraterrestrial patients that accommodates diverse species with unique physiologies, communication methods, and medical needs.',
+    tags: ['Health', 'Sci-Fi', 'UX/UI'],
+    requirements: [
+      'Patient intake form that accounts for non-humanoid anatomy.',
+      'A "universal translator" feature for communication (can be simulated).',
+      'Appointment scheduling across different planetary time zones.',
+      'Display for vital signs that are not human-centric (e.g., number of tentacles).'
+    ],
+    constraints: [
+      'The design must prioritize clarity and usability for non-human users.',
+      'Creativity in designing for alien physiologies is highly encouraged.',
+      'Focus on a single, well-realized patient workflow.'
+    ],
+    submission: 'Provide a clickable prototype or deployed frontend demonstrating the patient portal\'s key features.'
+  },
+  {
+    id: 3,
+    title: 'Post-Apocalyptic Travel Guide',
+    description: 'Develop a Post-Apocalyptic Travel Guide that helps survivors navigate a world after a fictional apocalypse, offering safe routes, resource caches, and community-sourced survival tips.',
+    tags: ['Travel', 'Survival', 'Community'],
+    requirements: [
+      'An interactive map displaying safe zones, danger areas, and resource points.',
+      'A system for users to submit and rate survival tips or sightings.',
+      'An inventory management feature for a user\'s "survival kit".',
+      'Offline access to essential map data and survival guides.'
+    ],
+    constraints: [
+      'Must function in a low-bandwidth or offline environment.',
+      'The UI should be clear and usable under stressful conditions.',
+      'The type of apocalypse (zombies, nuclear, etc.) is up to the team to define.'
+    ],
+    submission: 'Deploy a functional web/mobile app demonstrating the core features with sample data.'
+  },
+  {
+    id: 4,
+    title: 'Yard Sale Surprise',
+    description: 'Create a Yard Sale Surprise platform that delivers a monthly subscription of quirky, unexpected items sourced from local yard sales and flea markets.',
+    tags: ['Commerce', 'Subscription', 'Local'],
+    requirements: [
+      'A user profile system to specify interests (e.g., vintage, weird, practical).',
+      'An "unboxing" feature where users can share photos/videos of their items.',
+      'A system for local "pickers" to source and list items.',
+      'Subscription management and payment processing.'
+    ],
+    constraints: [
+      'The business model must be clearly explained.',
+      'Focus on the user experience of surprise and discovery.',
+      'The platform must handle variable and unpredictable inventory.'
+    ],
+    submission: 'Provide a clickable prototype or deployed website that showcases the user subscription and unboxing flow.'
+  },
+  {
+    id: 5,
+    title: 'Fashion Time Traveler',
+    description: 'Design an educational and stylish app that lets users explore fashion trends from different historical eras.',
+    tags: ['Fashion', 'Education', 'History'],
+    requirements: [
+      'An interactive timeline of fashion from different decades/centuries.',
+      'A "virtual try-on" feature using AR or image overlays.',
+      'Detailed information on the cultural context of different fashion items.',
+      'Ability for users to create and share their own historically-inspired mood boards.'
+    ],
+    constraints: [
+      'The application must be visually appealing and fashion-forward.',
+      'Historical information must be accurate (sources can be cited).',
+      'The "try-on" feature can be a simplified simulation.'
+    ],
+    submission: 'Submit a working prototype demonstrating the timeline and at least one interactive feature.'
+  },
+  {
+    id: 6,
+    title: 'Upcycled Product Marketplace',
+    description: 'Create an Upcycled Product Marketplace where users can buy and sell goods made from repurposed or recycled materials, highlighting the story and transformation behind each product.',
+    tags: ['Sustainability', 'Marketplace', 'Crafts'],
+    requirements: [
+      'A two-sided marketplace for buyers and sellers.',
+      'Product listings must feature "before" and "after" images.',
+      'A rating and review system for both products and sellers.',
+      'Search and filter functionality based on materials used or product category.'
+    ],
+    constraints: [
+      'The platform must emphasize the story and craftsmanship of each item.',
+      'User interface should be clean, modern, and inspiring.',
+      'A clear and fair commission/payment system must be outlined.'
+    ],
+    submission: 'Deploy a functional web application with the ability for users to list and view upcycled products.'
+  }
 ];
 
 // Global Spotlight Effect
