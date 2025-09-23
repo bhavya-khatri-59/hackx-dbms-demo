@@ -50,114 +50,13 @@ if (typeof document !== 'undefined') {
 }
 
 const problemStatements = [
-  {
-    id: 1,
-    title: 'Smart City Traffic Management',
-    description: 'Develop an AI-powered traffic management system that optimizes traffic flow and reduces congestion in urban areas.',
-    tags: ['AI/ML', 'IoT', 'Urban Tech'],
-    requirements: [
-      'Real-time traffic data processing',
-      'Machine learning algorithms for pattern recognition', 
-      'User-friendly dashboard interface',
-      'Integration with existing traffic infrastructure'
-    ],
-    constraints: [
-      'Must work with limited computational resources',
-      'Response time should be under 2 seconds',
-      'Should handle at least 1000 concurrent requests'
-    ],
-    submission: 'Submit a working prototype with documentation, demo video, and deployment instructions.'
-  },
-  {
-    id: 2,
-    title: 'Healthcare Data Analytics Platform',
-    description: 'Create a comprehensive platform for analyzing healthcare data to improve patient outcomes and operational efficiency.',
-    tags: ['Healthcare', 'Data Analytics', 'Privacy'],
-    requirements: [
-      'Secure patient data handling (HIPAA compliant)',
-      'Advanced analytics and visualization tools',
-      'Predictive modeling capabilities',
-      'Multi-role access control'
-    ],
-    constraints: [
-      'Must comply with healthcare data regulations',
-      'End-to-end encryption required',
-      'Audit trail for all data access'
-    ],
-    submission: 'Provide a secure demo environment with sample (anonymized) data and comprehensive security documentation.'
-  },
-  {
-    id: 3,
-    title: 'Sustainable Finance Tracker',
-    description: 'Build a personal finance application that helps users make environmentally conscious spending decisions.',
-    tags: ['FinTech', 'Sustainability', 'Mobile'],
-    requirements: [
-      'Carbon footprint calculation for purchases',
-      'Investment tracking with ESG scores',
-      'Personalized sustainability recommendations',
-      'Integration with banking APIs'
-    ],
-    constraints: [
-      'Mobile-first responsive design',
-      'Offline functionality required',
-      'Bank-level security standards'
-    ],
-    submission: 'Deploy a functional web/mobile app with API integration and demonstrate real-world usage scenarios.'
-  },
-  {
-    id: 4,
-    title: 'Educational AR/VR Learning Platform',
-    description: 'Design an immersive learning platform using AR/VR technologies to enhance educational experiences.',
-    tags: ['AR/VR', 'Education', 'Innovation'],
-    requirements: [
-      'Interactive 3D learning modules',
-      'Progress tracking and assessment tools',
-      'Multi-platform compatibility',
-      'Teacher dashboard for content management'
-    ],
-    constraints: [
-      'Compatible with standard VR headsets',
-      'Optimized for web-based AR',
-      'Accessible design for diverse learners'
-    ],
-    submission: 'Create a working AR/VR experience with multiple learning modules and provide setup instructions.'
-  },
-  {
-    id: 5,
-    title: 'Blockchain Supply Chain Solution',
-    description: 'Develop a blockchain-based solution for transparent and efficient supply chain management.',
-    tags: ['Blockchain', 'Supply Chain', 'Transparency'],
-    requirements: [
-      'Immutable transaction records',
-      'Smart contract automation',
-      'Multi-stakeholder dashboard',
-      'QR code integration for product tracking'
-    ],
-    constraints: [
-      'Gas-efficient smart contracts',
-      'Scalable for enterprise use',
-      'User-friendly interface for non-technical users'
-    ],
-    submission: 'Deploy smart contracts on testnet and provide a complete dApp with documentation.'
-  },
-  {
-    id: 6,
-    title: 'Mental Health & Wellness App',
-    description: 'Create a comprehensive mental health platform with AI-powered insights and community support features.',
-    tags: ['Mental Health', 'AI', 'Community'],
-    requirements: [
-      'Mood tracking and analytics',
-      'AI-powered recommendations',
-      'Peer support community features',
-      'Integration with professional help resources'
-    ],
-    constraints: [
-      'GDPR compliant data handling',
-      'Crisis intervention protocols',
-      'Accessibility for users with disabilities'
-    ],
-    submission: 'Build a functional prototype with user journey documentation and privacy impact assessment.'
-  }
+  // ...existing code...
+  { id: 'horror', description: 'Build a digital archive featuring a found document or anomaly report from a secretive organization investigating unexplained paranormal phenomena.', tags: ['HORROR'] },
+  { id: 'health', description: 'Design a hospital portal for extraterrestrial patients that accommodates diverse species with unique physiologies, communication methods, and medical needs.', tags: ['HEALTH'] },
+  { id: 'travel', description: 'Develop a Post-Apocalyptic Travel Guide that helps survivors navigate a world after a fictional apocalypse, offering safe routes, resource caches, and community-sourced survival tips.', tags: ['TRAVEL'] },
+  { id: 'commerce', description: 'Create a Yard Sale Surprise platform that delivers a monthly subscription of quirky, unexpected items sourced from local yard sales and flea markets.', tags: ['COMMERCE'] },
+  { id: 'fashion', description: 'Design an educational and stylish app that lets users explore fashion trends from different historical eras.', tags: ['Fashion'] },
+  { id: 'sustainability', description: 'Create an Upcycled Product Marketplace where users can buy and sell goods made from repurposed or recycled materials, highlighting the story and transformation behind each product.', tags: ['Sustainability'] },
 ];
 
 // Global Spotlight Effect
@@ -308,22 +207,20 @@ const ProblemMagicBento = ({ problems, onProblemSelect }) => {
                 '--glow-intensity': '0',
                 '--glow-radius': '200px'
               }}
-              // onClick={() => onProblemSelect(problem)}
               whileHover={{ y: -5 }}
             >
               <div className="card__header">
                 <div className="card__label">{problem.tags[0]}</div>
               </div>
               <div className="card__content">
-                <h2 className="card__title">{problem.title}</h2>
-                <p className="card__description">
-                  {problem.description.substring(0, 100)}...
+                <p className="card__description" style={{ fontSize: '1.0rem' }}>
+                  {problem.description}
                 </p>
                 <div className="flex flex-wrap gap-1 mt-3">
-                  {problem.tags.slice(1, 3).map((tag, idx) => (
+                  {problem.tags.map((tag, idx) => (
                     <span
                       key={idx}
-                      className="px-2 py-1 text-xs bg-purple-500/20 text-purple-300 rounded-full"
+                      className="px-2 py-1 text-xs bg-purple-500/20 text-purple-300 rounded-full font-bold"
                     >
                       {tag}
                     </span>
@@ -386,7 +283,7 @@ const ProblemStatements = () => {
               className="bg-gray-900 rounded-2xl p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-purple-500/20"
             >
               <div className="flex justify-between items-start mb-6">
-                <h2 className="text-3xl font-bold text-white">{selectedProblem.title}</h2>
+                <h2 className="text-2xl font-bold text-white">{selectedProblem.id}</h2>
                 <button
                   onClick={() => setSelectedProblem(null)}
                   className="p-2 text-gray-400 hover:text-gray-300 transition-colors duration-200"
@@ -394,47 +291,15 @@ const ProblemStatements = () => {
                   <X className="w-6 h-6" />
                 </button>
               </div>
-
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-semibold text-white mb-2">Description</h3>
-                  <p className="text-gray-300 leading-relaxed">{selectedProblem.description}</p>
+                  <p className="text-gray-300 leading-relaxed" style={{ fontSize: '0.5rem' }}>{selectedProblem.description}</p>
                 </div>
-
-                <div>
-                  <h3 className="text-lg font-semibold text-white mb-2">Requirements</h3>
-                  <ul className="space-y-2">
-                    {selectedProblem.requirements.map((req, index) => (
-                      <li key={index} className="flex items-start space-x-2">
-                        <div className="w-1.5 h-1.5 bg-purple-500 rounded-full mt-2 flex-shrink-0" />
-                        <span className="text-gray-300">{req}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-semibold text-white mb-2">Constraints</h3>
-                  <ul className="space-y-2">
-                    {selectedProblem.constraints.map((constraint, index) => (
-                      <li key={index} className="flex items-start space-x-2">
-                        <div className="w-1.5 h-1.5 bg-orange-500 rounded-full mt-2 flex-shrink-0" />
-                        <span className="text-gray-300">{constraint}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-semibold text-white mb-2">Submission Notes</h3>
-                  <p className="text-gray-300">{selectedProblem.submission}</p>
-                </div>
-
                 <div className="flex flex-wrap gap-2">
                   {selectedProblem.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="inline-flex items-center px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm font-medium"
+                      className="inline-flex items-center px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm font-bold"
                     >
                       <Tag className="w-3 h-3 mr-1" />
                       {tag}
