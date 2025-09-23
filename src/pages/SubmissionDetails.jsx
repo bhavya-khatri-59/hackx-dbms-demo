@@ -59,11 +59,12 @@ const SubmissionDetails = () => {
   }, []);
 
   const problemStatements = [
-    { id: 'ai-healthcare', title: 'AI in Healthcare', description: 'Develop an AI-powered solution to improve healthcare delivery, diagnosis, or patient care.' },
-    { id: 'sustainable-tech', title: 'Sustainable Technology', description: 'Create a technology solution that addresses environmental challenges like energy, waste, or resource management.' },
-    { id: 'fintech-innovation', title: 'FinTech Innovation', description: 'Build a financial technology solution that improves financial inclusion, security, or user experience.' },
-    { id: 'education-tech', title: 'Education Technology', description: 'Design an educational platform or tool that enhances learning experiences for students of all abilities.' },
-    { id: 'smart-cities', title: 'Smart Cities & IoT', description: 'Develop an IoT-based solution for smart city infrastructure, such as traffic, waste, or energy management.' }
+  { id: 'horror', title: 'HORROR', description: 'Build a digital archive featuring a found document or anomaly report from a secretive organization investigating unexplained paranormal phenomena.' },
+  { id: 'health', title: 'HEALTH', description: 'Design a hospital portal for extraterrestrial patients that accommodates diverse species with unique physiologies, communication methods, and medical needs.' },
+  { id: 'travel', title: 'TRAVEL', description: 'Develop a Post-Apocalyptic Travel Guide that helps survivors navigate a world after a fictional apocalypse, offering safe routes, resource caches, and community-sourced survival tips.' },
+  { id: 'commerce', title: 'COMMERCE', description: 'Create a Yard Sale Surprise platform that delivers a monthly subscription of quirky, unexpected items sourced from local yard sales and flea markets.' },
+  { id: 'fashion', title: 'Fashion', description: 'Design an educational and stylish app that lets users explore fashion trends from different historical eras.' },
+  { id: 'sustainability', title: 'Sustainability', description: 'Create an Upcycled Product Marketplace where users can buy and sell goods made from repurposed or recycled materials, highlighting the story and transformation behind each product.' }
   ];
 
   const currentData = viewingRound === 1 ? round1Data : round2Data;
@@ -283,7 +284,7 @@ const SubmissionDetails = () => {
               {viewingRound === 1 ? (
                 <>
                   <div><strong className="text-gray-800 dark:text-gray-200 block mb-1" style={{ color: '#E5E7EB' }}>Problem Statement:</strong> <p className="text-gray-600 dark:text-gray-400" style={{ color: '#9CA3AF' }}>{selectedProblem?.title || 'N/A'}</p></div>
-                  <div><strong className="text-gray-800 dark:text-gray-200 block mb-1" style={{ color: '#E5E7EB' }}>Template URL:</strong> <a href={currentSubmission.ppttemplateurl || currentSubmission.pptTemplateURL} className="text-blue-500 hover:underline break-all">{currentSubmission.ppttemplateurl || currentSubmission.pptTemplateURL}</a></div>
+                  <div><strong className="text-gray-800 dark:text-gray-200 block mb-1" style={{ color: '#E5E7EB' }}>PPT:</strong> <a href={currentSubmission.ppttemplateurl || currentSubmission.pptTemplateURL} className="text-blue-500 hover:underline break-all">{currentSubmission.ppttemplateurl || currentSubmission.pptTemplateURL}</a></div>
                 </>
               ) : (
                 <>
@@ -330,8 +331,16 @@ const SubmissionDetails = () => {
                   </div>
                   <div className="relative">
                     <FileText className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
-                    <input type="url" name="pptTemplateURL" value={round1Data.pptTemplateURL} onChange={handleRound1Change} className="w-full px-4 py-3 pl-12 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-yellow-500/50 focus:border-transparent transition-all duration-300 peer" placeholder=" " required />
-                    <label className="absolute left-12 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-yellow-500 peer-valid:top-1 peer-valid:text-xs" style={{ color: '#9CA3AF' }}>PPT Template URL</label>
+                    <input
+                      type="url"
+                      name="pptTemplateURL"
+                      value={round1Data.pptTemplateURL}
+                      onChange={handleRound1Change}
+                      className="w-full px-4 py-3 pl-12 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-yellow-500/50 focus:border-transparent transition-all duration-300 peer"
+                      placeholder="PPT Template URL"
+                      required
+                    />
+                    {/* Remove floating label, use placeholder only */}
                   </div>
                 </>
               ) : (
@@ -339,18 +348,39 @@ const SubmissionDetails = () => {
                   {/* Round 2 Form */}
                    <div className="relative">
                       <Github className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
-                      <input type="url" name="githubURL" value={round2Data.githubURL} onChange={handleRound2Change} className="w-full px-4 py-3 pl-12 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-300 peer" placeholder=" " required />
-                      <label className="absolute left-12 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-blue-500 peer-valid:top-1 peer-valid:text-xs" style={{ color: '#9CA3AF' }}>GitHub Repository URL</label>
+                      <input
+                        type="url"
+                        name="githubURL"
+                        value={round2Data.githubURL}
+                        onChange={handleRound2Change}
+                        className="w-full px-4 py-3 pl-12 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-300 peer"
+                        placeholder="GitHub Repository URL"
+                        required
+                      />
                   </div>
                    <div className="relative">
                       <Figma className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
-                      <input type="url" name="figmaURL" value={round2Data.figmaURL} onChange={handleRound2Change} className="w-full px-4 py-3 pl-12 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all duration-300 peer" placeholder=" " required />
-                      <label className="absolute left-12 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-purple-500 peer-valid:top-1 peer-valid:text-xs" style={{ color: '#9CA3AF' }}>Figma Design URL</label>
+                      <input
+                        type="url"
+                        name="figmaURL"
+                        value={round2Data.figmaURL}
+                        onChange={handleRound2Change}
+                        className="w-full px-4 py-3 pl-12 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all duration-300 peer"
+                        placeholder="Figma Design URL"
+                        required
+                      />
                   </div>
                   <div className="relative">
                       <FileText className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
-                      <input type="url" name="pptURL" value={round2Data.pptURL} onChange={handleRound2Change} className="w-full px-4 py-3 pl-12 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-yellow-500/50 focus:border-transparent transition-all duration-300 peer" placeholder=" " required />
-                      <label className="absolute left-12 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-xs peer-focus:text-yellow-500 peer-valid:top-1 peer-valid:text-xs" style={{ color: '#9CA3AF' }}>Presentation URL (Drive Link)</label>
+                      <input
+                        type="url"
+                        name="pptURL"
+                        value={round2Data.pptURL}
+                        onChange={handleRound2Change}
+                        className="w-full px-4 py-3 pl-12 bg-black/50 border border-gray-600/50 text-white rounded-lg focus:ring-2 focus:ring-yellow-500/50 focus:border-transparent transition-all duration-300 peer"
+                        placeholder="Presentation URL (Drive Link)"
+                        required
+                      />
                   </div>
                 </>
               )}
