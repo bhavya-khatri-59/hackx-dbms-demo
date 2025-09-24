@@ -10,10 +10,10 @@ const router = express.Router();
 // Create or Update a Round 1 submission
 router.post('/', async (req, res) => {
   try {
-    const { problemStatement, pptTemplateURL, description, teamId } = req.body;
+    const { problemStatement, pptTemplateURL, description, teamId, figmaUrl } = req.body;
 
-    if (!problemStatement || !pptTemplateURL || !teamId) {
-      return res.status(400).json({ error: 'problemStatement, pptTemplateURL, and teamId are required' });
+    if (!problemStatement || !pptTemplateURL || !teamId || !description || !figmaUrl) {
+      return res.status(400).json({ error: 'problemStatement, pptTemplateURL, teamId, description, and figmaUrl are required' });
     }
 
     const team = await getTeamById(teamId);
@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
       return res.status(404).json({ error: 'Team not found' });
     }
 
-    const submissionData = { problemStatement, pptTemplateURL, description, teamId };
+    const submissionData = { problemStatement, pptTemplateURL, description, teamId, figmaUrl };
     const newSubmission = await createOrUpdateSubmissionRound1(submissionData);
     
     res.status(201).json(newSubmission);

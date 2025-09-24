@@ -11,9 +11,11 @@ import ieeeTEMS from '../assets/ieee_tems.png';
 import gravitasLogo from '/assets/gravitas.png';
 import hackxpertiseLogo from '/assets/hackXpertise2.0.png';
 import PixelBlast from '../PixelBlast/PixelBlast.jsx';
-import vitMain from '/assets/vit_main.webp';
-import hackEvent from '/assets/hack_event.png';
-import tems from '/assets/tems.webp';
+
+import vitMain from '../assets/vit_main.png';
+import hackEvent from '../assets/hack_event.png';
+import tems from '/assets/tems.png';
+
 
 const LoginModal = ({ onClose }) => (
   <motion.div

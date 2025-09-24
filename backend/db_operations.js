@@ -283,31 +283,38 @@ export async function updateSubmission(teamId, { description, githubURL, figmaUR
     throw error;
   }
 }
-/** 
+/**
  * Creates or updates a Round 1 submission.
  * Uses ON CONFLICT to perform an "UPSERT" based on the unique teamid.
  * @param {object} subDetails - Submission details.
  * @returns {Promise<object>} The created/updated submission object.
  */
-export async function createOrUpdateSubmissionRound1({ problemStatement, pptTemplateURL, description, teamId }) {
+export async function createOrUpdateSubmissionRound1({ problemStatement, pptTemplateURL, description, teamId, figmaUrl }) {
     try {
+        // *** THIS IS THE FIX ***
+        // The column names have been changed to camelCase to match your database schema exactly.
         const query = `
-            INSERT INTO "SubmissionRound1" ("problemStatement", "pptTemplateURL", "description", "teamid")
-            VALUES ($1, $2, $3, $4)
+            INSERT INTO "SubmissionRound1" ("problemStatement", "pptTemplateURL", "description", "teamid", "figmaurl")
+            VALUES ($1, $2, $3, $4, $5)
             ON CONFLICT ("teamid")
             DO UPDATE SET
                 "problemStatement" = EXCLUDED."problemStatement",
                 "pptTemplateURL" = EXCLUDED."pptTemplateURL",
-                "description" = EXCLUDED."description"
+                "description" = EXCLUDED."description",
+                "figmaurl" = EXCLUDED."figmaurl"
             RETURNING *;
         `;
-        const result = await pool.query(query, [problemStatement, pptTemplateURL, description, teamId]);
+        const result = await pool.query(query, [problemStatement, pptTemplateURL, description, teamId, figmaUrl]);
         return result.rows[0];
     } catch (error) {
         console.error('Error creating/updating Round 1 submission:', error);
         throw error;
     }
 }
+
+
+
+
 
 /**
  * Retrieves a Round 1 submission by the team's ID.
