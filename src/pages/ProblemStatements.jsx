@@ -50,6 +50,7 @@ if (typeof document !== 'undefined') {
 }
 
 const problemStatements = [
+
   // ...existing code...
   { id: 'horror', description: 'Build a digital archive featuring a found document or anomaly report from a secretive organization investigating unexplained paranormal phenomena.', tags: ['HORROR'] },
   { id: 'health', description: 'Design a hospital portal for extraterrestrial patients that accommodates diverse species with unique physiologies, communication methods, and medical needs.', tags: ['HEALTH'] },
@@ -57,6 +58,7 @@ const problemStatements = [
   { id: 'commerce', description: 'Create a Yard Sale Surprise platform that delivers a monthly subscription of quirky, unexpected items sourced from local yard sales and flea markets.', tags: ['COMMERCE'] },
   { id: 'fashion', description: 'Design an educational and stylish app that lets users explore fashion trends from different historical eras.', tags: ['Fashion'] },
   { id: 'sustainability', description: 'Create an Upcycled Product Marketplace where users can buy and sell goods made from repurposed or recycled materials, highlighting the story and transformation behind each product.', tags: ['Sustainability'] },
+
 ];
 
 // Global Spotlight Effect
