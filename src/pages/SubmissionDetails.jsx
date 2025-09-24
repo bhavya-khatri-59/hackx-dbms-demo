@@ -310,9 +310,20 @@ const SubmissionDetails = () => {
           // EDIT / CREATE SUBMISSION UI
           <motion.div initial={{opacity: 0}} animate={{opacity: 1}}>
             <div className="text-center mb-12">
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                {isEditing && submissions[`round${viewingRound}`] ? `Update Round ${viewingRound}` : `Submit Round ${viewingRound}`}
-              </h1>
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                {isEditing && submissions[`round${viewingRound}`] ? `Update Round ${viewingRound}` : `Submit Round ${viewingRound}`}
+              </h1>
+              {viewingRound === 1 && (
+                <a
+                  href="https://docs.google.com/presentation/d/1G5CSV95iHzLgrEcZG7OqpuUTZiVG2koTgICKkK_5LUc/edit?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 hover:underline text-lg font-semibold"
+                  style={{ display: 'inline-block', marginTop: '8px' }}
+                >
+                  Click here for PPT Template
+                </a>
+              )}
             </div>
             <form onSubmit={handleSubmit} className="space-y-6 bg-black/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-gray-700/50">
               {viewingRound === 1 ? (
