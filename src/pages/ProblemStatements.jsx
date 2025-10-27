@@ -56,8 +56,8 @@ const problemStatements = [
   { id: 'health', description: 'Design a hospital portal for extraterrestrial patients that accommodates diverse species with unique physiologies, communication methods, and medical needs.', tags: ['HEALTH'] },
   { id: 'travel', description: 'Develop a Post-Apocalyptic Travel Guide that helps survivors navigate a world after a fictional apocalypse, offering safe routes, resource caches, and community-sourced survival tips.', tags: ['TRAVEL'] },
   { id: 'commerce', description: 'Create a Yard Sale Surprise platform that delivers a monthly subscription of quirky, unexpected items sourced from local yard sales and flea markets.', tags: ['COMMERCE'] },
-  { id: 'fashion', description: 'Design an educational and stylish app that lets users explore fashion trends from different historical eras.', tags: ['Fashion'] },
-  { id: 'sustainability', description: 'Create an Upcycled Product Marketplace where users can buy and sell goods made from repurposed or recycled materials, highlighting the story and transformation behind each product.', tags: ['Sustainability'] },
+  { id: 'fashion', description: 'Design an educational and stylish app that lets users explore fashion trends from different historical eras.', tags: ['FASHION'] },
+  { id: 'sustainability', description: 'Create an Upcycled Product Marketplace where users can buy and sell goods made from repurposed or recycled materials, highlighting the story and transformation behind each product.', tags: ['SUSTAINABILITY'] },
 
 ];
 

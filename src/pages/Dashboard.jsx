@@ -197,7 +197,7 @@ const Dashboard = () => {
               <p className="text-gray-400">Start your own team and invite others.</p>
             </div>
             <form onSubmit={handleCreateTeam} className="space-y-4">
-              <input type="text" value={teamName} onChange={(e) => setTeamName(e.target.value)} className="w-full px-4 py-3 bg-black/50 text-white border border-gray-600/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" placeholder="Enter Team Name" required />
+              <input type="text" value={teamName} onChange={(e) => setTeamName(e.target.value)} className="w-full px-4 py-3 bg-black/50 text-white border border-gray-600/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition font-mono text-center tracking-widest" placeholder="ENTER TEAM NAME" required />
               <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={isLoading} className="w-full py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition disabled:opacity-50">
                 {isLoading ? 'Creating...' : 'Create Team'}
               </motion.button>
