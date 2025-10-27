@@ -71,6 +71,7 @@ router.post('/join', async (req, res) => {
 });
 
 // Get a single team by ID (including members)
+
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -88,6 +89,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Get all teams
+
 router.get('/', async (req, res) => {
   try {
     const teams = await getAllTeams();
@@ -98,6 +100,7 @@ router.get('/', async (req, res) => {
 });
 
 // Update a team's name
+
 router.put('/:id', async (req, res) => {
   try {
     const { id: teamId } = req.params;
