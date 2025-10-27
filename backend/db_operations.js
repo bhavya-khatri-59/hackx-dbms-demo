@@ -11,11 +11,11 @@ const { Pool } = pg;
 // This configuration now points to the Supabase connection pooler.
 // The `ssl` option is important for secure connections to cloud databases.
 const pool = new Pool({
-  user: process.env.SUPABASE_USER_L,
-  host: process.env.SUPABASE_HOST_L,
-  database: process.env.SUPABASE_DATABASE_L,
-  password: process.env.SUPABASE_PASSWORD_L,
-  port: process.env.SUPABASE_PORT_L,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
   ssl: {
     rejectUnauthorized: false // Required for some cloud providers, but consider more secure options for production
   },
